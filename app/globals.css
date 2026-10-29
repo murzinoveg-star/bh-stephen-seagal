@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-blue: #08338f;
+  --brand-teal: #00b8e0;
+  --brand-black: #121c26;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Onest", system-ui, sans-serif;
+  color: #121c26;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Glassmorphism (тёмный вариант) */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Glassmorphism (светлый вариант) */
+.glass-light {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Мягкий mesh-gradient для hero */
+.hero-mesh {
+  background-color: #08338f;
+  background-image:
+    radial-gradient(at 18% 22%, rgba(0, 184, 224, 0.35) 0%, transparent 52%),
+    radial-gradient(at 82% 8%, rgba(8, 51, 143, 0.95) 0%, transparent 55%),
+    radial-gradient(at 62% 82%, rgba(18, 28, 38, 0.85) 0%, transparent 55%),
+    radial-gradient(at 0% 100%, rgba(0, 184, 224, 0.18) 0%, transparent 55%);
+}
+
+/* Тонкая модульная сетка поверх фона */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at 50% 40%, #000 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 40%, transparent 85%);
+}
+
+/* Плавный hover-эффект на «петлях» */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-slow {
+  animation: spinSlow 80s linear infinite;
+}
+
+/* Модульная сетка на светлом фоне */
+.grid-blue {
+  background-image:
+    linear-gradient(rgba(8, 51, 143, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 51, 143, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Анимация блика для логотипа с паузой */
+@keyframes logo-shine {
+  0% {
+    transform: translateX(-200%) skewX(-20deg);
+  }
+  40% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+}
+
+.animate-shine-loop {
+  animation: logo-shine 4s ease-in-out infinite;
+}
