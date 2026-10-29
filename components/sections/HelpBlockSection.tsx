@@ -50,7 +50,6 @@ export default function HelpBlockSection() {
 
     setSubmitting(true);
 
-    // TODO: заменить на реальный POST /api/help-request
     console.log("[help-request/stub]", {
       name,
       phone,
@@ -77,7 +76,6 @@ export default function HelpBlockSection() {
     setSubmitted(false);
   }
 
-  // Стили для инпутов в стиле "только нижняя граница"
   const inputBase =
     "w-full border-b border-white/30 bg-transparent px-0 py-3 text-base text-white placeholder:text-white/40 outline-none transition-colors focus:border-white disabled:opacity-50";
 
@@ -88,20 +86,17 @@ export default function HelpBlockSection() {
   const chipActive = "border-white bg-white text-brand-blue";
 
   return (
-    // Внешняя секция: белый фон с отступами (как в Hero)
     <section className="relative bg-white px-2 sm:px-4 lg:px-6 pb-2 sm:pb-4 lg:pb-6">
-      
-      {/* Внутренний контейнер: синий островок с ограничением ширины до 1920px */}
       <div className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-[32px] bg-brand-blue lg:rounded-[48px]">
         
-        {/* Контейнер для контента с внутренними отступами */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+        {/* Изменено: py-20 lg:py-24 -> py-24 lg:py-32 */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
           
           <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
             
-            {/* Левая колонка (4 колонки): Заголовок и текст */}
             <div className="lg:col-span-4">
-              <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.03em] text-white">
+              {/* Изменено: tracking-[-0.03em] -> tracking-[-0.02em] */}
+              <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] text-white">
                 Нужна помощь?
               </h2>
               <p className="mt-7 text-lg leading-relaxed text-white/75 lg:text-xl">
@@ -111,7 +106,6 @@ export default function HelpBlockSection() {
               </p>
             </div>
 
-            {/* Правая колонка (8 колонок): Форма */}
             <div className="lg:col-span-8">
               {submitted ? (
                 <div className="flex flex-col items-start py-4" aria-live="polite">
@@ -134,12 +128,10 @@ export default function HelpBlockSection() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-10">
-                  {/* Honeypot */}
                   <div className="pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0" aria-hidden="true">
                     <input type="text" tabIndex={-1} autoComplete="off" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
                   </div>
 
-                  {/* 1. Имя и Телефон */}
                   <div className="grid gap-10 sm:grid-cols-2">
                     <div>
                       <label htmlFor="help-name" className="mb-2 block text-sm font-medium text-white/80">
@@ -180,7 +172,6 @@ export default function HelpBlockSection() {
                     </div>
                   </div>
 
-                  {/* 2. Направление помощи */}
                   <div>
                     <label htmlFor="help-direction" className="mb-2 block text-sm font-medium text-white/80">
                       Направление помощи <span className="text-white">*</span>
@@ -211,7 +202,6 @@ export default function HelpBlockSection() {
                     {errors.direction && <p className="mt-2 text-xs text-red-300">{errors.direction}</p>}
                   </div>
 
-                  {/* Условный блок для СВО */}
                   {direction === "svo" && (
                     <div className="border-l-2 border-white/40 pl-5">
                       <div className="flex items-start gap-3 text-sm leading-relaxed text-white/80">
@@ -241,7 +231,6 @@ export default function HelpBlockSection() {
                     </div>
                   )}
 
-                  {/* 3. Описание ситуации */}
                   <div>
                     <div className="mb-2 flex items-baseline justify-between gap-3">
                       <label htmlFor="help-message" className="text-sm font-medium text-white/80">
@@ -265,7 +254,6 @@ export default function HelpBlockSection() {
                     {errors.message && <p className="mt-2 text-xs text-red-300">{errors.message}</p>}
                   </div>
 
-                  {/* 4. Согласие */}
                   <div>
                     <label className="flex cursor-pointer items-start gap-4">
                       <span className="relative mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center">
@@ -291,12 +279,12 @@ export default function HelpBlockSection() {
                     {errors.consent && <p className="mt-2 pl-10 text-xs text-red-300">{errors.consent}</p>}
                   </div>
 
-                                    {/* 5. Кнопка отправки */}
                   <div>
+                    {/* Изменено: bg-brand-white -> bg-white */}
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex w-full sm:w-auto min-w-[240px] items-center justify-center gap-2 rounded-lg bg-brand-white px-8 py-4 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex w-full sm:w-auto min-w-[240px] items-center justify-center gap-2 rounded-lg bg-white px-8 py-4 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {submitting ? (
                         <>
@@ -320,7 +308,6 @@ export default function HelpBlockSection() {
               )}
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -52,7 +52,7 @@ interface Program {
   text: string;
   href: string;
   cta: string;
-  image?: string; // Добавили поле для картинки
+  image?: string;
   Icon: ComponentType<IconProps>;
   variant: Variant;
 }
@@ -64,7 +64,6 @@ const PROGRAMS: Program[] = [
     text: "Юридическая и психологическая помощь. Без спонсирования и покупки оборудования.",
     href: "/programs/svo-participants",
     cta: "Подробнее",
-    // image: "/programs/svo.jpg", // Для СВО картинку пока не добавляем
     Icon: IconShield,
     variant: "featured",
   },
@@ -74,7 +73,7 @@ const PROGRAMS: Program[] = [
     text: "Поддержка детей в рамках программы фонда.",
     href: "/programs/children",
     cta: "Подробнее",
-    image: "/programs/children.jpg", // Путь к фото
+    image: "/programs/children.jpg",
     Icon: IconHeart,
     variant: "visual",
   },
@@ -84,7 +83,7 @@ const PROGRAMS: Program[] = [
     text: "Забота и помощь животным в рамках программы фонда.",
     href: "/programs/animals",
     cta: "Подробнее",
-    image: "/programs/animals.jpg", // Путь к фото
+    image: "/programs/animals.jpg",
     Icon: IconPaw,
     variant: "visual",
   },
@@ -94,15 +93,12 @@ const PROGRAMS: Program[] = [
     text: "Поддержка старших в рамках программы фонда.",
     href: "/programs/elderly",
     cta: "Подробнее",
-    image: "/programs/elderly.jpg", // Путь к фото
+    image: "/programs/elderly.jpg",
     Icon: IconUsers,
     variant: "visual",
   },
 ];
 
-/**
- * Фон карточки. Показывает картинку, если передан src, иначе — заглушку.
- */
 function ImageBackground({ src, className = "" }: { src?: string; className?: string }) {
   if (!src) {
     return (
@@ -145,13 +141,12 @@ function FeaturedCard({ program }: { program: Program }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,184,224,0.18),transparent_55%)]"
       />
-      {/* Декор (Символ фонда) */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-5 -right-10 h-[280px] w-[280px] opacity-10 lg:h-[400px] lg:w-[400px]"
       >
         <Image
-          src="/logo-symbol-white.svg" // <-- Укажите путь к белому символу
+          src="/logo-symbol-white.svg"
           alt=""
           fill
           className="object-contain"
@@ -170,7 +165,8 @@ function FeaturedCard({ program }: { program: Program }) {
         </span>
       </div>
 
-      <h3 className="relative mt-6 text-2xl font-semibold leading-tight tracking-tight lg:text-3xl">
+      {/* Изменено: font-semibold -> font-medium, tracking-tight -> tracking-[-0.02em] */}
+      <h3 className="relative mt-6 text-2xl font-medium leading-tight tracking-[-0.02em] lg:text-3xl">
         {title}
       </h3>
 
@@ -196,7 +192,6 @@ function VisualCard({ program }: { program: Program }) {
       href={href}
       className="group relative flex flex-col justify-end overflow-hidden rounded-3xl min-h-[400px] lg:min-h-[460px] lg:col-span-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/20"
     >
-      {/* Передаем картинку сюда */}
       <ImageBackground src={image} className="transition-transform duration-700 group-hover:scale-105" />
 
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
@@ -210,7 +205,8 @@ function VisualCard({ program }: { program: Program }) {
       </div>
 
       <div className="relative z-20 p-6 lg:p-8">
-        <h3 className="text-2xl font-semibold leading-tight tracking-tight text-white">
+        {/* Изменено: font-semibold -> font-medium, tracking-tight -> tracking-[-0.02em] */}
+        <h3 className="text-2xl font-medium leading-tight tracking-[-0.02em] text-white">
           {title}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-white/80 line-clamp-2">
