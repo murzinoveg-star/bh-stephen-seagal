@@ -296,7 +296,7 @@ export default function HelpBlockSection() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex w-full sm:w-auto min-w-[240px] items-center justify-center gap-2 rounded-lg bg-brand-teal px-8 py-4 text-sm font-semibold tracking-wide text-brand-black shadow-lg shadow-brand-teal/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] hover:shadow-brand-teal/40 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex w-full sm:w-auto min-w-[240px] items-center justify-center gap-2 rounded-lg bg-brand-white px-8 py-4 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {submitting ? (
                         <>
