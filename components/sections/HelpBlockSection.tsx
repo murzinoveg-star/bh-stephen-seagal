@@ -3,10 +3,10 @@
 import { useState, type FormEvent } from "react";
 
 const DIRECTIONS = [
-  { id: "svo", label: "СВО" },
-  { id: "children", label: "Дети" },
-  { id: "animals", label: "Животные" },
-  { id: "elderly", label: "Старшие" },
+  { id: "svo", label: "Помощь участникам СВО" },
+  { id: "children", label: "Помощь детям" },
+  { id: "animals", label: "Помощь животным" },
+  { id: "elderly", label: "Помощь старшим" },
 ] as const;
 
 const SVO_HELP = [
@@ -15,39 +15,30 @@ const SVO_HELP = [
   { id: "unsure", label: "Не знаю" },
 ] as const;
 
-const CONTACT_TYPES = [
-  { id: "phone", label: "Тел", placeholder: "+7 (___) ___-__-__", inputType: "tel" },
-  { id: "email", label: "Email", placeholder: "you@example.com", inputType: "email" },
-  { id: "telegram", label: "TG", placeholder: "@username", inputType: "text" },
-] as const;
-
 type DirectionId = (typeof DIRECTIONS)[number]["id"];
 type SvoHelpId = (typeof SVO_HELP)[number]["id"];
-type ContactTypeId = (typeof CONTACT_TYPES)[number]["id"];
 
 export default function HelpBlockSection() {
-  const [direction, setDirection] = useState<DirectionId | null>(null);
+  const [direction, setDirection] = useState<DirectionId | "">("");
   const [svoHelp, setSvoHelp] = useState<SvoHelpId | null>(null);
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
-  const [contactType, setContactType] = useState<ContactTypeId>("phone");
-  const [contact, setContact] = useState("");
+  const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const currentContact = CONTACT_TYPES.find((c) => c.id === contactType)!;
-
   function validate() {
     const next: Record<string, string> = {};
+    if (!name.trim() || name.trim().length < 2) next.name = "Укажите имя";
+    if (!phone.trim() || phone.trim().length < 5) next.phone = "Укажите телефон";
     if (!direction) next.direction = "Выберите направление";
     if (direction === "svo" && !svoHelp) next.svoHelp = "Уточните, какая помощь нужна";
     if (message.trim().length < 20) next.message = "Опишите ситуацию — минимум 20 символов";
-    if (name.trim().length < 2) next.name = "Укажите имя";
-    if (contact.trim().length < 3) next.contact = `Укажите ${currentContact.label.toLowerCase()}`;
     if (!consent) next.consent = "Нужно согласие на обработку данных";
+    
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -61,12 +52,11 @@ export default function HelpBlockSection() {
 
     // TODO: заменить на реальный POST /api/help-request
     console.log("[help-request/stub]", {
+      name,
+      phone,
       direction,
       svoHelp,
       message,
-      name,
-      contactType,
-      contact,
       consent,
     });
 
@@ -77,12 +67,11 @@ export default function HelpBlockSection() {
   }
 
   function reset() {
-    setDirection(null);
+    setName("");
+    setPhone("");
+    setDirection("");
     setSvoHelp(null);
     setMessage("");
-    setName("");
-    setContactType("phone");
-    setContact("");
     setConsent(false);
     setErrors({});
     setSubmitted(false);
@@ -99,7 +88,7 @@ export default function HelpBlockSection() {
 
   return (
     <section className="relative overflow-hidden bg-brand-blue py-24 lg:py-32">
-      {/* Мягкое свечение + модульная сетка */}
+      {/* Фоновые элементы */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-32 top-0 h-[480px] w-[480px] rounded-full bg-brand-teal/15 blur-[120px]"
@@ -135,7 +124,7 @@ export default function HelpBlockSection() {
             </p>
           </div>
 
-          {/* Правая колонка: форма-заглушка */}
+          {/* Правая колонка: форма */}
           <div className="lg:col-span-8">
             <div className="glass relative rounded-3xl p-7 lg:p-8">
               {submitted ? (
@@ -191,35 +180,108 @@ export default function HelpBlockSection() {
                     />
                   </div>
 
-                  {/* Направление */}
+                  {/* 1. Имя и Телефон (в одну строку на sm+) */}
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label
+                        htmlFor="help-name"
+                        className="mb-2 block text-[13px] font-medium text-white/80"
+                      >
+                        Имя <span className="text-brand-teal">*</span>
+                      </label>
+                      <input
+                        id="help-name"
+                        type="text"
+                        value={name}
+                        onChange={(e) => {
+                          setName(e.target.value);
+                          setErrors((prev) => ({ ...prev, name: "" }));
+                        }}
+                        disabled={submitting}
+                        placeholder="Как к вам обращаться"
+                        className={inputBase}
+                      />
+                      {errors.name && (
+                        <p className="mt-1.5 text-xs text-red-300">
+                          {errors.name}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="help-phone"
+                        className="mb-2 block text-[13px] font-medium text-white/80"
+                      >
+                        Телефон <span className="text-brand-teal">*</span>
+                      </label>
+                      <input
+                        id="help-phone"
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => {
+                          setPhone(e.target.value);
+                          setErrors((prev) => ({ ...prev, phone: "" }));
+                        }}
+                        disabled={submitting}
+                        placeholder="+7 (___) ___-__-__"
+                        className={inputBase}
+                      />
+                      {errors.phone && (
+                        <p className="mt-1.5 text-xs text-red-300">
+                          {errors.phone}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 2. Направление помощи (Дропдаун) */}
                   <div>
-                    <label className="mb-2 block text-[13px] font-medium text-white/80">
-                      Направление помощи{" "}
-                      <span className="text-brand-teal">*</span>
-                    </label>
-                    <div
-                      className="flex flex-wrap gap-2"
-                      role="radiogroup"
-                      aria-label="Направление помощи"
+                    <label
+                      htmlFor="help-direction"
+                      className="mb-2 block text-[13px] font-medium text-white/80"
                     >
-                      {DIRECTIONS.map((d) => (
-                        <button
-                          key={d.id}
-                          type="button"
-                          role="radio"
-                          aria-checked={direction === d.id}
-                          onClick={() => {
-                            setDirection(d.id);
-                            setErrors((prev) => ({ ...prev, direction: "" }));
-                          }}
-                          disabled={submitting}
-                          className={`${chipBase} ${
-                            direction === d.id ? chipActive : chipIdle
-                          }`}
+                      Направление помощи <span className="text-brand-teal">*</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="help-direction"
+                        value={direction}
+                        onChange={(e) => {
+                          setDirection(e.target.value as DirectionId | "");
+                          if (e.target.value !== "svo") setSvoHelp(null);
+                          setErrors((prev) => ({ ...prev, direction: "", svoHelp: "" }));
+                        }}
+                        disabled={submitting}
+                        className={`${inputBase} appearance-none cursor-pointer ${
+                          direction === "" ? "text-white/30" : "text-white"
+                        }`}
+                      >
+                        <option value="" disabled className="bg-brand-black text-white/50">
+                          Выберите направление
+                        </option>
+                        {DIRECTIONS.map((d) => (
+                          <option key={d.id} value={d.id} className="bg-brand-black text-white">
+                            {d.label}
+                          </option>
+                        ))}
+                      </select>
+                      {/* Иконка стрелочки для селекта */}
+                      <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-white/50"
                         >
-                          {d.label}
-                        </button>
-                      ))}
+                          <path d="M6 9l6 6 6-6" />
+                        </svg>
+                      </div>
                     </div>
                     {errors.direction && (
                       <p className="mt-1.5 text-xs text-red-300">
@@ -287,7 +349,7 @@ export default function HelpBlockSection() {
                     </div>
                   )}
 
-                  {/* Сообщение */}
+                  {/* 3. Описание ситуации */}
                   <div>
                     <div className="mb-2 flex items-baseline justify-between gap-3">
                       <label
@@ -303,7 +365,7 @@ export default function HelpBlockSection() {
                     </div>
                     <textarea
                       id="help-message"
-                      rows={3}
+                      rows={4}
                       maxLength={2000}
                       value={message}
                       onChange={(e) => {
@@ -321,91 +383,7 @@ export default function HelpBlockSection() {
                     )}
                   </div>
 
-                  {/* Имя + контакт */}
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="help-name"
-                        className="mb-2 block text-[13px] font-medium text-white/80"
-                      >
-                        Имя <span className="text-brand-teal">*</span>
-                      </label>
-                      <div className="mt-auto">
-                        <input
-                          id="help-name"
-                          type="text"
-                          value={name}
-                          onChange={(e) => {
-                            setName(e.target.value);
-                            setErrors((prev) => ({ ...prev, name: "" }));
-                          }}
-                          disabled={submitting}
-                          placeholder="Как к вам обращаться"
-                          className={inputBase}
-                        />
-                        {errors.name && (
-                          <p className="mt-1.5 text-xs text-red-300">
-                            {errors.name}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="help-contact"
-                        className="mb-2 block text-[13px] font-medium text-white/80"
-                      >
-                        Связь <span className="text-brand-teal">*</span>
-                      </label>
-                      <div
-                        className="mb-2 flex gap-1.5"
-                        role="radiogroup"
-                        aria-label="Способ связи"
-                      >
-                        {CONTACT_TYPES.map((c) => (
-                          <button
-                            key={c.id}
-                            type="button"
-                            role="radio"
-                            aria-checked={contactType === c.id}
-                            onClick={() => {
-                              setContactType(c.id);
-                              setContact("");
-                              setErrors((prev) => ({ ...prev, contact: "" }));
-                            }}
-                            disabled={submitting}
-                            className={`rounded-full border px-3 py-1 text-[11px] font-semibold transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40 ${
-                              contactType === c.id ? chipActive : chipIdle
-                            }`}
-                          >
-                            {c.label}
-                          </button>
-                        ))}
-                      </div>
-                      <div className="mt-auto">
-                        <input
-                          id="help-contact"
-                          type={currentContact.inputType}
-                          value={contact}
-                          onChange={(e) => {
-                            setContact(e.target.value);
-                            setErrors((prev) => ({ ...prev, contact: "" }));
-                          }}
-                          disabled={submitting}
-                          placeholder={currentContact.placeholder}
-                          className={inputBase}
-                        />
-                        {errors.contact && (
-                          <p className="mt-1.5 text-xs text-red-300">
-                            {errors.contact}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Согласие */}
+                  {/* 4. Согласие */}
                   <div>
                     <label className="flex cursor-pointer items-start gap-3">
                       <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
@@ -452,7 +430,7 @@ export default function HelpBlockSection() {
                     )}
                   </div>
 
-                  {/* Кнопка отправки */}
+                  {/* 5. Кнопка отправки */}
                   <button
                     type="submit"
                     disabled={submitting}
