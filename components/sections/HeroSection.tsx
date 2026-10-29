@@ -7,7 +7,7 @@ export default function HeroSection() {
     <section className="relative bg-white px-2 sm:px-4 lg:px-6">
       
       {/* Внутренний контейнер (карточка): темный фон, скругления и скрытие переполнения */}
-      <div className="relative flex min-h-[85vh] items-center overflow-hidden rounded-[32px] bg-brand-black lg:rounded-[48px]">
+        <div className="relative mx-auto flex w-full max-w-[1920px] items-center overflow-hidden rounded-[32px] bg-brand-black lg:rounded-[48px]">
         
         {/* Фоновое изображение */}
         <div className="absolute inset-0 z-0">

@@ -2,8 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 // TODO: заменить контакты и юридические данные на подтверждённые из CMS.
-// В content.json значения помечены как "[телефон]", "[email]", "[адрес]",
-// "[полное наименование, ИНН/ОГРН — уточнить]".
 const CONTACTS = {
   phone: "[телефон]",
   email: "[email]",
@@ -23,16 +21,15 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-brand-black text-white">
-      <div className="grid-pattern pointer-events-none absolute inset-0 opacity-30" />
-
+    <footer className="relative bg-brand-black text-white">
       <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-20 lg:px-10 lg:pt-24">
+        
         {/* Верхний блок: логотип + миссия + язык */}
         <div className="grid gap-10 border-b border-white/10 pb-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <Link href="/" className="inline-flex items-center" aria-label="БФ Стивена Сигала">
               <Image
-                src="/logo-white.svg" // Укажите ваш файл (например, /logo-white.svg)
+                src="/logo-white.svg"
                 alt="БФ Стивена Сигала"
                 width={200}
                 height={50}
@@ -68,7 +65,7 @@ export default function Footer() {
         {/* Средний блок: контакты + юр. информация + язык */}
         <div className="grid gap-10 border-b border-white/10 py-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <h3 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-teal">
+            <h3 className="text-sm font-medium text-brand-teal">
               Контакты
             </h3>
             <dl className="mt-5 space-y-3 text-sm">
@@ -102,7 +99,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-4">
-            <h3 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-teal">
+            <h3 className="text-sm font-medium text-brand-teal">
               Документы
             </h3>
             <ul className="mt-5 space-y-3 text-sm">
@@ -132,7 +129,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-4">
-            <h3 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-teal">
+            <h3 className="text-sm font-medium text-brand-teal">
               Язык
             </h3>
             <div className="mt-5 inline-flex items-center rounded-full border border-white/15 p-1 text-xs font-semibold">

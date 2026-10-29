@@ -1,12 +1,11 @@
 // "use client";
 
+// import Image from "next/image";
 // import Link from "next/link";
 // import { useEffect, useRef, useState } from "react";
 // import Button from "../ui/Button";
 
 // // TODO: заменить демо-значения на данные из CMS после подтверждения.
-// // В content.json значения помечены как "[цифра]", а 4-й показатель — как
-// // "Добавить показатель по программам" (использован дефолт «Программ фонда»).
 // const METRICS = [
 //   { id: "collected", label: "Собрано средств",      value: 12_480_000, suffix: "₽", featured: true  },
 //   { id: "requests",  label: "Поддержано обращений", value: 1_240,      suffix: "",  featured: false },
@@ -71,14 +70,30 @@
 //       <Link
 //         href="/reports"
 //         aria-label={finalLabel}
-//         className="group relative flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:border-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/5 lg:p-10"
+//         // Убрали overflow-hidden, чтобы животное могло "выглядывать" за края карточки
+//         className="group relative flex flex-col rounded-3xl border border-neutral-200 bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:border-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/5 lg:p-10"
 //       >
-//         <span
-//           aria-hidden="true"
-//           className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-brand-teal to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-//         />
+//         {/* Внутренний слой для обрезки декоративных элементов */}
+//         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
+//           <span
+//             aria-hidden="true"
+//             className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-brand-teal to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+//           />
+//         </div>
 
-//         <div className="flex items-baseline gap-2">
+//         {/* Контейнер для будущего PNG животного */}
+//         <div className="pointer-events-none absolute -bottom-4 -right-2 z-10 hidden h-48 w-48 sm:block lg:h-64 lg:w-64">
+//           <Image
+//   src="/dog.png"
+//   alt=""
+//   width={400}
+//   height={400}
+//   className="object-contain object-bottom w-full h-full scale-110 origin-bottom-right"
+// />
+//         </div>
+
+//         {/* Контент карточки */}
+//         <div className="relative z-20 flex items-baseline gap-2">
 //           <span
 //             ref={ref}
 //             className="text-[clamp(3rem,6vw,4.5rem)] font-medium leading-none tabular-nums tracking-[-0.03em] text-brand-black transition-colors duration-300 group-hover:text-brand-blue"
@@ -90,7 +105,7 @@
 //           )}
 //         </div>
 
-//         <span className="mt-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+//         <span className="relative z-20 mt-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
 //           {label}
 //         </span>
 //       </Link>
@@ -262,10 +277,8 @@ function MetricCard({
       <Link
         href="/reports"
         aria-label={finalLabel}
-        // Убрали overflow-hidden, чтобы животное могло "выглядывать" за края карточки
         className="group relative flex flex-col rounded-3xl border border-neutral-200 bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:border-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/5 lg:p-10"
       >
-        {/* Внутренний слой для обрезки декоративных элементов */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
           <span
             aria-hidden="true"
@@ -273,22 +286,20 @@ function MetricCard({
           />
         </div>
 
-        {/* Контейнер для будущего PNG животного */}
         <div className="pointer-events-none absolute -bottom-4 -right-2 z-10 hidden h-48 w-48 sm:block lg:h-64 lg:w-64">
           <Image
-  src="/dog.png"
-  alt=""
-  width={400}
-  height={400}
-  className="object-contain object-bottom w-full h-full scale-110 origin-bottom-right"
-/>
+            src="/dog.png"
+            alt=""
+            width={400}
+            height={400}
+            className="object-contain object-bottom w-full h-full scale-110 origin-bottom-right"
+          />
         </div>
 
-        {/* Контент карточки */}
         <div className="relative z-20 flex items-baseline gap-2">
-          <span
+                    <span
             ref={ref}
-            className="text-[clamp(3rem,6vw,4.5rem)] font-medium leading-none tabular-nums tracking-[-0.03em] text-brand-black transition-colors duration-300 group-hover:text-brand-blue"
+            className="text-[clamp(3rem,6vw,4.5rem)] font-medium leading-none tabular-nums tracking-tighter text-brand-black transition-colors duration-300 group-hover:text-brand-blue"
           >
             {fmt(current)}
           </span>
@@ -297,7 +308,7 @@ function MetricCard({
           )}
         </div>
 
-        <span className="relative z-20 mt-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+        <span className="relative z-20 mt-6 text-sm font-normal text-neutral-500">
           {label}
         </span>
       </Link>
@@ -316,9 +327,9 @@ function MetricCard({
       />
 
       <div className="flex items-baseline gap-1.5">
-        <span
+                <span
           ref={ref}
-          className="text-[clamp(2rem,3.5vw,2.75rem)] font-medium leading-none tabular-nums tracking-[-0.03em] text-brand-black transition-colors duration-300 group-hover:text-brand-blue"
+          className="text-[clamp(2rem,3.5vw,2.75rem)] font-medium leading-none tabular-nums tracking-tighter text-brand-black transition-colors duration-300 group-hover:text-brand-blue"
         >
           {fmt(current)}
         </span>
@@ -327,7 +338,7 @@ function MetricCard({
         )}
       </div>
 
-      <span className="mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+      <span className="mt-5 text-sm font-normal text-neutral-500">
         {label}
       </span>
     </Link>
