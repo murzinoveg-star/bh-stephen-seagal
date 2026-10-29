@@ -80,7 +80,7 @@ export default function HelpBlockSection() {
     "w-full border-b border-white/30 bg-transparent px-0 py-3 text-base text-white placeholder:text-white/40 outline-none transition-colors focus:border-white disabled:opacity-50";
 
   const chipBase =
-    "rounded-full border px-5 py-2 text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-white/40 disabled:opacity-60";
+    "rounded-full border px-4 py-2 text-xs font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-white/40 disabled:opacity-60 sm:px-5 sm:text-sm";
   const chipIdle =
     "border-white/30 text-white/70 hover:border-white hover:text-white";
   const chipActive = "border-white bg-white text-brand-blue";
@@ -89,17 +89,15 @@ export default function HelpBlockSection() {
     <section className="relative bg-white px-2 sm:px-4 lg:px-6 pb-2 sm:pb-4 lg:pb-6">
       <div className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-[32px] bg-brand-blue lg:rounded-[48px]">
         
-        {/* Изменено: py-20 lg:py-24 -> py-24 lg:py-32 */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-10 lg:py-32">
           
-          <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-16">
             
             <div className="lg:col-span-4">
-              {/* Изменено: tracking-[-0.03em] -> tracking-[-0.02em] */}
-              <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] text-white">
+              <h2 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] text-white">
                 Нужна помощь?
               </h2>
-              <p className="mt-7 text-lg leading-relaxed text-white/75 lg:text-xl">
+              <p className="mt-5 text-base leading-relaxed text-white/75 sm:mt-7 sm:text-lg lg:text-xl">
                 Если вы не знаете, с чего начать, посмотрите, кому и как помогает
                 фонд. На странице «Мне нужна помощь» описаны направления, порядок
                 обращения и контакты.
@@ -109,30 +107,30 @@ export default function HelpBlockSection() {
             <div className="lg:col-span-8">
               {submitted ? (
                 <div className="flex flex-col items-start py-4" aria-live="polite">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/30 text-white">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 text-white sm:h-16 sm:w-16">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="sm:h-8 sm:w-8">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </div>
-                  <h3 className="mt-8 text-3xl font-medium text-white">Заявка отправлена</h3>
-                  <p className="mt-4 max-w-md text-lg leading-relaxed text-white/70">
+                  <h3 className="mt-6 text-2xl font-medium text-white sm:mt-8 sm:text-3xl">Заявка отправлена</h3>
+                  <p className="mt-3 max-w-md text-base leading-relaxed text-white/70 sm:mt-4 sm:text-lg">
                     Спасибо! Мы свяжемся с вами в течение 1–2 рабочих дней, чтобы уточнить детали и подсказать дальнейшие шаги.
                   </p>
                   <button
                     type="button"
                     onClick={reset}
-                    className="mt-10 text-base font-semibold text-white underline-offset-4 hover:underline"
+                    className="mt-8 text-sm font-semibold text-white underline-offset-4 hover:underline sm:mt-10 sm:text-base"
                   >
                     Отправить ещё одну
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-8 sm:gap-10">
                   <div className="pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0" aria-hidden="true">
                     <input type="text" tabIndex={-1} autoComplete="off" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
                   </div>
 
-                  <div className="grid gap-10 sm:grid-cols-2">
+                  <div className="grid gap-8 sm:grid-cols-2 sm:gap-10">
                     <div>
                       <label htmlFor="help-name" className="mb-2 block text-sm font-medium text-white/80">
                         Имя <span className="text-white">*</span>
@@ -203,13 +201,13 @@ export default function HelpBlockSection() {
                   </div>
 
                   {direction === "svo" && (
-                    <div className="border-l-2 border-white/40 pl-5">
-                      <div className="flex items-start gap-3 text-sm leading-relaxed text-white/80">
+                    <div className="border-l-2 border-white/40 pl-4 sm:pl-5">
+                      <div className="flex items-start gap-3 text-xs leading-relaxed text-white/80 sm:text-sm">
                         <span>
                           По направлению СВО фонд оказывает <strong className="text-white">только юридическую и психологическую</strong> помощь. Без спонсирования и покупки оборудования.
                         </span>
                       </div>
-                      <div className="mt-4 flex flex-wrap gap-3" role="radiogroup" aria-label="Какая помощь нужна">
+                      <div className="mt-4 flex flex-wrap gap-2 sm:gap-3" role="radiogroup" aria-label="Какая помощь нужна">
                         {SVO_HELP.map((h) => (
                           <button
                             key={h.id}
@@ -232,7 +230,7 @@ export default function HelpBlockSection() {
                   )}
 
                   <div>
-                    <div className="mb-2 flex items-baseline justify-between gap-3">
+                    <div className="mb-2 flex flex-col items-start gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
                       <label htmlFor="help-message" className="text-sm font-medium text-white/80">
                         Кратко опишите ситуацию <span className="text-white">*</span>
                       </label>
@@ -255,8 +253,8 @@ export default function HelpBlockSection() {
                   </div>
 
                   <div>
-                    <label className="flex cursor-pointer items-start gap-4">
-                      <span className="relative mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center">
+                    <label className="flex cursor-pointer items-start gap-3 sm:gap-4">
+                      <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center sm:h-6 sm:w-6">
                         <input
                           type="checkbox"
                           checked={consent}
@@ -265,26 +263,25 @@ export default function HelpBlockSection() {
                             setErrors((prev) => ({ ...prev, consent: "" }));
                           }}
                           disabled={submitting}
-                          className="peer h-6 w-6 cursor-pointer appearance-none rounded-md border-2 border-white/40 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-white/40 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:h-6 sm:w-6"
                         />
-                        <svg className="pointer-events-none absolute h-4 w-4 text-brand-blue opacity-0 peer-checked:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <svg className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                           <path d="M5 12l5 5L20 7" />
                         </svg>
                       </span>
-                      <span className="text-sm leading-relaxed text-white/70">
+                      <span className="text-xs leading-relaxed text-white/70 sm:text-sm">
                         Я согласен(-на) на обработку персональных данных в соответствии с{" "}
                         <a href="#" className="text-white underline underline-offset-2 hover:text-white/80">политикой конфиденциальности</a>. Данные используются только для рассмотрения обращения.
                       </span>
                     </label>
-                    {errors.consent && <p className="mt-2 pl-10 text-xs text-red-300">{errors.consent}</p>}
+                    {errors.consent && <p className="mt-2 pl-8 text-xs text-red-300 sm:pl-10">{errors.consent}</p>}
                   </div>
 
                   <div>
-                    {/* Изменено: bg-brand-white -> bg-white */}
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex w-full sm:w-auto min-w-[240px] items-center justify-center gap-2 rounded-lg bg-white px-8 py-4 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex w-full sm:w-auto min-w-[200px] items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60 sm:min-w-[240px] sm:px-8 sm:py-4"
                     >
                       {submitting ? (
                         <>

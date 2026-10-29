@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-// TODO: заменить контакты и юридические данные на подтверждённые из CMS.
 const CONTACTS = {
   phone: "[телефон]",
   email: "[email]",
@@ -22,10 +21,9 @@ const NAV = [
 export default function Footer() {
   return (
     <footer className="relative bg-brand-black text-white">
-      <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-20 lg:px-10 lg:pt-24">
+      <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 sm:pt-20 lg:px-10 lg:pt-24">
         
-        {/* Верхний блок: логотип + миссия + язык */}
-        <div className="grid gap-10 border-b border-white/10 pb-14 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-10 border-b border-white/10 pb-10 sm:pb-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <Link href="/" className="inline-flex items-center" aria-label="БФ Стивена Сигала">
               <Image
@@ -33,11 +31,11 @@ export default function Footer() {
                 alt="БФ Стивена Сигала"
                 width={200}
                 height={50}
-                className="h-11 w-auto object-contain lg:h-12"
+                className="h-10 w-auto object-contain sm:h-11 lg:h-12"
               />
             </Link>
 
-            <p className="mt-6 max-w-md text-sm leading-relaxed text-white/60">
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-white/60 sm:mt-6">
               Помогаем участникам СВО — юридической и психологической
               поддержкой, детям, животным и старшим. Действуем прозрачно и
               объясняем, как получить помощь и куда идут средства.
@@ -47,7 +45,7 @@ export default function Footer() {
           <div className="lg:col-span-7">
             <nav
               aria-label="Навигация в подвале"
-              className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3"
+              className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3 sm:gap-x-8"
             >
               {NAV.map((item) => (
                 <Link
@@ -62,16 +60,15 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Средний блок: контакты + юр. информация + язык */}
-        <div className="grid gap-10 border-b border-white/10 py-14 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-10 border-b border-white/10 py-10 sm:py-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <h3 className="text-sm font-medium text-brand-teal">
               Контакты
             </h3>
-            <dl className="mt-5 space-y-3 text-sm">
+            <dl className="mt-4 space-y-3 text-sm sm:mt-5">
               <div>
                 <dt className="text-white/40">Телефон</dt>
-                <dd className="mt-1">
+                <dd className="mt-1 break-all">
                   <a
                     href={`tel:${CONTACTS.phone}`}
                     className="text-white/80 transition-colors hover:text-brand-teal"
@@ -82,7 +79,7 @@ export default function Footer() {
               </div>
               <div>
                 <dt className="text-white/40">Email</dt>
-                <dd className="mt-1">
+                <dd className="mt-1 break-all">
                   <a
                     href={`mailto:${CONTACTS.email}`}
                     className="text-white/80 transition-colors hover:text-brand-teal"
@@ -102,7 +99,7 @@ export default function Footer() {
             <h3 className="text-sm font-medium text-brand-teal">
               Документы
             </h3>
-            <ul className="mt-5 space-y-3 text-sm">
+            <ul className="mt-4 space-y-3 text-sm sm:mt-5">
               <li>
                 <Link
                   href="/reports"
@@ -132,7 +129,7 @@ export default function Footer() {
             <h3 className="text-sm font-medium text-brand-teal">
               Язык
             </h3>
-            <div className="mt-5 inline-flex items-center rounded-full border border-white/15 p-1 text-xs font-semibold">
+            <div className="mt-4 inline-flex items-center rounded-full border border-white/15 p-1 text-xs font-semibold sm:mt-5">
               <span className="rounded-full bg-brand-teal px-3 py-1 text-brand-black">
                 RU
               </span>
@@ -151,8 +148,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Нижний блок: юр. инфо + copyright */}
-        <div className="flex flex-col gap-4 pt-8 text-xs text-white/40 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-3 pt-6 text-xs text-white/40 sm:gap-4 sm:pt-8 lg:flex-row lg:items-center lg:justify-between">
           <p>
             БЛАГОТВОРИТЕЛЬНЫЙ ФОНД СТИВЕНА СИГАЛА · ИНН/ОГРН — уточнить
           </p>

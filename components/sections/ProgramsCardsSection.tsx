@@ -131,11 +131,11 @@ function FeaturedCard({ program }: { program: Program }) {
   return (
     <Link
       href={href}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border border-brand-blue bg-brand-blue p-8 text-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-2xl hover:shadow-brand-blue/30 lg:col-span-12 lg:row-span-1 lg:p-10"
+      className="group relative flex flex-col overflow-hidden rounded-3xl border border-brand-blue bg-brand-blue p-6 text-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-2xl hover:shadow-brand-blue/30 sm:p-8 lg:col-span-12 lg:row-span-1 lg:p-10"
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-brand-teal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-brand-teal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:inset-x-8"
       />
       <div
         aria-hidden="true"
@@ -143,30 +143,25 @@ function FeaturedCard({ program }: { program: Program }) {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-5 -right-10 h-[280px] w-[280px] opacity-10 lg:h-[400px] lg:w-[400px]"
+        className="pointer-events-none absolute -top-5 -right-10 h-[200px] w-[200px] opacity-10 sm:h-[280px] sm:w-[280px] lg:h-[400px] lg:w-[400px]"
       >
-        <Image
-          src="/logo-symbol-white.svg"
-          alt=""
-          fill
-          className="object-contain"
-        />
+        <Image src="/logo-symbol-white.svg" alt="" fill className="object-contain" />
       </div>
 
       <div className="relative flex items-start justify-between">
-        <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white transition-all duration-300 group-hover:bg-brand-teal group-hover:text-brand-black">
-          <Icon size={26} />
+        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white transition-all duration-300 group-hover:bg-brand-teal group-hover:text-brand-black sm:h-14 sm:w-14">
+          <Icon size={24} className="sm:hidden" />
+          <Icon size={26} className="hidden sm:block" />
         </span>
         
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-black transition-transform duration-300 group-hover:scale-110 group-hover:bg-brand-teal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-black transition-transform duration-300 group-hover:scale-110 group-hover:bg-brand-teal sm:h-11 sm:w-11">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="sm:h-5 sm:w-5">
             <path d="M7 17L17 7M17 7H7M17 7v10" />
           </svg>
         </span>
       </div>
 
-      {/* Изменено: font-semibold -> font-medium, tracking-tight -> tracking-[-0.02em] */}
-      <h3 className="relative mt-6 text-2xl font-medium leading-tight tracking-[-0.02em] lg:text-3xl">
+      <h3 className="relative mt-6 text-xl font-medium leading-tight tracking-[-0.02em] sm:text-2xl lg:text-3xl">
         {title}
       </h3>
 
@@ -190,23 +185,22 @@ function VisualCard({ program }: { program: Program }) {
   return (
     <Link
       href={href}
-      className="group relative flex flex-col justify-end overflow-hidden rounded-3xl min-h-[400px] lg:min-h-[460px] lg:col-span-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/20"
+      className="group relative flex flex-col justify-end overflow-hidden rounded-3xl min-h-[320px] sm:min-h-[400px] lg:min-h-[460px] lg:col-span-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/20"
     >
       <ImageBackground src={image} className="transition-transform duration-700 group-hover:scale-105" />
 
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
 
-      <div className="absolute right-5 top-5 z-20">
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-black transition-transform duration-300 group-hover:scale-110 group-hover:bg-brand-teal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <div className="absolute right-4 top-4 z-20 sm:right-5 sm:top-5">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-black transition-transform duration-300 group-hover:scale-110 group-hover:bg-brand-teal sm:h-11 sm:w-11">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="sm:h-5 sm:w-5">
             <path d="M7 17L17 7M17 7H7M17 7v10" />
           </svg>
         </span>
       </div>
 
-      <div className="relative z-20 p-6 lg:p-8">
-        {/* Изменено: font-semibold -> font-medium, tracking-tight -> tracking-[-0.02em] */}
-        <h3 className="text-2xl font-medium leading-tight tracking-[-0.02em] text-white">
+      <div className="relative z-20 p-5 sm:p-6 lg:p-8">
+        <h3 className="text-xl font-medium leading-tight tracking-[-0.02em] text-white sm:text-2xl">
           {title}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-white/80 line-clamp-2">
@@ -227,11 +221,11 @@ function ProgramCard({ program }: { program: Program }) {
 
 export default function ProgramsCardsSection() {
   return (
-    <section className="relative overflow-hidden bg-neutral-50 py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-24 lg:py-32">
       <div className="grid-blue pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_80%)]" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-end lg:justify-between">
           <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
             Наши программы
           </h2>
@@ -249,7 +243,7 @@ export default function ProgramsCardsSection() {
           </Link>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:auto-rows-auto lg:grid-cols-12">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:auto-rows-auto lg:grid-cols-12">
           {PROGRAMS.map((program) => (
             <ProgramCard key={program.id} program={program} />
           ))}
