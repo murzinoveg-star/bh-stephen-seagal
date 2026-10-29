@@ -86,14 +86,16 @@ export default function HelpBlockSection() {
   const chipActive = "border-white bg-white text-brand-blue";
 
   return (
-    <section className="relative bg-white px-2 sm:px-4 lg:px-6 pb-2 sm:pb-4 lg:pb-6">
+    <section className="relative bg-white px-2 py-2 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
       <div className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-[32px] bg-brand-blue lg:rounded-[48px]">
         
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-10 lg:py-32">
           
-          <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Изменено: lg:gap-16 -> lg:gap-10 */}
+          <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-10">
             
-            <div className="lg:col-span-4">
+            {/* Изменено: lg:col-span-4 -> lg:col-span-5 lg:pr-8 */}
+            <div className="lg:col-span-5 lg:pr-8">
               <h2 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] text-white">
                 Нужна помощь?
               </h2>
@@ -104,7 +106,8 @@ export default function HelpBlockSection() {
               </p>
             </div>
 
-            <div className="lg:col-span-8">
+            {/* Изменено: lg:col-span-8 -> lg:col-span-7 */}
+            <div className="lg:col-span-7">
               {submitted ? (
                 <div className="flex flex-col items-start py-4" aria-live="polite">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 text-white sm:h-16 sm:w-16">

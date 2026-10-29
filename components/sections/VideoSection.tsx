@@ -6,71 +6,31 @@ export default function VideoSection() {
   const [started, setStarted] = useState(false);
 
   return (
-    <section className="relative overflow-hidden bg-brand-black py-24 lg:py-32">
-      {/* Мягкие блобы для глубины */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-10 h-[520px] w-[520px] rounded-full bg-brand-blue/40 blur-[120px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-40 bottom-0 h-[420px] w-[420px] rounded-full bg-brand-teal/20 blur-[120px]"
-      />
-      <div className="grid-pattern pointer-events-none absolute inset-0 opacity-40" />
-
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Левая колонка: заголовок + описание + подпись */}
-          <div className="lg:col-span-4">
-            <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-white">
+    <section className="relative bg-white py-16 sm:py-24 lg:py-32">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        {/* Изменено: lg:gap-16 -> lg:gap-10, чтобы отступ совпадал с TransparencySection */}
+        <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-10">
+          
+          {/* Левая колонка: Заголовок + описание */}
+          {/* Изменено: lg:col-span-4 -> lg:col-span-5 lg:pr-8 */}
+          <div className="lg:col-span-5 lg:pr-8">
+            <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
               Обращение
               <br />
               Стивена Сигала
             </h2>
 
-            <p className="mt-6 max-w-md text-base leading-relaxed text-white/65 lg:text-lg">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-neutral-600 sm:mt-6 sm:text-lg">
               Здесь может быть размещено видеообращение основателя фонда.
               Материал нужно подготовить или согласовать.
             </p>
-
-            <div className="mt-10 flex items-center gap-4">
-              <div
-                aria-hidden="true"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/60"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-white">
-                  Стивен Сигал
-                </div>
-                <div className="text-xs text-white/50">Основатель фонда</div>
-              </div>
-            </div>
           </div>
 
           {/* Правая колонка: видео-плеер / заглушка */}
-          <div className="lg:col-span-8">
-            <div className="group relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-brand-blue/40 via-brand-black to-brand-black shadow-2xl shadow-black/40">
-              {/* Декоративный «паттерн-петля» */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 opacity-40"
-              >
-                <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full border border-white/10" />
-                <div className="absolute -right-16 -top-16 h-52 w-52 rounded-full border border-brand-teal/30" />
-                <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full border border-white/5" />
-              </div>
-
+          {/* Изменено: lg:col-span-8 -> lg:col-span-7 */}
+          <div className="lg:col-span-7">
+            <div className="group relative aspect-video overflow-hidden rounded-3xl border border-neutral-200 bg-brand-black">
+              
               {!started ? (
                 // Превью с кнопкой play
                 <button
@@ -79,7 +39,7 @@ export default function VideoSection() {
                   className="absolute inset-0 flex flex-col items-center justify-center gap-6 text-center"
                   aria-label="Воспроизвести видеообращение Стивена Сигала"
                 >
-                  <span className="glass relative flex h-20 w-20 items-center justify-center rounded-full text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-brand-teal group-hover:text-brand-black">
+                  <span className="glass relative flex h-16 w-16 items-center justify-center rounded-full text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-brand-teal group-hover:text-brand-black sm:h-20 sm:w-20">
                     <span className="absolute inset-0 animate-ping rounded-full bg-brand-teal/30" />
                     <svg
                       width="26"
@@ -93,7 +53,7 @@ export default function VideoSection() {
                     </svg>
                   </span>
 
-                  <span className="glass rounded-full px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-white/70">
+                  <span className="glass rounded-full px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.2em] text-white/70 sm:text-[11px]">
                     Видео скоро появится
                   </span>
                 </button>
@@ -138,6 +98,7 @@ export default function VideoSection() {
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </section>

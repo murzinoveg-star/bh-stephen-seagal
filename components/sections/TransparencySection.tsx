@@ -141,10 +141,7 @@ export default function TransparencySection() {
   const [featured, ...rest] = METRICS;
 
   return (
-    <section className="relative overflow-hidden bg-white py-16 sm:py-24 lg:py-32">
-      <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-brand-blue/5 blur-3xl" />
-      <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -left-40 h-[420px] w-[420px] rounded-full bg-brand-teal/5 blur-3xl" />
-
+    <section className="relative bg-white py-16 sm:py-24 lg:py-32">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="grid gap-10 sm:gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5 lg:pr-8">

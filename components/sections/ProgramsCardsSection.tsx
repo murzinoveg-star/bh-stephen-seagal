@@ -141,23 +141,25 @@ function FeaturedCard({ program }: { program: Program }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,184,224,0.18),transparent_55%)]"
       />
+
+      {/* Крупная звезда в правом нижнем углу */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-5 -right-10 h-[200px] w-[200px] opacity-10 sm:h-[280px] sm:w-[280px] lg:h-[400px] lg:w-[400px]"
+        className="pointer-events-none absolute -bottom-32 -right-32 text-white opacity-10"
       >
-        <Image src="/logo-symbol-white.svg" alt="" fill className="object-contain" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="h-[320px] w-[320px] sm:h-[400px] sm:w-[400px]"
+        >
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
       </div>
 
-      <div className="relative flex items-start justify-between">
+      <div className="relative flex items-start">
         <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white transition-all duration-300 group-hover:bg-brand-teal group-hover:text-brand-black sm:h-14 sm:w-14">
           <Icon size={24} className="sm:hidden" />
           <Icon size={26} className="hidden sm:block" />
-        </span>
-        
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-black transition-transform duration-300 group-hover:scale-110 group-hover:bg-brand-teal sm:h-11 sm:w-11">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="sm:h-5 sm:w-5">
-            <path d="M7 17L17 7M17 7H7M17 7v10" />
-          </svg>
         </span>
       </div>
 
