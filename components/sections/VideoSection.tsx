@@ -2,18 +2,69 @@
 
 import { useState } from "react";
 
+// Иконка для надзаголовка (как в TransparencySection)
+function IconIntersect({ className = "", size = 18 }: { className?: string; size?: number }) {
+  return (
+    <svg 
+      viewBox="0 0 24 24" 
+      width={size} 
+      height={size} 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="1.5" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className} 
+      aria-hidden="true"
+    >
+      <circle cx="9" cy="12" r="6" />
+      <circle cx="15" cy="12" r="6" />
+    </svg>
+  );
+}
+
+// Иконка профиля для заглушки аватарки
+function IconUser({ className = "", size = 24 }: { className?: string; size?: number }) {
+  return (
+    <svg 
+      viewBox="0 0 24 24" 
+      width={size} 
+      height={size} 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="1.5" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className} 
+      aria-hidden="true"
+    >
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+
 export default function VideoSection() {
   const [started, setStarted] = useState(false);
 
   return (
     <section className="relative bg-white py-16 sm:py-24 lg:py-32">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-        {/* Изменено: lg:gap-16 -> lg:gap-10, чтобы отступ совпадал с TransparencySection */}
         <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-10">
           
-          {/* Левая колонка: Заголовок + описание */}
-          {/* Изменено: lg:col-span-4 -> lg:col-span-5 lg:pr-8 */}
+          {/* Левая колонка: Заголовок + описание + карточка автора */}
           <div className="lg:col-span-5 lg:pr-8">
+            
+            {/* Надзаголовок */}
+            <div className="mb-6 flex items-center gap-1">
+              <span className="flex items-center justify-center text-brand-blue">
+                <IconIntersect size={20} />
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-brand-black">
+                Слово основателя
+              </span>
+            </div>
+
             <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
               Обращение
               <br />
@@ -24,10 +75,26 @@ export default function VideoSection() {
               Здесь может быть размещено видеообращение основателя фонда.
               Материал нужно подготовить или согласовать.
             </p>
+
+            {/* Карточка автора без подложки */}
+            <div className="mt-8 flex items-center gap-4 sm:mt-10">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue sm:h-14 sm:w-14">
+                <IconUser size={24} className="sm:hidden" />
+                <IconUser size={28} className="hidden sm:block" />
+              </div>
+              <div>
+                <div className="text-base font-medium text-brand-black sm:text-lg">
+                  Стивен Сигал
+                </div>
+                <div className="mt-0.5 text-sm text-neutral-500">
+                  Основатель фонда
+                </div>
+              </div>
+            </div>
+
           </div>
 
           {/* Правая колонка: видео-плеер / заглушка */}
-          {/* Изменено: lg:col-span-8 -> lg:col-span-7 */}
           <div className="lg:col-span-7">
             <div className="group relative aspect-video overflow-hidden rounded-3xl border border-neutral-200 bg-brand-black">
               
@@ -40,7 +107,7 @@ export default function VideoSection() {
                   aria-label="Воспроизвести видеообращение Стивена Сигала"
                 >
                   <span className="glass relative flex h-16 w-16 items-center justify-center rounded-full text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-brand-teal group-hover:text-brand-black sm:h-20 sm:w-20">
-                    <span className="absolute inset-0 animate-ping rounded-full bg-brand-teal/30" />
+                    <span className="absolute inset-0 motion-safe:animate-ping rounded-full bg-brand-teal/30" />
                     <svg
                       width="26"
                       height="26"

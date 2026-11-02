@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 
 const DIRECTIONS = [
   { id: "svo", label: "Помощь участникам СВО" },
@@ -32,8 +33,19 @@ export default function HelpBlockSection() {
 
   function validate() {
     const next: Record<string, string> = {};
+    
     if (!name.trim() || name.trim().length < 2) next.name = "Укажите имя";
-    if (!phone.trim() || phone.trim().length < 5) next.phone = "Укажите телефон";
+
+    // --- НОВАЯ ПРОВЕРКА ТЕЛЕФОНА ---
+    // Извлекаем только цифры из введенной строки
+    const digitsOnly = phone.replace(/\D/g, "");
+    // В российском номере обычно 11 цифр (7 + 10), 
+    // но мы проверяем хотя бы 10 (чтобы пропустить ввод без +7)
+    if (digitsOnly.length < 10) {
+      next.phone = "Укажите корректный номер телефона";
+    }
+    // -------------------------------
+
     if (!direction) next.direction = "Выберите направление";
     if (direction === "svo" && !svoHelp) next.svoHelp = "Уточните, какая помощь нужна";
     if (message.trim().length < 20) next.message = "Опишите ситуацию — минимум 20 символов";
@@ -87,14 +99,27 @@ export default function HelpBlockSection() {
 
   return (
     <section className="relative bg-white px-2 py-2 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
-      <div className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-[32px] bg-brand-blue lg:rounded-[48px]">
+      
+      <div 
+        className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-[32px] lg:rounded-[48px]"
+        style={{ backgroundImage: "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)" }}
+      >
+
+        {/* Картинка сердца в левом нижнем углу (над паттерном, под контентом) */}
+        <div className="pointer-events-none absolute bottom-0 left-0 z-0 w-[200px] -translate-x-[-15%] translate-y-[35%] sm:w-[500px]">
+          <Image
+            src="/heart_dark.png"
+            alt=""
+            width={500}
+            height={500}
+            className="h-auto w-full object-contain"
+          />
+        </div>
         
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-10 lg:py-32">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-16 lg:px-10 lg:py-16">
           
-          {/* Изменено: lg:gap-16 -> lg:gap-10 */}
           <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-10">
             
-            {/* Изменено: lg:col-span-4 -> lg:col-span-5 lg:pr-8 */}
             <div className="lg:col-span-5 lg:pr-8">
               <h2 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] text-white">
                 Нужна помощь?
@@ -106,7 +131,6 @@ export default function HelpBlockSection() {
               </p>
             </div>
 
-            {/* Изменено: lg:col-span-8 -> lg:col-span-7 */}
             <div className="lg:col-span-7">
               {submitted ? (
                 <div className="flex flex-col items-start py-4" aria-live="polite">

@@ -9,9 +9,10 @@
   --brand-black: #121c26;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* 
+  УДАЛЕНО: scroll-behavior: smooth; 
+  (чтобы не конфликтовать с будущими JS-библиотеками скролла и для нативного поведения)
+*/
 
 body {
   font-family: "Onest", system-ui, sans-serif;
@@ -19,6 +20,16 @@ body {
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* 
+  ДОБАВЛЕНО: Глобальный видимый фокус для доступности.
+  Показывается только при навигации с клавиатуры (Tab), 
+  не мешает при кликах мышкой.
+*/
+*:focus-visible {
+  outline: 2px solid var(--brand-teal);
+  outline-offset: 2px;
 }
 
 /* Glassmorphism (тёмный вариант) */

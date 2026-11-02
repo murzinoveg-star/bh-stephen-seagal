@@ -131,45 +131,45 @@ function FeaturedCard({ program }: { program: Program }) {
   return (
     <Link
       href={href}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border border-brand-blue bg-brand-blue p-6 text-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-2xl hover:shadow-brand-blue/30 sm:p-8 lg:col-span-12 lg:row-span-1 lg:p-10"
+      className="group relative flex flex-col overflow-hidden rounded-3xl p-6 text-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-2xl hover:shadow-brand-blue/30 sm:p-8 lg:col-span-12 lg:row-span-1 lg:p-10"
+      style={{ backgroundImage: "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)" }}
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-brand-teal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:inset-x-8"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,184,224,0.18),transparent_55%)]"
+        className="pointer-events-none absolute inset-x-6 top-0 z-20 h-px bg-gradient-to-r from-transparent via-brand-teal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:inset-x-8"
       />
 
-      {/* Крупная звезда в правом нижнем углу */}
+      {/* Паттерн из линий с эффектом растворения от нижнего правого угла */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-32 -right-32 text-white opacity-10"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="h-[320px] w-[320px] sm:h-[400px] sm:w-[400px]"
-        >
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
-      </div>
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.2) 0px,
+            rgba(255, 255, 255, 0.2) 3px,
+            transparent 3px,
+            transparent 12px
+          )`,
+          maskImage: `radial-gradient(circle at 150% 100%, black 0%, transparent 80%)`,
+          WebkitMaskImage: `radial-gradient(circle at 150% 100%, black 0%, transparent 80%)`,
+        }}
+      />
 
-      <div className="relative flex items-start">
+      <div className="relative z-10 flex items-start">
         <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white transition-all duration-300 group-hover:bg-brand-teal group-hover:text-brand-black sm:h-14 sm:w-14">
           <Icon size={24} className="sm:hidden" />
           <Icon size={26} className="hidden sm:block" />
         </span>
       </div>
 
-      <h3 className="relative mt-6 text-xl font-medium leading-tight tracking-[-0.02em] sm:text-2xl lg:text-3xl">
+      <h3 className="relative z-10 mt-6 text-xl font-medium leading-tight tracking-[-0.02em] sm:text-2xl lg:text-3xl">
         {title}
       </h3>
 
-      <p className="relative mt-3 max-w-3xl text-sm leading-relaxed text-white/75">{text}</p>
+      <p className="relative z-10 mt-3 max-w-3xl text-sm leading-relaxed text-white/75">{text}</p>
 
-      <span className="relative mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-white">
+      <span className="relative z-10 mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-white">
         <span className="border-b border-transparent pb-0.5 transition-all duration-300 group-hover:border-brand-teal">
           {cta}
         </span>
