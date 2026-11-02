@@ -106,7 +106,7 @@ export default function HelpBlockSection() {
       >
 
         {/* Картинка сердца в левом нижнем углу (над паттерном, под контентом) */}
-        <div className="pointer-events-none absolute bottom-0 left-0 z-0 w-[200px] -translate-x-[-15%] translate-y-[35%] sm:w-[500px]">
+        <div className="pointer-events-none absolute bottom-0 left-0 z-0 w-[0px] -translate-x-[-15%] translate-y-[35%] sm:w-[500px]">
           <Image
             src="/heart_dark.png"
             alt=""
