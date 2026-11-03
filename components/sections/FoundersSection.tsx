@@ -55,7 +55,19 @@ export default function FoundersSection() {
 
   return (
     <section className="relative bg-brand-black py-16 sm:py-24 lg:py-32">
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+      
+      {/* Фоновое изображение */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/bg_dark.jpg"
+          alt="Фон секции"
+          fill
+          className="object-cover opacity-20"
+        />
+      </div>
+
+      {/* Контент */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         
         {/* Шапка секции с разделителем */}
         <div className="mb-12 border-b border-white/10 pb-10 lg:mb-16 lg:pb-14">

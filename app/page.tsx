@@ -5,8 +5,8 @@ import AboutShortSection from "@/components/sections/AboutShortSection";
 import FoundersSection from "@/components/sections/FoundersSection";
 import ProgramsCardsSection from "@/components/sections/ProgramsCardsSection";
 import HelpBlockSection from "@/components/sections/HelpBlockSection";
-import TransparencySection from "@/components/sections/TransparencySection";
-import VideoSection from "@/components/sections/VideoSection";
+import FaqSection from "@/components/sections/FaqSection";
+import HelpRequestSection from "@/components/sections/HelpRequestSection";
 
 export default function HomePage() {
   return (
@@ -18,8 +18,8 @@ export default function HomePage() {
         <FoundersSection />
         <ProgramsCardsSection />
         <HelpBlockSection />
-        <TransparencySection />
-        <VideoSection />
+        <FaqSection />
+        <HelpRequestSection />
       </main>
       <Footer />
     </>
