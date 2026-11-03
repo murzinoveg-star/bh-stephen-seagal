@@ -10,3 +10,4 @@ build/
 next-env.d.ts
 collect.sh
 project_review.txt
+.idea

@@ -1,6 +1,27 @@
 import Image from "next/image";
 import Button from "../ui/Button";
 
+// Иконка для надзаголовка
+function IconIntersect({ className = "", size = 18 }: { className?: string; size?: number }) {
+  return (
+    <svg 
+      viewBox="0 0 24 24" 
+      width={size} 
+      height={size} 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="1.5" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className} 
+      aria-hidden="true"
+    >
+      <circle cx="9" cy="12" r="6" />
+      <circle cx="15" cy="12" r="6" />
+    </svg>
+  );
+}
+
 export default function HeroSection() {
   return (
     <section className="relative bg-white px-2 sm:px-4 lg:px-6">
@@ -29,23 +50,33 @@ export default function HeroSection() {
           <div className="grid items-end gap-10 lg:grid-cols-12">
             <div className="animate-fade-up lg:col-span-8">
               
-              {/* Изменено: clamp(1.5rem, ...) + break-words */}
               <h1 className="break-words text-[clamp(1.5rem,6.5vw,5.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-white sm:leading-[0.95]">
                 Благотворительный фонд Стивена Сигала
               </h1>
 
-              <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/80 sm:mt-8 sm:text-lg lg:text-xl">
-                Помогаем там, где нужна поддержка: участникам СВО, детям,
-                животным и старшим.
-              </p>
+              {/* Блок с миссией в новом стиле */}
+              <div className="mt-6 max-w-3xl sm:mt-8">
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="flex items-center justify-center text-brand-teal">
+                    <IconIntersect size={20} />
+                  </span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-white">
+                    Наша миссия
+                  </span>
+                </div>
+                
+                <p className="text-lg leading-relaxed text-white/90 sm:text-xl lg:text-2xl">
+                  «Мы улучшаем качество жизни, возвращая людям и тем, кто им дорог, уверенность в завтрашнем дне, веру в доброту и справедливость»
+                </p>
+              </div>
 
-              {/* Изменено: кнопки на всю ширину на мобильных */}
+              {/* Кнопки */}
               <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
                 <Button href="/donate" variant="primary" className="w-full justify-center sm:w-auto">
-                  Пожертвовать
+                  Помочь
                 </Button>
-                <Button href="/help-request" variant="secondary" className="w-full justify-center sm:w-auto">
-                  Мне нужна помощь
+                <Button href="/programs" variant="secondary" className="w-full justify-center sm:w-auto">
+                  Наши проекты
                 </Button>
               </div>
             </div>

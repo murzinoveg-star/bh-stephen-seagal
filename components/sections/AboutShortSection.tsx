@@ -2,28 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-
-type IconProps = { className?: string; size?: number };
-
-function IconShield({ className = "", size = 24 }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  );
-}
-
-function IconUsers({ className = "", size = 24 }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <circle cx="9" cy="8" r="3" />
-      <path d="M3 20a6 6 0 0112 0" />
-      <circle cx="17.5" cy="8.5" r="2.5" />
-      <path d="M16 14.5a5 5 0 016 4.3" />
-    </svg>
-  );
-}
+import Button from "../ui/Button";
 
 export default function AboutShortSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,7 +23,6 @@ export default function AboutShortSection() {
       const scrollTop = -rect.top;
       const maxScroll = rect.height - window.innerHeight;
 
-      // Защита от деления на ноль, при этом не прерываем выполнение
       let rawProgress = maxScroll > 0 ? scrollTop / maxScroll : 0;
       rawProgress = Math.max(0, Math.min(1, rawProgress));
 
@@ -66,7 +44,6 @@ export default function AboutShortSection() {
     };
 
     const handleScroll = () => {
-      // Проверяем именно undefined, так как rAF может вернуть 0
       if (requestRef.current !== undefined) return;
       requestRef.current = requestAnimationFrame(updateScroll);
     };
@@ -74,7 +51,6 @@ export default function AboutShortSection() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
     
-    // Первичный вызов
     handleScroll();
 
     return () => {
@@ -82,7 +58,6 @@ export default function AboutShortSection() {
       window.removeEventListener("resize", handleScroll);
       if (requestRef.current !== undefined) {
         cancelAnimationFrame(requestRef.current);
-        // ОЧЕНЬ ВАЖНО: сбрасываем ссылку, иначе в Strict Mode следующий mount заблокируется
         requestRef.current = undefined; 
       }
     };
@@ -97,7 +72,7 @@ export default function AboutShortSection() {
           
           <div className="mb-10 lg:mb-16">
             <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
-              Помощь, которую можно понять
+              О фонде
             </h2>
           </div>
 
@@ -128,11 +103,10 @@ export default function AboutShortSection() {
 
               <div className="relative z-10">
                 <h3 className="mb-4 text-3xl font-medium lg:text-4xl">
-                  О фонде
+                  Помощь
                 </h3>
                 <p className="max-w-md text-base leading-relaxed text-white/85 lg:text-lg">
-                  БФ Стивена Сигала — благотворительный фонд, работающий в РФ. 
-                  Наша цель — объединять людей вокруг достоинства и заботы.
+                  Благотворительный фонд Стивена Сигала помогает участникам СВО получить психологическую и юридическую помощь, а также материально поддерживает детей с тяжёлыми заболеваниями, пожилых людей и приюты для животных.
                 </p>
               </div>
               
@@ -153,29 +127,22 @@ export default function AboutShortSection() {
             >
               <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[200px] translate-x-[25%] translate-y-[50%] sm:w-[500px]">
                 <Image
-  src="/infinity.png"
-  alt=""
-  width={400}
-  height={400}
-  loading="lazy"
-  className="h-auto w-full object-contain"
-/>
+                  src="/infinity.png"
+                  alt=""
+                  width={400}
+                  height={400}
+                  loading="lazy"
+                  className="h-auto w-full object-contain"
+                />
               </div>
 
               <div className="relative z-10">
                 <h3 className="mb-4 text-3xl font-medium text-brand-black lg:text-4xl">
-                  Наша задача
+                  Средства
                 </h3>
                 <p className="max-w-md text-base leading-relaxed text-neutral-600 lg:text-lg">
-                  Сделать помощь понятной: человеку должно быть ясно, куда обратиться, 
-                  а донору — куда направляются средства. Мы за прозрачность на каждом этапе.
+                  Средства направляются на конкретные задачи: консультации специалистов, операции и лекарства, сбор продуктовых корзин, ветеринарную помощь, закупку корма и содержание приютов.
                 </p>
-              </div>
-
-              <div className="relative z-10 mt-auto pt-8 lg:pt-10">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-blue/5 text-brand-blue transition-all duration-300 group-hover:bg-brand-blue group-hover:text-white sm:h-14 sm:w-14">
-                  <IconShield size={26} />
-                </span>
               </div>
             </div>
 
@@ -195,18 +162,17 @@ export default function AboutShortSection() {
 
               <div className="relative z-10">
                 <h3 className="mb-4 text-3xl font-medium text-brand-black lg:text-4xl">
-                  Деятельность
+                  Результат
                 </h3>
                 <p className="max-w-md text-base leading-relaxed text-neutral-600 lg:text-lg">
-                  Мы развиваем четыре программы: помощь участникам СВО, детям, животным и старшим. 
-                  И публикуем полную отчётность по каждому направлению.
+                  Каждое действие фонда направлено на реальные перемены. Настоящая помощь оценивается не количеством акций, а достигнутыми результатами в жизни тех, кому мы помогаем.
                 </p>
               </div>
 
               <div className="relative z-10 mt-auto pt-8 lg:pt-10">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-blue/5 text-brand-blue transition-all duration-300 group-hover:bg-brand-blue group-hover:text-white sm:h-14 sm:w-14">
-                  <IconUsers size={26} />
-                </span>
+                <Button href="/programs" variant="blue" className="w-full justify-center sm:w-auto">
+                  Посмотреть направления
+                </Button>
               </div>
             </div>
 
