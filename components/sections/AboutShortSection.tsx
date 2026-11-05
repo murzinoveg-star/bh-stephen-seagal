@@ -116,7 +116,8 @@ export default function AboutShortSection() {
                   alt="БФ Стивена Сигала"
                   width={250} 
                   height={75}
-                  className="h-[50px] w-auto object-contain sm:h-[60px]"
+                  // Добавлены классы brightness-0 invert для принудительного окрашивания в белый
+                  className="h-[50px] w-auto object-contain brightness-0 invert sm:h-[60px]"
                 />
               </div>
             </div>

@@ -27,11 +27,12 @@ export default function Footer() {
           <div className="lg:col-span-5">
             <Link href="/" className="inline-flex items-center" aria-label="БФ Стивена Сигала">
               <Image
-                src="/logo-white.svg"
+                src="/logo-white.svg" // Или ваш файл, например /logo.svg
                 alt="БФ Стивена Сигала"
                 width={200}
                 height={50}
-                className="h-10 w-auto object-contain sm:h-11 lg:h-12"
+                // Добавлены классы brightness-0 invert для принудительного окрашивания в белый
+                className="h-10 w-auto object-contain brightness-0 invert sm:h-11 lg:h-12"
               />
             </Link>
 
