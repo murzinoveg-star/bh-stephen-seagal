@@ -22,7 +22,8 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
         
         // P2.4: Отключаем плавный скролл, если пользователь предпочитает
         // уменьшенное движение (prefers-reduced-motion: reduce).
-        prefersReducedMotion: true,
+        // ВАЖНО: правильное имя опции — respectReducedMotion (не prefersReducedMotion).
+        respectReducedMotion: true,
         
         // Отключаем авто-RAF, если вы планируете синхронизировать Lenis с другими анимациями (например, GSAP).
         // Если у вас нет сложной анимационной логики, можно оставить false (по умолчанию).
