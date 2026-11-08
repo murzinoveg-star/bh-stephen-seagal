@@ -12,17 +12,19 @@ export const metadata: Metadata = {
     description:
       "Помогаем там, где нужна поддержка: участникам СВО, детям, животным и старшим.",
     locale: "ru_RU",
-    type: "website"
-  }
+    type: "website",
+  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ru">
       <body>
-        <SmoothScrollProvider>
-          {children}
-        </SmoothScrollProvider>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
   );

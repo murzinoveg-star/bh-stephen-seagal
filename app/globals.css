@@ -65,13 +65,21 @@ body {
     linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(circle at 50% 40%, #000 40%, transparent 85%);
-  -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 40%,
+    #000 40%,
+    transparent 85%
+  );
 }
 
 /* Плавный hover-эффект на «петлях» */
 @keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .spin-slow {
   animation: spinSlow 80s linear infinite;
@@ -100,4 +108,49 @@ body {
 
 .animate-shine-loop {
   animation: logo-shine 4s ease-in-out infinite;
+}
+
+/* 
+  P2.4 (обновлено): отключаем ТОЛЬКО вестибулярные анимации для пользователей,
+  предпочитающих уменьшенное движение. Оставляем мелкие контролируемые переходы
+  (аккордеоны, hover, focus, transition-colors) — они не вызывают дискомфорта.
+*/
+@media (prefers-reduced-motion: reduce) {
+  /* Крупные / бесконечные / направленные анимации */
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-ping,
+  .animate-shine-loop,
+  .spin-slow {
+    animation: none !important;
+  }
+
+  /* Параллакс-скролл в AboutShortSection */
+  .will-change-transform {
+    transition: none !important;
+  }
+
+  /* Нативный smooth-scroll */
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 
+  Фикс автозаполнения Chrome/Safari для прозрачных инпутов на тёмном фоне.
+  Без этого правила браузер при автозаполнении накладывает белый/жёлтый фон
+  и чёрный текст — на градиенте и тёмных секциях выглядит сломанным.
+  Трюк: transition на 600000s делает появление фона незаметным.
+*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  transition: background-color 600000s ease-in-out 0s;
 }

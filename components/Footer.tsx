@@ -4,7 +4,7 @@ import Image from "next/image";
 const CONTACTS = {
   phone: "[телефон]",
   email: "[email]",
-  address: "[адрес]"
+  address: "[адрес]",
 };
 
 const NAV = [
@@ -15,31 +15,32 @@ const NAV = [
   { label: "Отчётность", href: "/reports" },
   { label: "Мне нужна помощь", href: "/help-request" },
   { label: "FAQ", href: "/faq" },
-  { label: "Контакты", href: "/contacts" }
+  { label: "Контакты", href: "/contacts" },
 ];
 
 export default function Footer() {
   return (
     <footer className="relative bg-brand-black text-white">
       <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 sm:pt-20 lg:px-10 lg:pt-24">
-        
         <div className="grid gap-10 border-b border-white/10 pb-10 sm:pb-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <Link href="/" className="inline-flex items-center" aria-label="БФ Стивена Сигала">
+            <Link
+              href="/"
+              className="inline-flex items-center"
+              aria-label="БФ Стивена Сигала"
+            >
               <Image
-                src="/logo-white.svg" // Или ваш файл, например /logo.svg
+                src="/logo-white.svg"
                 alt="БФ Стивена Сигала"
                 width={200}
                 height={50}
-                // Добавлены классы brightness-0 invert для принудительного окрашивания в белый
                 className="h-10 w-auto object-contain brightness-0 invert sm:h-11 lg:h-12"
               />
             </Link>
 
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/60 sm:mt-6">
-              Помогаем участникам СВО — юридической и психологической
-              поддержкой, детям, животным и старшим. Действуем прозрачно и
-              объясняем, как получить помощь и куда идут средства.
+              Мы улучшаем качество жизни, возвращая людям и тем, кто им дорог,
+              уверенность в завтрашнем дне, веру в доброту и справедливость
             </p>
           </div>
 
@@ -52,7 +53,7 @@ export default function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm text-white/70 transition-colors hover:text-brand-teal"
+                  className="text-sm text-white/60 transition-colors hover:text-brand-teal"
                 >
                   {item.label}
                 </Link>
@@ -63,12 +64,10 @@ export default function Footer() {
 
         <div className="grid gap-10 border-b border-white/10 py-10 sm:py-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <h3 className="text-sm font-medium text-brand-teal">
-              Контакты
-            </h3>
+            <h3 className="text-sm font-medium text-brand-teal">Контакты</h3>
             <dl className="mt-4 space-y-3 text-sm sm:mt-5">
               <div>
-                <dt className="text-white/40">Телефон</dt>
+                <dt className="text-white/50">Телефон</dt>
                 <dd className="mt-1 break-all">
                   <a
                     href={`tel:${CONTACTS.phone}`}
@@ -79,7 +78,7 @@ export default function Footer() {
                 </dd>
               </div>
               <div>
-                <dt className="text-white/40">Email</dt>
+                <dt className="text-white/50">Email</dt>
                 <dd className="mt-1 break-all">
                   <a
                     href={`mailto:${CONTACTS.email}`}
@@ -90,16 +89,14 @@ export default function Footer() {
                 </dd>
               </div>
               <div>
-                <dt className="text-white/40">Адрес</dt>
+                <dt className="text-white/50">Адрес</dt>
                 <dd className="mt-1 text-white/80">{CONTACTS.address}</dd>
               </div>
             </dl>
           </div>
 
           <div className="lg:col-span-4">
-            <h3 className="text-sm font-medium text-brand-teal">
-              Документы
-            </h3>
+            <h3 className="text-sm font-medium text-brand-teal">Документы</h3>
             <ul className="mt-4 space-y-3 text-sm sm:mt-5">
               <li>
                 <Link
@@ -120,40 +117,37 @@ export default function Footer() {
                   </svg>
                 </Link>
               </li>
-              <li className="text-white/40">
+              <li className="text-white/50">
                 Устав и юридические документы — в разделе «Отчётность»
               </li>
             </ul>
           </div>
 
           <div className="lg:col-span-4">
-            <h3 className="text-sm font-medium text-brand-teal">
-              Язык
-            </h3>
-            <div className="mt-4 inline-flex items-center rounded-full border border-white/15 p-1 text-xs font-semibold sm:mt-5">
-              <span className="rounded-full bg-brand-teal px-3 py-1 text-brand-black">
-                RU
-              </span>
+            <h3 className="text-sm font-medium text-brand-teal">Язык</h3>
+            <div className="mt-4 flex items-center text-xs font-semibold sm:mt-5">
+              <span className="text-white">RU</span>
+              <span className="mx-1.5 text-white/30">/</span>
               <button
                 type="button"
                 disabled
-                className="px-3 py-1 text-white/50"
+                className="text-white/50"
                 aria-label="Английская версия появится после утверждения"
               >
                 EN
               </button>
             </div>
-            <p className="mt-3 text-[11px] text-white/40">
+            <p className="mt-3 text-xs text-white/50">
               Английская версия — после утверждения русской.
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 pt-6 text-xs text-white/40 sm:gap-4 sm:pt-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-3 pt-6 text-xs text-white/50 sm:gap-4 sm:pt-8 lg:flex-row lg:items-center lg:justify-between">
+          <p>БЛАГОТВОРИТЕЛЬНЫЙ ФОНД СТИВЕНА СИГАЛА · ИНН/ОГРН — уточнить</p>
           <p>
-            БЛАГОТВОРИТЕЛЬНЫЙ ФОНД СТИВЕНА СИГАЛА · ИНН/ОГРН — уточнить
+            © {new Date().getFullYear()} БФ Стивена Сигала. Все права защищены.
           </p>
-          <p>© {new Date().getFullYear()} БФ Стивена Сигала. Все права защищены.</p>
         </div>
       </div>
     </footer>

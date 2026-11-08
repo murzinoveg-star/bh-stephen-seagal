@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const AMOUNTS = [300, 500, 1000, 3000];
@@ -9,23 +9,94 @@ export default function HelpBlockSection() {
   const [isMonthly, setIsMonthly] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(300);
   const [customAmount, setCustomAmount] = useState("");
-  
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  
+
   const [consentPD, setConsentPD] = useState(false);
   const [consentOffer, setConsentOffer] = useState(false);
   const [takeCommission, setTakeCommission] = useState(false);
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const successRef = useRef<HTMLDivElement>(null);
 
-  const currentAmount = customAmount ? Number(customAmount) : selectedAmount;
+  useEffect(() => {
+    if (submitted) {
+      successRef.current?.focus();
+    }
+  }, [submitted]);
+
+  // P2.1: Защита от NaN. Если в customAmount ввели не-число или <= 0 — считаем, что суммы нет.
+  const currentAmount = (() => {
+    if (customAmount) {
+      const num = Number(customAmount);
+      return Number.isFinite(num) && num > 0 ? num : null;
+    }
+    return selectedAmount;
+  })();
+
+  function validate(): Record<string, string> {
+    const e: Record<string, string> = {};
+
+    if (!name.trim()) e.name = "Укажите имя";
+
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      e.email = "Проверьте формат email";
+    }
+
+    if (phone.trim()) {
+      const digits = phone.replace(/\D/g, "");
+      if (digits.length < 10) e.phone = "Проверьте формат телефона";
+    }
+
+    if (!consentPD) e.consentPD = "Необходимо согласие на обработку данных";
+    if (!consentOffer) e.consentOffer = "Необходимо согласие с офертой";
+
+    return e;
+  }
+
+  function handleFieldChange(
+    field: string,
+    setter: (v: string) => void,
+    value: string,
+  ) {
+    setter(value);
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
+  }
+
+  function handleCheckboxChange(
+    field: string,
+    setter: (v: boolean) => void,
+    value: boolean,
+  ) {
+    setter(value);
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !consentPD || !consentOffer) return;
+    if (!currentAmount) return;
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     setSubmitting(true);
 
@@ -52,13 +123,23 @@ export default function HelpBlockSection() {
     setPhone("");
     setConsentPD(false);
     setConsentOffer(false);
+    setTakeCommission(false);
+    setIsMonthly(false);
+    setSubmitting(false);
     setSubmitted(false);
+    setErrors({});
     setSelectedAmount(300);
     setCustomAmount("");
   }
 
   const inputBase =
-    "w-full border-b border-white/30 bg-transparent px-0 py-2.5 text-base text-white placeholder:text-white/40 outline-none transition-colors focus:border-white disabled:opacity-50";
+    "w-full border-b bg-transparent px-0 py-2.5 text-base text-white placeholder:text-white/50 outline-none transition-colors disabled:opacity-50";
+
+  function fieldClass(field: string) {
+    return errors[field]
+      ? "border-red-400/70 focus:border-red-400"
+      : "border-white/30 focus:border-white";
+  }
 
   const chipBase =
     "rounded-xl border py-3 text-center text-sm font-semibold transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-white/40 disabled:opacity-60";
@@ -67,13 +148,13 @@ export default function HelpBlockSection() {
   const chipActive = "border-white bg-white text-brand-blue";
 
   return (
-    <section className="relative bg-white px-2 py-2 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
-      
-      <div 
-        className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-[32px] lg:rounded-[48px]"
-        style={{ backgroundImage: "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)" }}
+    <section className="relative bg-neutral-50 px-2 py-16 sm:px-4 sm:py-24 lg:px-6 lg:py-32">
+      <div
+        className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-3xl lg:rounded-[48px]"
+        style={{
+          backgroundImage: "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)",
+        }}
       >
-
         {/* Картинка сердца в левом нижнем углу */}
         <div className="pointer-events-none absolute bottom-0 left-0 z-0 w-[0px] -translate-x-[-15%] translate-y-[35%] sm:w-[500px]">
           <Image
@@ -84,53 +165,80 @@ export default function HelpBlockSection() {
             className="h-auto w-full object-contain"
           />
         </div>
-        
+
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-16 lg:px-10 lg:py-16">
-          
           {/* Сетка 6/6 */}
           <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-10">
-            
             {/* Левая колонка: Текст (6 колонок) */}
             <div className="lg:col-span-6 lg:pr-8">
               <h2 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] text-white">
                 Как помочь?
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-white/75 sm:mt-7 sm:text-lg lg:text-xl">
-                Отправить пожертвование можно на любую удобную сумму по QR-коду или банковской картой.
+              <p className="mt-5 text-base leading-relaxed text-white/70 sm:mt-7 sm:text-lg lg:text-xl">
+                Отправить пожертвование можно на любую удобную сумму по QR-коду
+                или банковской картой.
               </p>
               <p className="mt-4 text-base leading-relaxed text-white/60 sm:text-lg">
-                Выберите разовый перевод или ежемесячное пожертвование. Постоянные поступления позволяют фонду оказывать стабильную регулярную поддержку.
+                Выберите разовый перевод или ежемесячное пожертвование.
+                Постоянные поступления позволяют фонду оказывать стабильную
+                регулярную поддержку.
               </p>
             </div>
 
             {/* Правая колонка: Форма (6 колонок) */}
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-6 min-h-[480px] lg:min-h-[620px]">
               {submitted ? (
-                <div className="flex flex-col items-start py-4" aria-live="polite">
+                <div
+                  ref={successRef}
+                  tabIndex={-1}
+                  role="status"
+                  className="flex flex-col items-start py-4 focus:outline-none"
+                >
                   <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 text-white sm:h-16 sm:w-16">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="sm:h-8 sm:w-8">
+                    <svg
+                      width="28"
+                      height="28"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="sm:h-8 sm:w-8"
+                    >
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </div>
-                  <h3 className="mt-6 text-2xl font-medium text-white sm:mt-8 sm:text-3xl">Спасибо за поддержку!</h3>
+                  <h3 className="mt-6 text-2xl font-medium text-white sm:mt-8 sm:text-3xl">
+                    Спасибо за поддержку!
+                  </h3>
                   <p className="mt-3 max-w-md text-base leading-relaxed text-white/70 sm:mt-4 sm:text-lg">
-                    Ваше пожертвование помогает нам продолжать работу и оказывать помощь тем, кто в ней нуждается.
+                    Ваше пожертвование помогает нам продолжать работу и
+                    оказывать помощь тем, кто в ней нуждается.
                   </p>
                   <button
                     type="button"
                     onClick={reset}
-                    className="mt-8 text-sm font-semibold text-white underline-offset-4 hover:underline sm:mt-10 sm:text-base"
+                    className="mt-8 inline-flex items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/10 px-8 py-4 text-sm font-semibold tracking-wide text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20 sm:mt-10"
                   >
                     Сделать ещё одно пожертвование
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5 sm:gap-6">
-                  
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="flex flex-col gap-5 sm:gap-6"
+                >
                   {/* Заголовок формы */}
                   <div>
-                    <h3 className="text-2xl font-medium text-white sm:text-3xl">Помогите сейчас!</h3>
-                    <p className="mt-1.5 text-sm text-white/70">Поддержите работу фонда удобным для вас способом.</p>
+                    <h3 className="text-2xl font-medium text-white sm:text-3xl">
+                      Помогите сейчас!
+                    </h3>
+                    <p className="mt-1.5 text-sm text-white/70">
+                      Поддержите работу фонда удобным для вас способом.
+                    </p>
                   </div>
 
                   {/* Переключатель Разово / Ежемесячно */}
@@ -139,7 +247,9 @@ export default function HelpBlockSection() {
                       type="button"
                       onClick={() => setIsMonthly(false)}
                       className={`flex-1 rounded-xl py-2.5 text-sm font-semibold transition-all duration-300 ${
-                        !isMonthly ? "bg-white text-brand-black shadow-sm" : "text-white/70 hover:text-white"
+                        !isMonthly
+                          ? "bg-white text-brand-black shadow-sm"
+                          : "text-white/70 hover:text-white"
                       }`}
                     >
                       Разово
@@ -148,11 +258,13 @@ export default function HelpBlockSection() {
                       type="button"
                       onClick={() => setIsMonthly(true)}
                       className={`relative flex-1 rounded-xl py-2.5 text-sm font-semibold transition-all duration-300 ${
-                        isMonthly ? "bg-white text-brand-black shadow-sm" : "text-white/70 hover:text-white"
+                        isMonthly
+                          ? "bg-white text-brand-black shadow-sm"
+                          : "text-white/70 hover:text-white"
                       }`}
                     >
                       Ежемесячно
-                      <span className="absolute -right-2 -top-2 rounded-full bg-brand-teal px-2 py-0.5 text-[9px] uppercase tracking-wider text-white">
+                      <span className="absolute -right-2 -top-2 rounded-full bg-brand-teal px-2 py-0.5 text-[10px] uppercase tracking-wider text-white">
                         Эффект x12
                       </span>
                     </button>
@@ -169,7 +281,9 @@ export default function HelpBlockSection() {
                           setCustomAmount("");
                         }}
                         className={`${chipBase} ${
-                          selectedAmount === amt && !customAmount ? chipActive : chipIdle
+                          selectedAmount === amt && !customAmount
+                            ? chipActive
+                            : chipIdle
                         }`}
                       >
                         {amt} ₽
@@ -187,39 +301,110 @@ export default function HelpBlockSection() {
                         setCustomAmount(e.target.value);
                         setSelectedAmount(null);
                       }}
-                      className={inputBase}
+                      className={`${inputBase} ${fieldClass("customAmount")}`}
                     />
                   </div>
 
                   {/* Поля Имя, Почта, Телефон */}
-                  <div className="grid gap-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-4">
+                  <div className="grid gap-5 sm:grid-cols-2 sm:gap-x-6">
                     <div className="sm:col-span-2">
+                      <label
+                        htmlFor="donate-name"
+                        className="mb-1 block text-sm font-medium text-white/90"
+                      >
+                        Имя <span className="text-white">*</span>
+                      </label>
                       <input
+                        id="donate-name"
                         type="text"
-                        placeholder="Имя"
+                        name="name"
+                        autoComplete="name"
+                        placeholder="Иван"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        className={inputBase}
+                        onChange={(e) =>
+                          handleFieldChange("name", setName, e.target.value)
+                        }
+                        disabled={submitting}
+                        aria-invalid={!!errors.name}
+                        aria-describedby={
+                          errors.name ? "name-error" : undefined
+                        }
+                        className={`${inputBase} ${fieldClass("name")}`}
                       />
+                      {errors.name && (
+                        <p
+                          id="name-error"
+                          className="mt-1.5 text-xs text-red-400"
+                        >
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
                     <div>
+                      <label
+                        htmlFor="donate-email"
+                        className="mb-1 block text-sm font-medium text-white/90"
+                      >
+                        Электронная почта
+                      </label>
                       <input
+                        id="donate-email"
                         type="email"
-                        placeholder="Электронная почта"
+                        name="email"
+                        autoComplete="email"
+                        placeholder="you@example.com"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={inputBase}
+                        onChange={(e) =>
+                          handleFieldChange("email", setEmail, e.target.value)
+                        }
+                        disabled={submitting}
+                        aria-invalid={!!errors.email}
+                        aria-describedby={
+                          errors.email ? "email-error" : undefined
+                        }
+                        className={`${inputBase} ${fieldClass("email")}`}
                       />
+                      {errors.email && (
+                        <p
+                          id="email-error"
+                          className="mt-1.5 text-xs text-red-400"
+                        >
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                     <div>
+                      <label
+                        htmlFor="donate-phone"
+                        className="mb-1 block text-sm font-medium text-white/90"
+                      >
+                        Телефон
+                      </label>
                       <input
+                        id="donate-phone"
                         type="tel"
-                        placeholder="Телефон"
+                        name="tel"
+                        autoComplete="tel"
+                        placeholder="+7 (___) ___-__-__"
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className={inputBase}
+                        onChange={(e) =>
+                          handleFieldChange("phone", setPhone, e.target.value)
+                        }
+                        disabled={submitting}
+                        aria-invalid={!!errors.phone}
+                        aria-describedby={
+                          errors.phone ? "phone-error" : undefined
+                        }
+                        className={`${inputBase} ${fieldClass("phone")}`}
                       />
+                      {errors.phone && (
+                        <p
+                          id="phone-error"
+                          className="mt-1.5 text-xs text-red-400"
+                        >
+                          {errors.phone}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -230,10 +415,25 @@ export default function HelpBlockSection() {
                         <input
                           type="checkbox"
                           checked={takeCommission}
-                          onChange={(e) => setTakeCommission(e.target.checked)}
+                          onChange={(e) =>
+                            handleCheckboxChange(
+                              "takeCommission",
+                              setTakeCommission,
+                              e.target.checked,
+                            )
+                          }
                           className="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-white/40 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                         />
-                        <svg className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <svg
+                          className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
                           <path d="M5 12l5 5L20 7" />
                         </svg>
                       </span>
@@ -242,55 +442,150 @@ export default function HelpBlockSection() {
                       </span>
                     </label>
 
-                    <label className="flex cursor-pointer items-start gap-3">
-                      <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
-                        <input
-                          type="checkbox"
-                          checked={consentPD}
-                          onChange={(e) => setConsentPD(e.target.checked)}
-                          required
-                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-white/40 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-                        />
-                        <svg className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M5 12l5 5L20 7" />
-                        </svg>
-                      </span>
-                      <span className="text-xs leading-relaxed text-white/70">
-                        Согласен(-на) на <a href="#" className="text-white underline underline-offset-2 hover:text-white/80">обработку персональных данных</a>
-                      </span>
-                    </label>
+                    <div>
+                      <label className="flex cursor-pointer items-start gap-3">
+                        <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
+                          <input
+                            type="checkbox"
+                            checked={consentPD}
+                            onChange={(e) =>
+                              handleCheckboxChange(
+                                "consentPD",
+                                setConsentPD,
+                                e.target.checked,
+                              )
+                            }
+                            aria-invalid={!!errors.consentPD}
+                            aria-describedby={
+                              errors.consentPD ? "consentPD-error" : undefined
+                            }
+                            className={`peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
+                              errors.consentPD
+                                ? "border-red-400/70"
+                                : "border-white/40"
+                            }`}
+                          />
+                          <svg
+                            className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M5 12l5 5L20 7" />
+                          </svg>
+                        </span>
+                        <span className="text-xs leading-relaxed text-white/70">
+                          Согласен(-на) на{" "}
+                          <a
+                            href="#"
+                            className="text-white underline underline-offset-2 hover:text-white/80"
+                          >
+                            обработку персональных данных
+                          </a>
+                        </span>
+                      </label>
+                      {errors.consentPD && (
+                        <p
+                          id="consentPD-error"
+                          className="mt-2 text-xs text-red-400"
+                        >
+                          {errors.consentPD}
+                        </p>
+                      )}
+                    </div>
 
-                    <label className="flex cursor-pointer items-start gap-3">
-                      <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
-                        <input
-                          type="checkbox"
-                          checked={consentOffer}
-                          onChange={(e) => setConsentOffer(e.target.checked)}
-                          required
-                          className="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-white/40 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-                        />
-                        <svg className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M5 12l5 5L20 7" />
-                        </svg>
-                      </span>
-                      <span className="text-xs leading-relaxed text-white/70">
-                        Согласен(-на) с <a href="#" className="text-white underline underline-offset-2 hover:text-white/80">условиями оферты</a>
-                      </span>
-                    </label>
+                    <div>
+                      <label className="flex cursor-pointer items-start gap-3">
+                        <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
+                          <input
+                            type="checkbox"
+                            checked={consentOffer}
+                            onChange={(e) =>
+                              handleCheckboxChange(
+                                "consentOffer",
+                                setConsentOffer,
+                                e.target.checked,
+                              )
+                            }
+                            aria-invalid={!!errors.consentOffer}
+                            aria-describedby={
+                              errors.consentOffer
+                                ? "consentOffer-error"
+                                : undefined
+                            }
+                            className={`peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
+                              errors.consentOffer
+                                ? "border-red-400/70"
+                                : "border-white/40"
+                            }`}
+                          />
+                          <svg
+                            className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M5 12l5 5L20 7" />
+                          </svg>
+                        </span>
+                        <span className="text-xs leading-relaxed text-white/70">
+                          Согласен(-на) с{" "}
+                          <a
+                            href="#"
+                            className="text-white underline underline-offset-2 hover:text-white/80"
+                          >
+                            условиями оферты
+                          </a>
+                        </span>
+                      </label>
+                      {errors.consentOffer && (
+                        <p
+                          id="consentOffer-error"
+                          className="mt-2 text-xs text-red-400"
+                        >
+                          {errors.consentOffer}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   {/* Кнопка отправки */}
                   <div className="pt-1">
                     <button
                       type="submit"
-                      disabled={submitting}
+                      disabled={submitting || !currentAmount}
                       className="inline-flex w-full items-center justify-between gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {submitting ? (
                         <span className="flex w-full items-center justify-center gap-2">
-                          <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" opacity="0.25" />
-                            <path d="M12 2a10 10 0 019.95 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                          <svg
+                            className="h-4 w-4 animate-spin"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            aria-hidden="true"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="3"
+                              opacity="0.25"
+                            />
+                            <path
+                              d="M12 2a10 10 0 019.95 9"
+                              stroke="currentColor"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                            />
                           </svg>
                           Отправляем…
                         </span>
@@ -298,7 +593,9 @@ export default function HelpBlockSection() {
                         <>
                           <span>Помочь сейчас</span>
                           <span className="text-base font-bold">
-                            {currentAmount ? `${currentAmount.toLocaleString("ru-RU")} ₽` : "Сумма"}
+                            {currentAmount
+                              ? `${currentAmount.toLocaleString("ru-RU")} ₽`
+                              : "Сумма"}
                           </span>
                         </>
                       )}

@@ -2,18 +2,24 @@ import Image from "next/image";
 import Button from "../ui/Button";
 
 // Иконка для надзаголовка
-function IconIntersect({ className = "", size = 18 }: { className?: string; size?: number }) {
+function IconIntersect({
+  className = "",
+  size = 18,
+}: {
+  className?: string;
+  size?: number;
+}) {
   return (
-    <svg 
-      viewBox="0 0 24 24" 
-      width={size} 
-      height={size} 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className={className} 
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
       aria-hidden="true"
     >
       <circle cx="9" cy="12" r="6" />
@@ -25,8 +31,7 @@ function IconIntersect({ className = "", size = 18 }: { className?: string; size
 export default function HeroSection() {
   return (
     <section className="relative bg-white px-2 sm:px-4 lg:px-6">
-      <div className="relative mx-auto flex w-full max-w-[1920px] items-center overflow-hidden rounded-[32px] bg-brand-blue lg:rounded-[48px]">
-        
+      <div className="relative mx-auto flex w-full max-w-[1920px] items-center overflow-hidden rounded-3xl bg-brand-blue lg:rounded-[48px]">
         {/* Фоновое изображение (скрыто на мобильных) */}
         <div className="absolute inset-0 z-0 hidden sm:block">
           <Image
@@ -46,10 +51,9 @@ export default function HeroSection() {
         <div className="absolute inset-0 z-0 hidden sm:block bg-gradient-to-t from-brand-black/80 via-transparent to-transparent" />
 
         {/* Основной контент */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-32">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-20 lg:px-10 lg:py-32">
           <div className="grid items-end gap-10 lg:grid-cols-12">
             <div className="animate-fade-up lg:col-span-8">
-              
               <h1 className="break-words text-[clamp(1.5rem,6.5vw,5.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-white sm:leading-[0.95]">
                 Благотворительный фонд Стивена Сигала
               </h1>
@@ -64,25 +68,34 @@ export default function HeroSection() {
                     Наша миссия
                   </span>
                 </div>
-                
-                <p className="text-lg leading-relaxed text-white/90 sm:text-xl lg:text-2xl">
-                  «Мы улучшаем качество жизни, возвращая людям и тем, кто им дорог, уверенность в завтрашнем дне, веру в доброту и справедливость»
+
+                <p className="text-base leading-relaxed text-white/90 sm:text-lg lg:text-2xl">
+                  «Мы улучшаем качество жизни, возвращая людям и тем, кто им
+                  дорог, уверенность в завтрашнем дне, веру в доброту и
+                  справедливость»
                 </p>
               </div>
 
               {/* Кнопки */}
               <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
-                <Button href="/donate" variant="primary" className="w-full justify-center sm:w-auto">
+                <Button
+                  href="/donate"
+                  variant="primary"
+                  className="w-full justify-center sm:w-auto"
+                >
                   Помочь
                 </Button>
-                <Button href="/programs" variant="secondary" className="w-full justify-center sm:w-auto">
+                <Button
+                  href="/programs"
+                  variant="secondary"
+                  className="w-full justify-center sm:w-auto"
+                >
                   Наши проекты
                 </Button>
               </div>
             </div>
           </div>
         </div>
-        
       </div>
     </section>
   );

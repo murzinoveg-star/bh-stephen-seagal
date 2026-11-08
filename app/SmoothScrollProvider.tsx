@@ -20,6 +20,10 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
         // Немного уменьшает "шаг" за один тик колесика, чтобы движение было мягче.
         wheelMultiplier: 0.9,
         
+        // P2.4: Отключаем плавный скролл, если пользователь предпочитает
+        // уменьшенное движение (prefers-reduced-motion: reduce).
+        prefersReducedMotion: true,
+        
         // Отключаем авто-RAF, если вы планируете синхронизировать Lenis с другими анимациями (например, GSAP).
         // Если у вас нет сложной анимационной логики, можно оставить false (по умолчанию).
         // autoRaf: false, 

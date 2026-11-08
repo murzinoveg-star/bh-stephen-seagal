@@ -8,16 +8,16 @@ type IconProps = { className?: string; size?: number };
 // Иконка синей стрелки для списка
 function IconArrowRight({ className = "", size = 20 }: IconProps) {
   return (
-    <svg 
-      viewBox="0 0 24 24" 
-      width={size} 
-      height={size} 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className={className} 
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
       aria-hidden="true"
     >
       <path d="M5 12h14M13 6l6 6-6 6" />
@@ -28,7 +28,18 @@ function IconArrowRight({ className = "", size = 20 }: IconProps) {
 // Иконки для карточки СВО
 function IconPsych({ className = "", size = 24 }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
       <path d="M12 21s-7-4.3-7-9.5A3.5 3.5 0 0112 8a3.5 3.5 0 017 3.5C19 16.7 12 21 12 21z" />
     </svg>
   );
@@ -36,7 +47,18 @@ function IconPsych({ className = "", size = 24 }: IconProps) {
 
 function IconLegal({ className = "", size = 24 }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
       <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" />
       <path d="M9 12l2 2 4-4" />
     </svg>
@@ -46,7 +68,18 @@ function IconLegal({ className = "", size = 24 }: IconProps) {
 // Иконка для карточки детей (Мишка)
 function IconTeddyBear({ className = "", size = 24 }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
       <circle cx="12" cy="13" r="5" />
       <circle cx="6" cy="8" r="3" />
       <circle cx="18" cy="8" r="3" />
@@ -59,7 +92,18 @@ function IconTeddyBear({ className = "", size = 24 }: IconProps) {
 
 function IconUsers({ className = "", size = 24 }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
       <circle cx="9" cy="8" r="3" />
       <path d="M3 20a6 6 0 0112 0" />
       <circle cx="17.5" cy="8.5" r="2.5" />
@@ -70,7 +114,18 @@ function IconUsers({ className = "", size = 24 }: IconProps) {
 
 function IconPaw({ className = "", size = 24 }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
       <circle cx="6" cy="10" r="1.7" />
       <circle cx="18" cy="10" r="1.7" />
       <circle cx="9" cy="5.8" r="1.7" />
@@ -104,7 +159,7 @@ const PROGRAMS: Program[] = [
     title: "Лечение детей с тяжёлыми заболеваниями",
     list: [
       "Финансируем необходимые лекарства, операции, медицинские процедуры и другие этапы восстановления.",
-      "Открываем сборы на лечение детей и привлекаем средства, необходимые для их помощи."
+      "Открываем сборы на лечение детей и привлекаем средства, необходимые для их помощи.",
     ],
     href: "/programs/children",
     image: "/programs/children.jpg",
@@ -116,7 +171,7 @@ const PROGRAMS: Program[] = [
     title: "Помощь пенсионерам, которым особенно нужна забота",
     list: [
       "Помогаем пожилым людям получать необходимые лекарства, медицинские приборы и всё, что нужно для поддержания здоровья.",
-      "Обеспечиваем продуктами и базовыми вещами тех, кто нуждается в материальной поддержке."
+      "Обеспечиваем продуктами и базовыми вещами тех, кто нуждается в материальной поддержке.",
     ],
     href: "/programs/elderly",
     image: "/programs/elderly.jpg",
@@ -129,7 +184,7 @@ const PROGRAMS: Program[] = [
     list: [
       "Финансируем ветеринарные обследования, операции, вакцинацию и необходимые медицинские препараты.",
       "Обеспечиваем животных кормом, средствами ухода и другими необходимыми вещами на время пребывания в приюте или у волонтёров.",
-      "Поддерживаем приюты и организации, которые ежедневно заботятся о животных: помогаем с содержанием, закупками и обустройством пространства."
+      "Поддерживаем приюты и организации, которые ежедневно заботятся о животных: помогаем с содержанием, закупками и обустройством пространства.",
     ],
     href: "/programs/animals",
     image: "/programs/animals.jpg",
@@ -138,7 +193,13 @@ const PROGRAMS: Program[] = [
   },
 ];
 
-function ImageBackground({ src, className = "" }: { src?: string; className?: string }) {
+function ImageBackground({
+  src,
+  className = "",
+}: {
+  src?: string;
+  className?: string;
+}) {
   if (!src) {
     return (
       <div className={`absolute inset-0 bg-brand-black ${className}`}>
@@ -164,11 +225,12 @@ function SvoCard({ program }: { program: Program }) {
   return (
     <Link
       href={program.href}
-      className="group relative flex w-full flex-col overflow-hidden rounded-3xl p-6 text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/30 sm:p-8 lg:p-10"
-      style={{ backgroundImage: "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)" }}
+      className="group relative flex w-full flex-col overflow-hidden rounded-3xl p-6 text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/30 sm:p-8 lg:p-12"
+      style={{
+        backgroundImage: "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)",
+      }}
     >
       <div className="relative z-10 flex h-full flex-col">
-        
         <h3 className="text-2xl font-medium leading-tight tracking-[-0.02em] sm:text-3xl lg:text-4xl">
           {program.title}
         </h3>
@@ -176,31 +238,32 @@ function SvoCard({ program }: { program: Program }) {
         <div className="my-6 h-px w-full bg-white/20 sm:my-8" />
 
         <div className="grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
-          
           <div>
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white">
-              <IconPsych size={26} />
+              <IconPsych size={24} />
             </div>
             <h4 className="mb-2 text-lg font-semibold text-white lg:text-xl">
               Психологическая помощь
             </h4>
-            <p className="max-w-prose text-sm leading-relaxed text-white/85 lg:text-base">
-              Бесплатные психологические консультации со специалистами для участников боевых действий, ветеранов и их близких — при пережитой утрате, травматическом опыте, тревоге и сложностях с возвращением к мирной жизни.
+            <p className="max-w-prose text-sm leading-relaxed text-white/90 lg:text-base">
+              Бесплатные психологические консультации со специалистами для
+              участников боевых действий, ветеранов и их близких — при пережитой
+              утрате, травматическом опыте, тревоге и сложностях с возвращением
+              к мирной жизни.
             </p>
           </div>
 
           <div>
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-white">
-              <IconLegal size={26} />
+              <IconLegal size={24} />
             </div>
             <h4 className="mb-2 text-lg font-semibold text-white lg:text-xl">
               Юридическая помощь
             </h4>
-            <p className="max-w-prose text-sm leading-relaxed text-white/85 lg:text-base">
+            <p className="max-w-prose text-sm leading-relaxed text-white/90 lg:text-base">
               Юридическая помощь в вопросах выплат, льгот и социальных гарантий.
             </p>
           </div>
-
         </div>
 
         <div className="mt-8 flex justify-start lg:mt-auto lg:pt-8">
@@ -222,19 +285,19 @@ function VisualCard({ program }: { program: Program }) {
       className="group relative flex w-full flex-col overflow-hidden rounded-3xl bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/10 md:flex-row"
     >
       {/* Левая часть: Контент (с паддингами) */}
-      <div className="flex flex-1 flex-col justify-between p-6 sm:p-8 lg:p-10">
+      <div className="flex flex-1 flex-col justify-between p-6 sm:p-8 lg:p-12">
         <div>
           {/* Иконка над заголовком */}
           {Icon && (
             <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-blue/5 text-brand-blue">
-              <Icon size={26} />
+              <Icon size={24} />
             </div>
           )}
 
           <h3 className="text-2xl font-medium leading-tight tracking-[-0.02em] text-brand-black sm:text-3xl lg:text-4xl">
             {program.title}
           </h3>
-          
+
           {/* Список с синими стрелками */}
           <ul className="mt-5 space-y-3">
             {program.list?.map((item, index) => (
@@ -258,7 +321,10 @@ function VisualCard({ program }: { program: Program }) {
 
       {/* Правая часть: Изображение */}
       <div className="relative min-h-[250px] w-full overflow-hidden order-first rounded-b-3xl md:order-last md:w-1/2 md:rounded-l-3xl md:rounded-tr-none md:rounded-br-none">
-        <ImageBackground src={program.image} className="transition-transform duration-700 group-hover:scale-105" />
+        <ImageBackground
+          src={program.image}
+          className="transition-transform duration-700 group-hover:scale-105"
+        />
       </div>
     </Link>
   );
@@ -275,7 +341,6 @@ export default function ProgramsCardsSection() {
       <div className="grid-blue pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_80%)]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-        
         <div className="mb-8 sm:mb-14">
           <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
             Направления фонда
@@ -287,7 +352,6 @@ export default function ProgramsCardsSection() {
             <ProgramCard key={program.id} program={program} />
           ))}
         </div>
-
       </div>
     </section>
   );
