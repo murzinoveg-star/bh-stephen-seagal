@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description:
     "Помогаем участникам СВО — юридической и психологической поддержкой, детям, животным и старшим.",
   metadataBase: new URL("https://example.org"),
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: "БФ Стивена Сигала",
     description:
