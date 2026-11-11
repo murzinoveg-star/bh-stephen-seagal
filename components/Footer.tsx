@@ -21,7 +21,7 @@ const NAV = [
 export default function Footer() {
   return (
     <footer className="relative bg-brand-black text-white">
-      <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 sm:pt-20 lg:px-10 lg:pt-24">
+      <div className="relative mx-auto max-w-7xl px-2 pb-10 pt-16 sm:px-6 sm:pt-20 lg:px-10 lg:pt-16">
         <div className="grid gap-10 border-b border-white/10 pb-10 sm:pb-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <Link

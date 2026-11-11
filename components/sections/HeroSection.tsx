@@ -51,7 +51,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 z-0 hidden sm:block bg-gradient-to-t from-brand-black/80 via-transparent to-transparent" />
 
         {/* Основной контент */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-20 lg:px-10 lg:py-32">
+        <div className="relative z-10 mx-auto w-full max-w-7xl pb-5 pt-10 px-5 md:py-20 md:px-10">
           <div className="grid items-end gap-10 lg:grid-cols-12">
             <div className="animate-fade-up lg:col-span-8">
               <h1 className="break-words text-[clamp(1.5rem,6.5vw,5.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-white sm:leading-[0.95]">

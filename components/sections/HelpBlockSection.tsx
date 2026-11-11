@@ -148,7 +148,7 @@ export default function HelpBlockSection() {
   const chipActive = "border-white bg-white text-brand-blue";
 
   return (
-    <section className="relative bg-neutral-50 px-2 py-16 sm:px-4 sm:py-24 lg:px-6 lg:py-32">
+    <section className="relative bg-neutral-50 px-2 py-16 sm:px-4 sm:py-16 lg:px-6 lg:py-16">
       <div
         className="relative mx-auto flex w-full max-w-[1920px] flex-col overflow-hidden rounded-3xl lg:rounded-[48px]"
         style={{
@@ -156,17 +156,17 @@ export default function HelpBlockSection() {
         }}
       >
         {/* Картинка сердца в левом нижнем углу */}
-        <div className="pointer-events-none absolute bottom-0 left-0 z-0 w-[0px] -translate-x-[-15%] translate-y-[35%] sm:w-[500px]">
+        <div className="pointer-events-none absolute bottom-0 left-0 z-0 -translate-x-[37%] translate-y-[60%] w-[70vw]">
           <Image
             src="/heart_dark.png"
             alt=""
-            width={500}
-            height={500}
+            width={750}
+            height={750}
             className="h-auto w-full object-contain"
           />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-16 lg:px-10 lg:py-16">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-8 pb-4 sm:px-6 sm:py-16 lg:px-10 lg:py-16">
           {/* Сетка 6/6 */}
           <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-10">
             {/* Левая колонка: Текст (6 колонок) */}
@@ -562,7 +562,7 @@ export default function HelpBlockSection() {
                     <button
                       type="submit"
                       disabled={submitting || !currentAmount}
-                      className="inline-flex w-full items-center justify-between gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex w-full sm:w-auto items-center justify-between gap-6 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {submitting ? (
                         <span className="flex w-full items-center justify-center gap-2">

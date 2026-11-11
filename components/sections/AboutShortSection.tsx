@@ -66,8 +66,8 @@ export default function AboutShortSection() {
 
   return (
     <section ref={sectionRef} className="relative bg-white lg:h-[300vh]">
-      <div className="lg:sticky lg:top-0 flex h-auto flex-col justify-center overflow-hidden py-16 sm:py-24 lg:h-screen lg:py-0">
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10">
+      <div className="lg:sticky lg:top-0 flex h-auto flex-col justify-center overflow-hidden py-16 sm:py-16 lg:h-screen lg:py-0">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-2 sm:px-6 lg:px-10">
           <div className="mb-10 lg:mb-16">
             <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
               О фонде

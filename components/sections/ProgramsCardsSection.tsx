@@ -230,6 +230,17 @@ function SvoCard({ program }: { program: Program }) {
         backgroundImage: "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)",
       }}
     >
+      {/* Фоновое изображение: правый нижний угол, крупно, за контентом */}
+      <div className="pointer-events-none absolute bottom-0 right-0 z-0 translate-x-[30%] translate-y-[75%] w-[60vw] -scale-y-100">
+        <Image
+          src="/infinity_dark.png"
+          alt=""
+          width={800}
+          height={800}
+          className="h-auto w-full object-contain"
+        />
+      </div>
+
       <div className="relative z-10 flex h-full flex-col">
         <h3 className="text-2xl font-medium leading-tight tracking-[-0.02em] sm:text-3xl lg:text-4xl">
           {program.title}
@@ -337,10 +348,10 @@ function ProgramCard({ program }: { program: Program }) {
 
 export default function ProgramsCardsSection() {
   return (
-    <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-16 lg:py-16">
       <div className="grid-blue pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_80%)]" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+      <div className="relative mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
         <div className="mb-8 sm:mb-14">
           <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
             Направления фонда

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const FAQ_ITEMS = [
   {
@@ -45,8 +46,18 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="relative bg-neutral-50 py-16 sm:py-24 lg:py-32">
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+    <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-16 lg:py-16">
+      {/* Фоновое изображение: крупный объект в левом нижнем углу */}
+            <div className="pointer-events-none absolute bottom-0 right-0 z-0 translate-x-[30%] translate-y-[35%] -scale-y-100 w-[60vw]">
+              <Image
+                src="/heart_dark.png"
+                alt=""
+                width={1200}
+                height={1200}
+                className="h-auto w-full object-contain"
+              />
+            </div>
+      <div className="relative mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
         {/* Заголовок */}
         <div className="mb-10 sm:mb-12 lg:mb-16">
           <h2 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">

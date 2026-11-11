@@ -74,19 +74,20 @@ export default function FoundersSection() {
   };
 
   return (
-    <section className="relative bg-brand-black py-16 sm:py-24 lg:py-32">
-      {/* Фоновое изображение */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative overflow-hidden bg-gradient-to-r from-[#121C26] to-[#1a2a3c] py-16 sm:py-16 lg:py-16">
+      {/* Фоновое изображение: правый нижний угол */}
+      <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[70vw] max-w-[1200px] translate-x-[60%] translate-y-[40%]">
         <Image
-          src="/bg_dark.jpg"
-          alt="Фон секции"
-          fill
-          className="object-cover opacity-20"
+          src="/heart_black.png"
+          alt=""
+          width={1200}
+          height={1200}
+          className="h-auto w-full object-contain"
         />
       </div>
 
       {/* Контент */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
         {/* Шапка секции с разделителем */}
         <div className="mb-12 border-b border-white/10 pb-10 lg:mb-16 lg:pb-14">
           <div className="mb-6 flex items-center gap-1">
@@ -98,7 +99,6 @@ export default function FoundersSection() {
             </span>
           </div>
 
-          {/* Разделенный заголовок с разной прозрачностью */}
           <h2 className="max-w-4xl text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.15] tracking-[-0.02em] break-words hyphens-auto">
             <span className="text-white/50">
               У каждого из учредителей свой путь, опыт и причины{" "}
@@ -109,7 +109,7 @@ export default function FoundersSection() {
 
         {/* Основной контент */}
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-          {/* Правая часть: Фото (5 колонок) - на мобильных первая */}
+          {/* Правая часть: Фото */}
           <div className="lg:col-span-5 flex justify-start lg:justify-end lg:order-last">
             <div className="relative aspect-square w-40 sm:w-64 md:w-80 lg:w-full max-w-[400px] overflow-hidden rounded-3xl bg-white/5">
               {activeFounder.image && (
@@ -124,7 +124,7 @@ export default function FoundersSection() {
             </div>
           </div>
 
-          {/* Левая часть: Текст и Табы (7 колонок) - на мобильных вторая */}
+          {/* Левая часть: Текст и Табы */}
           <div className="lg:col-span-7 flex flex-col justify-center h-full lg:order-first">
             <div className="min-h-[300px] transition-all duration-300">
               <h3 className="text-3xl font-medium leading-[1.1] tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl break-words">
@@ -142,7 +142,7 @@ export default function FoundersSection() {
               </blockquote>
             </div>
 
-            {/* Десктопные табы (текстовые карточки) */}
+            {/* Десктопные табы */}
             <div className="mt-8 hidden lg:flex flex-row gap-3 sm:mt-10">
               {FOUNDERS.map((founder) => (
                 <button
@@ -167,7 +167,7 @@ export default function FoundersSection() {
               ))}
             </div>
 
-            {/* Мобильный контрол: Стрелки */}
+            {/* Мобильные стрелки */}
             <div className="mt-8 flex lg:hidden items-center justify-between gap-4 sm:mt-10">
               <button
                 onClick={handlePrev}

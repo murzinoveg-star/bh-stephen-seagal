@@ -30,7 +30,7 @@ export default function Header() {
 
   return (
     <header className="relative z-50 bg-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 sm:py-6 lg:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-2 py-4 sm:px-6 sm:py-6 lg:px-10">
         <Link
           href="/"
           className="flex items-center"

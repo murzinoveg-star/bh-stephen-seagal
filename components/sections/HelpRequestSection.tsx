@@ -215,22 +215,23 @@ export default function HelpRequestSection() {
   }
 
   return (
-    <section className="relative bg-brand-black py-16 sm:py-24 lg:py-32">
-      {/* Фоновое изображение */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative overflow-hidden bg-gradient-to-l from-[#121C26] to-[#1a2a3c] py-16 sm:py-16 lg:py-16">
+      {/* Фоновое изображение: крупный объект в левом нижнем углу */}
+      <div className="pointer-events-none absolute bottom-0 left-0 z-0 -translate-x-[20%] translate-y-[85%] rotate-90 w-[60vw]">
         <Image
-          src="/bg_dark.jpg"
-          alt="Фон секции"
-          fill
-          className="object-cover opacity-20"
+          src="/heart_black.png"
+          alt=""
+          width={1200}
+          height={1200}
+          className="h-auto w-full object-contain"
         />
       </div>
 
       {/* Контент */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
         {/* Шапка секции с разделителем */}
         <div className="mb-12 border-b border-white/10 pb-10 lg:mb-16 lg:pb-14">
-          <div className="grid items-end gap-6 lg:grid-cols-12 lg:gap-10">
+          <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-24">
             <div className="lg:col-span-6">
               <h2 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] text-white">
                 Нужна помощь?
@@ -246,9 +247,9 @@ export default function HelpRequestSection() {
         </div>
 
         {/* Основной контент */}
-        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-24">
           {/* Левая колонка: Этапы, видео и пояснения */}
-          <div className="lg:col-span-6 lg:pr-4">
+          <div className="lg:col-span-6">
             <div className="space-y-6 text-base leading-relaxed text-white/70 sm:text-lg">
               <p>
                 После получения заявки специалисты изучат информацию и свяжутся
@@ -304,18 +305,313 @@ export default function HelpRequestSection() {
 
           {/* Правая колонка: Форма */}
           <div className="lg:col-span-6">
-            <div className="rounded-3xl bg-brand-black/40 p-6 backdrop-blur-md sm:p-8 lg:p-12 border border-white/10">
-              {submitted ? (
-                <div
-                  ref={successRef}
-                  tabIndex={-1}
-                  role="status"
-                  className="flex flex-col items-start py-4 focus:outline-none"
-                >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 text-white sm:h-16 sm:w-16">
+            {submitted ? (
+              <div
+                ref={successRef}
+                tabIndex={-1}
+                role="status"
+                className="flex flex-col items-start py-4 focus:outline-none"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 text-white sm:h-16 sm:w-16">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="sm:h-8 sm:w-8"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+                <h3 className="mt-6 text-2xl font-medium text-white sm:mt-8 sm:text-3xl">
+                  Заявка отправлена
+                </h3>
+                <p className="mt-3 max-w-md text-base leading-relaxed text-white/70 sm:mt-4 sm:text-lg">
+                  Спасибо! Мы свяжемся с вами в течение 1–2 рабочих дней,
+                  чтобы уточнить детали и подсказать дальнейшие шаги.
+                </p>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="flex flex-col gap-6 sm:gap-8"
+              >
+                {/* Поля формы (сетка 2x2) */}
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div className="sm:col-span-2">
+                    <label
+                      htmlFor="fullName"
+                      className="mb-1 block text-sm font-medium text-white/90"
+                    >
+                      ФИО <span className="text-white">*</span>
+                    </label>
+                    <input
+                      id="fullName"
+                      type="text"
+                      name="name"
+                      autoComplete="name"
+                      required
+                      placeholder="Иванов Иван Иванович"
+                      value={formData.fullName}
+                      onChange={(e) =>
+                        handleFieldChange("fullName", e.target.value)
+                      }
+                      disabled={submitting}
+                      aria-invalid={!!errors.fullName}
+                      aria-describedby={
+                        errors.fullName ? "fullName-error" : undefined
+                      }
+                      className={fieldClass("fullName")}
+                    />
+                    {errors.fullName && (
+                      <p
+                        id="fullName-error"
+                        className="mt-1.5 text-xs text-red-400"
+                      >
+                        {errors.fullName}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="mb-1 block text-sm font-medium text-white/90"
+                    >
+                      Номер телефона <span className="text-white">*</span>
+                    </label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      name="tel"
+                      autoComplete="tel"
+                      required
+                      placeholder="+7 (___) ___-__-__"
+                      value={formData.phone}
+                      onChange={(e) =>
+                        handleFieldChange("phone", e.target.value)
+                      }
+                      disabled={submitting}
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={
+                        errors.phone ? "phone-error" : undefined
+                      }
+                      className={fieldClass("phone")}
+                    />
+                    {errors.phone && (
+                      <p
+                        id="phone-error"
+                        className="mt-1.5 text-xs text-red-400"
+                      >
+                        {errors.phone}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="mb-1 block text-sm font-medium text-white/90"
+                    >
+                      Электронная почта <span className="text-white">*</span>
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      required
+                      placeholder="you@example.com"
+                      value={formData.email}
+                      onChange={(e) =>
+                        handleFieldChange("email", e.target.value)
+                      }
+                      disabled={submitting}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={
+                        errors.email ? "email-error" : undefined
+                      }
+                      className={fieldClass("email")}
+                    />
+                    {errors.email && (
+                      <p
+                        id="email-error"
+                        className="mt-1.5 text-xs text-red-400"
+                      >
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="city"
+                      className="mb-1 block text-sm font-medium text-white/90"
+                    >
+                      Город <span className="text-white">*</span>
+                    </label>
+                    <input
+                      id="city"
+                      type="text"
+                      name="address-level2"
+                      autoComplete="address-level2"
+                      required
+                      placeholder="Ваш город"
+                      value={formData.city}
+                      onChange={(e) =>
+                        handleFieldChange("city", e.target.value)
+                      }
+                      disabled={submitting}
+                      aria-invalid={!!errors.city}
+                      aria-describedby={
+                        errors.city ? "city-error" : undefined
+                      }
+                      className={fieldClass("city")}
+                    />
+                    {errors.city && (
+                      <p
+                        id="city-error"
+                        className="mt-1.5 text-xs text-red-400"
+                      >
+                        {errors.city}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="category"
+                      className="mb-1 block text-sm font-medium text-white/90"
+                    >
+                      Категория <span className="text-white">*</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="category"
+                        required
+                        value={formData.category}
+                        onChange={(e) =>
+                          handleFieldChange("category", e.target.value)
+                        }
+                        disabled={submitting}
+                        aria-invalid={!!errors.category}
+                        aria-describedby={
+                          errors.category ? "category-error" : undefined
+                        }
+                        className={`${fieldClass("category")} appearance-none cursor-pointer ${formData.category === "" ? "text-white/50" : "text-white"}`}
+                      >
+                        <option
+                          value=""
+                          disabled
+                          className="bg-brand-black text-white/50"
+                        >
+                          Выберите категорию
+                        </option>
+                        {CATEGORIES.map((c) => (
+                          <option
+                            key={c.id}
+                            value={c.id}
+                            className="bg-brand-black text-white"
+                          >
+                            {c.label}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center">
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-white/50"
+                        >
+                          <path d="M6 9l6 6 6-6" />
+                        </svg>
+                      </div>
+                    </div>
+                    {errors.category && (
+                      <p
+                        id="category-error"
+                        className="mt-1.5 text-xs text-red-400"
+                      >
+                        {errors.category}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Текстовое поле ситуации */}
+                <div>
+                  <div className="mb-1 flex items-baseline justify-between gap-3">
+                    <label
+                      htmlFor="message"
+                      className="text-sm font-medium text-white/90"
+                    >
+                      Расскажите о вашей ситуации{" "}
+                      <span className="text-white">*</span>
+                    </label>
+                    <span className="text-xs tabular-nums text-white/50">
+                      {formData.message.length} / 2000
+                    </span>
+                  </div>
+                  <textarea
+                    id="message"
+                    required
+                    rows={4}
+                    maxLength={2000}
+                    placeholder="Подробно опишите, что случилось и какая помощь нужна..."
+                    value={formData.message}
+                    onChange={(e) =>
+                      handleFieldChange("message", e.target.value)
+                    }
+                    disabled={submitting}
+                    aria-invalid={!!errors.message}
+                    aria-describedby={
+                      errors.message ? "message-error" : undefined
+                    }
+                    className={`${fieldClass("message")} resize-none`}
+                  />
+                  {errors.message && (
+                    <p
+                      id="message-error"
+                      className="mt-1.5 text-xs text-red-400"
+                    >
+                      {errors.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* P2.2: Скрытый input + кнопка прикрепления документов */}
+                <div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    multiple
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    onChange={handleFilesChange}
+                    className="hidden"
+                    aria-hidden="true"
+                    tabIndex={-1}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={submitting || files.length >= MAX_FILES}
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
                     <svg
-                      width="28"
-                      height="28"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -323,478 +619,181 @@ export default function HelpRequestSection() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       aria-hidden="true"
-                      className="sm:h-8 sm:w-8"
                     >
-                      <path d="M20 6L9 17l-5-5" />
+                      <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
                     </svg>
-                  </div>
-                  <h3 className="mt-6 text-2xl font-medium text-white sm:mt-8 sm:text-3xl">
-                    Заявка отправлена
-                  </h3>
-                  <p className="mt-3 max-w-md text-base leading-relaxed text-white/70 sm:mt-4 sm:text-lg">
-                    Спасибо! Мы свяжемся с вами в течение 1–2 рабочих дней,
-                    чтобы уточнить детали и подсказать дальнейшие шаги.
+                    {files.length === 0
+                      ? "Прикрепить документы"
+                      : "Добавить ещё файл"}
+                  </button>
+
+                  {/* Список прикреплённых файлов */}
+                  {files.length > 0 && (
+                    <ul className="mt-3 space-y-2">
+                      {files.map((file, index) => (
+                        <li
+                          key={`${file.name}-${index}`}
+                          className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-3 py-2"
+                        >
+                          <span className="shrink-0 text-brand-teal">
+                            <IconFile size={16} />
+                          </span>
+                          <span className="min-w-0 flex-1 truncate text-sm text-white/90">
+                            {file.name}
+                          </span>
+                          <span className="shrink-0 text-xs tabular-nums text-white/50">
+                            {formatSize(file.size)}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => removeFile(index)}
+                            disabled={submitting}
+                            aria-label={`Удалить файл ${file.name}`}
+                            className="shrink-0 rounded-md p-1 text-white/50 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-50"
+                          >
+                            <IconX size={14} />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {fileError && (
+                    <p className="mt-2 text-xs text-red-400">{fileError}</p>
+                  )}
+                  <p className="mt-2 text-xs text-white/50">
+                    До {MAX_FILES} файлов, до 10 МБ каждый. PDF, JPG, PNG.
                   </p>
                 </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  noValidate
-                  className="flex flex-col gap-6 sm:gap-8"
-                >
-                  {/* Поля формы (сетка 2x2) */}
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div className="sm:col-span-2">
-                      <label
-                        htmlFor="fullName"
-                        className="mb-1 block text-sm font-medium text-white/90"
-                      >
-                        ФИО <span className="text-white">*</span>
-                      </label>
-                      <input
-                        id="fullName"
-                        type="text"
-                        name="name"
-                        autoComplete="name"
-                        required
-                        placeholder="Иванов Иван Иванович"
-                        value={formData.fullName}
-                        onChange={(e) =>
-                          handleFieldChange("fullName", e.target.value)
-                        }
-                        disabled={submitting}
-                        aria-invalid={!!errors.fullName}
-                        aria-describedby={
-                          errors.fullName ? "fullName-error" : undefined
-                        }
-                        className={fieldClass("fullName")}
-                      />
-                      {errors.fullName && (
-                        <p
-                          id="fullName-error"
-                          className="mt-1.5 text-xs text-red-400"
-                        >
-                          {errors.fullName}
-                        </p>
-                      )}
-                    </div>
 
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="mb-1 block text-sm font-medium text-white/90"
-                      >
-                        Номер телефона <span className="text-white">*</span>
-                      </label>
-                      <input
-                        id="phone"
-                        type="tel"
-                        name="tel"
-                        autoComplete="tel"
-                        required
-                        placeholder="+7 (___) ___-__-__"
-                        value={formData.phone}
-                        onChange={(e) =>
-                          handleFieldChange("phone", e.target.value)
-                        }
-                        disabled={submitting}
-                        aria-invalid={!!errors.phone}
-                        aria-describedby={
-                          errors.phone ? "phone-error" : undefined
-                        }
-                        className={fieldClass("phone")}
-                      />
-                      {errors.phone && (
-                        <p
-                          id="phone-error"
-                          className="mt-1.5 text-xs text-red-400"
-                        >
-                          {errors.phone}
-                        </p>
-                      )}
-                    </div>
+                {/* Блок с документами (без подложки) */}
+                <div>
+                  <h4 className="text-sm font-semibold text-white/90">
+                    Документы, необходимые для рассмотрения:
+                  </h4>
+                  <ul className="mt-3 space-y-2 text-sm text-white/60">
+                    <li className="flex gap-2">
+                      <span className="text-brand-teal">•</span> Паспорт или
+                      свидетельство о рождении.
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-brand-teal">•</span> СНИЛС/ИНН.
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-brand-teal">•</span> Документы,
+                      подтверждающие ситуацию: медицинские заключения, выписки
+                      из истории болезни, справка об инвалидности, направления
+                      на лечение, счёт клиники, рецептурные бланки.
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-brand-teal">•</span> Если
+                      обращение касается животного: фотографии и, при наличии,
+                      ветеринарные заключения или счета.
+                    </li>
+                  </ul>
+                </div>
 
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="mb-1 block text-sm font-medium text-white/90"
-                      >
-                        Электронная почта <span className="text-white">*</span>
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        required
-                        placeholder="you@example.com"
-                        value={formData.email}
-                        onChange={(e) =>
-                          handleFieldChange("email", e.target.value)
-                        }
-                        disabled={submitting}
-                        aria-invalid={!!errors.email}
-                        aria-describedby={
-                          errors.email ? "email-error" : undefined
-                        }
-                        className={fieldClass("email")}
-                      />
-                      {errors.email && (
-                        <p
-                          id="email-error"
-                          className="mt-1.5 text-xs text-red-400"
-                        >
-                          {errors.email}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="city"
-                        className="mb-1 block text-sm font-medium text-white/90"
-                      >
-                        Город <span className="text-white">*</span>
-                      </label>
-                      <input
-                        id="city"
-                        type="text"
-                        name="address-level2"
-                        autoComplete="address-level2"
-                        required
-                        placeholder="Ваш город"
-                        value={formData.city}
-                        onChange={(e) =>
-                          handleFieldChange("city", e.target.value)
-                        }
-                        disabled={submitting}
-                        aria-invalid={!!errors.city}
-                        aria-describedby={
-                          errors.city ? "city-error" : undefined
-                        }
-                        className={fieldClass("city")}
-                      />
-                      {errors.city && (
-                        <p
-                          id="city-error"
-                          className="mt-1.5 text-xs text-red-400"
-                        >
-                          {errors.city}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="category"
-                        className="mb-1 block text-sm font-medium text-white/90"
-                      >
-                        Категория <span className="text-white">*</span>
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="category"
-                          required
-                          value={formData.category}
-                          onChange={(e) =>
-                            handleFieldChange("category", e.target.value)
-                          }
-                          disabled={submitting}
-                          aria-invalid={!!errors.category}
-                          aria-describedby={
-                            errors.category ? "category-error" : undefined
-                          }
-                          className={`${fieldClass("category")} appearance-none cursor-pointer ${formData.category === "" ? "text-white/50" : "text-white"}`}
-                        >
-                          <option
-                            value=""
-                            disabled
-                            className="bg-brand-black text-white/50"
-                          >
-                            Выберите категорию
-                          </option>
-                          {CATEGORIES.map((c) => (
-                            <option
-                              key={c.id}
-                              value={c.id}
-                              className="bg-brand-black text-white"
-                            >
-                              {c.label}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center">
-                          <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="text-white/50"
-                          >
-                            <path d="M6 9l6 6 6-6" />
-                          </svg>
-                        </div>
-                      </div>
-                      {errors.category && (
-                        <p
-                          id="category-error"
-                          className="mt-1.5 text-xs text-red-400"
-                        >
-                          {errors.category}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Текстовое поле ситуации */}
+                {/* Согласие и кнопка отправки */}
+                <div className="space-y-5">
                   <div>
-                    <div className="mb-1 flex items-baseline justify-between gap-3">
-                      <label
-                        htmlFor="message"
-                        className="text-sm font-medium text-white/90"
-                      >
-                        Расскажите о вашей ситуации{" "}
-                        <span className="text-white">*</span>
-                      </label>
-                      <span className="text-xs tabular-nums text-white/50">
-                        {formData.message.length} / 2000
+                    <label className="flex cursor-pointer items-start gap-3">
+                      <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
+                        <input
+                          type="checkbox"
+                          checked={consent}
+                          onChange={(e) => {
+                            setConsent(e.target.checked);
+                            if (errors.consent) {
+                              setErrors((prev) => {
+                                const next = { ...prev };
+                                delete next.consent;
+                                return next;
+                              });
+                            }
+                          }}
+                          required
+                          aria-invalid={!!errors.consent}
+                          aria-describedby={
+                            errors.consent ? "consent-error" : undefined
+                          }
+                          className={`peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
+                            errors.consent
+                              ? "border-red-400/70"
+                              : "border-white/40"
+                          }`}
+                        />
+                        <svg
+                          className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M5 12l5 5L20 7" />
+                        </svg>
                       </span>
-                    </div>
-                    <textarea
-                      id="message"
-                      required
-                      rows={4}
-                      maxLength={2000}
-                      placeholder="Подробно опишите, что случилось и какая помощь нужна..."
-                      value={formData.message}
-                      onChange={(e) =>
-                        handleFieldChange("message", e.target.value)
-                      }
-                      disabled={submitting}
-                      aria-invalid={!!errors.message}
-                      aria-describedby={
-                        errors.message ? "message-error" : undefined
-                      }
-                      className={`${fieldClass("message")} resize-none`}
-                    />
-                    {errors.message && (
+                      <span className="text-xs leading-relaxed text-white/70">
+                        Я согласен(-на) на обработку персональных данных в
+                        соответствии с{" "}
+                        <a
+                          href="#"
+                          className="text-white underline underline-offset-2 hover:text-white/80"
+                        >
+                          политикой конфиденциальности
+                        </a>
+                        .
+                      </span>
+                    </label>
+                    {errors.consent && (
                       <p
-                        id="message-error"
-                        className="mt-1.5 text-xs text-red-400"
+                        id="consent-error"
+                        className="mt-2 text-xs text-red-400"
                       >
-                        {errors.message}
+                        {errors.consent}
                       </p>
                     )}
                   </div>
 
-                  {/* P2.2: Скрытый input + кнопка прикрепления документов */}
-                  <div>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      multiple
-                      accept=".pdf,.jpg,.jpeg,.png"
-                      onChange={handleFilesChange}
-                      className="hidden"
-                      aria-hidden="true"
-                      tabIndex={-1}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={submitting || files.length >= MAX_FILES}
-                      className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-                      </svg>
-                      {files.length === 0
-                        ? "Прикрепить документы"
-                        : "Добавить ещё файл"}
-                    </button>
-
-                    {/* Список прикреплённых файлов */}
-                    {files.length > 0 && (
-                      <ul className="mt-3 space-y-2">
-                        {files.map((file, index) => (
-                          <li
-                            key={`${file.name}-${index}`}
-                            className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-3 py-2"
-                          >
-                            <span className="shrink-0 text-brand-teal">
-                              <IconFile size={16} />
-                            </span>
-                            <span className="min-w-0 flex-1 truncate text-sm text-white/90">
-                              {file.name}
-                            </span>
-                            <span className="shrink-0 text-xs tabular-nums text-white/50">
-                              {formatSize(file.size)}
-                            </span>
-                            <button
-                              type="button"
-                              onClick={() => removeFile(index)}
-                              disabled={submitting}
-                              aria-label={`Удалить файл ${file.name}`}
-                              className="shrink-0 rounded-md p-1 text-white/50 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-50"
-                            >
-                              <IconX size={14} />
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    {fileError && (
-                      <p className="mt-2 text-xs text-red-400">{fileError}</p>
-                    )}
-                    <p className="mt-2 text-xs text-white/50">
-                      До {MAX_FILES} файлов, до 10 МБ каждый. PDF, JPG, PNG.
-                    </p>
-                  </div>
-
-                  {/* Блок с документами (без подложки) */}
-                  <div>
-                    <h4 className="text-sm font-semibold text-white/90">
-                      Документы, необходимые для рассмотрения:
-                    </h4>
-                    <ul className="mt-3 space-y-2 text-sm text-white/60">
-                      <li className="flex gap-2">
-                        <span className="text-brand-teal">•</span> Паспорт или
-                        свидетельство о рождении.
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="text-brand-teal">•</span> СНИЛС/ИНН.
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="text-brand-teal">•</span> Документы,
-                        подтверждающие ситуацию: медицинские заключения, выписки
-                        из истории болезни, справка об инвалидности, направления
-                        на лечение, счёт клиники, рецептурные бланки.
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="text-brand-teal">•</span> Если
-                        обращение касается животного: фотографии и, при наличии,
-                        ветеринарные заключения или счета.
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Согласие и кнопка отправки */}
-                  <div className="space-y-5">
-                    <div>
-                      <label className="flex cursor-pointer items-start gap-3">
-                        <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
-                          <input
-                            type="checkbox"
-                            checked={consent}
-                            onChange={(e) => {
-                              setConsent(e.target.checked);
-                              if (errors.consent) {
-                                setErrors((prev) => {
-                                  const next = { ...prev };
-                                  delete next.consent;
-                                  return next;
-                                });
-                              }
-                            }}
-                            required
-                            aria-invalid={!!errors.consent}
-                            aria-describedby={
-                              errors.consent ? "consent-error" : undefined
-                            }
-                            className={`peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
-                              errors.consent
-                                ? "border-red-400/70"
-                                : "border-white/40"
-                            }`}
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-white px-8 py-4 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {submitting ? (
+                      <>
+                        <svg
+                          className="h-4 w-4 animate-spin"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            opacity="0.25"
                           />
-                          <svg
-                            className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100"
-                            viewBox="0 0 24 24"
-                            fill="none"
+                          <path
+                            d="M12 2a10 10 0 019.95 9"
                             stroke="currentColor"
                             strokeWidth="3"
                             strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path d="M5 12l5 5L20 7" />
-                          </svg>
-                        </span>
-                        <span className="text-xs leading-relaxed text-white/70">
-                          Я согласен(-на) на обработку персональных данных в
-                          соответствии с{" "}
-                          <a
-                            href="#"
-                            className="text-white underline underline-offset-2 hover:text-white/80"
-                          >
-                            политикой конфиденциальности
-                          </a>
-                          .
-                        </span>
-                      </label>
-                      {errors.consent && (
-                        <p
-                          id="consent-error"
-                          className="mt-2 text-xs text-red-400"
-                        >
-                          {errors.consent}
-                        </p>
-                      )}
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-8 py-4 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      {submitting ? (
-                        <>
-                          <svg
-                            className="h-4 w-4 animate-spin"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            aria-hidden="true"
-                          >
-                            <circle
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="3"
-                              opacity="0.25"
-                            />
-                            <path
-                              d="M12 2a10 10 0 019.95 9"
-                              stroke="currentColor"
-                              strokeWidth="3"
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                          Отправляем…
-                        </>
-                      ) : (
-                        "Отправить заявку"
-                      )}
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
+                          />
+                        </svg>
+                        Отправляем…
+                      </>
+                    ) : (
+                      "Отправить заявку"
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
