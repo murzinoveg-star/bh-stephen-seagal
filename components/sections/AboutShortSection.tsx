@@ -126,8 +126,8 @@ export default function AboutShortSection() {
             </div>
 
             {/* Карточка 2 (Светлая) */}
-            <div className="group relative flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 lg:w-[600px] lg:p-12 lg:h-[400px]">
-              <div className="pointer-events-none absolute bottom-0 right-0 z-0 hidden w-[200px] translate-x-[25%] translate-y-[50%] sm:block sm:w-[500px]">
+            <div className="group relative flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 pb-24 sm:pb-24 lg:w-[600px] lg:p-12 lg:h-[400px]">
+              <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[300px] md:w-[500px] translate-x-[25%] translate-y-[50%]">
                 <Image
                   src="/infinity.png"
                   alt=""
@@ -151,8 +151,8 @@ export default function AboutShortSection() {
             </div>
 
             {/* Карточка 3 (Светлая) */}
-            <div className="group relative flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 lg:w-[600px] lg:p-12 lg:h-[400px]">
-              <div className="pointer-events-none absolute bottom-0 right-0 z-0 hidden w-[200px] rotate-90 -scale-y-100 translate-x-[25%] translate-y-[90%] sm:block sm:w-[500px]">
+            <div className="group relative flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 pb-24 sm:pb-24 lg:w-[600px] lg:p-12 lg:h-[400px]">
+              <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[400px] md:w-[500px] rotate-90 -scale-y-100 translate-x-[15%] md:translate-x-[25%] translate-y-[110%] md:translate-y-[90%]">
                 <Image
                   src="/infinity.png"
                   alt=""

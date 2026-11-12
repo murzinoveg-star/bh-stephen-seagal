@@ -156,7 +156,7 @@ export default function HelpBlockSection() {
         }}
       >
         {/* Картинка сердца в левом нижнем углу */}
-        <div className="pointer-events-none absolute bottom-0 left-0 z-0 -translate-x-[37%] translate-y-[60%] w-[70vw]">
+        <div className="pointer-events-none absolute hidden lg:block bottom-0 left-0 z-0 -translate-x-[50%] translate-y-[60%] w-[70vw]">
           <Image
             src="/heart_dark.png"
             alt=""

@@ -76,7 +76,7 @@ export default function FoundersSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-r from-[#121C26] to-[#1a2a3c] py-16 sm:py-16 lg:py-16">
       {/* Фоновое изображение: правый нижний угол */}
-      <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[70vw] max-w-[1200px] translate-x-[60%] translate-y-[40%]">
+      <div className="pointer-events-none absolute hidden lg:block bottom-0 right-0 z-0 w-[1100px] translate-x-[60%] translate-y-[40%]">
         <Image
           src="/heart_black.png"
           alt=""

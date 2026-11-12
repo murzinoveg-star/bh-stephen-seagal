@@ -48,7 +48,7 @@ export default function FaqSection() {
   return (
     <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-16 lg:py-16">
       {/* Фоновое изображение: крупный объект в левом нижнем углу */}
-            <div className="pointer-events-none absolute bottom-0 right-0 z-0 translate-x-[30%] translate-y-[35%] -scale-y-100 w-[60vw]">
+            <div className="pointer-events-none absolute bottom-0 right-0 z-0 translate-x-[70%] md:translate-x-[30%] translate-y-[35%] -scale-y-100 w-[800px] md:w-[60vw]">
               <Image
                 src="/heart_dark.png"
                 alt=""

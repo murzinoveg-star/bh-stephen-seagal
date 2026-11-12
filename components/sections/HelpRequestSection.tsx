@@ -217,7 +217,7 @@ export default function HelpRequestSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-l from-[#121C26] to-[#1a2a3c] py-16 sm:py-16 lg:py-16">
       {/* Фоновое изображение: крупный объект в левом нижнем углу */}
-      <div className="pointer-events-none absolute bottom-0 left-0 z-0 -translate-x-[20%] translate-y-[85%] rotate-90 w-[60vw]">
+      <div className="pointer-events-none absolute hidden lg:block bottom-0 left-0 z-0 -translate-x-[10%] translate-y-[85%] w-[60vw]">
         <Image
           src="/heart_black.png"
           alt=""

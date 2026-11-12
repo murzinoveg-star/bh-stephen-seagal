@@ -231,9 +231,9 @@ function SvoCard({ program }: { program: Program }) {
       }}
     >
       {/* Фоновое изображение: правый нижний угол, крупно, за контентом */}
-      <div className="pointer-events-none absolute bottom-0 right-0 z-0 translate-x-[30%] translate-y-[75%] w-[60vw] -scale-y-100">
+      <div className="pointer-events-none absolute hidden md:block bottom-0 right-0 z-0 translate-x-[20%] translate-y-[84%] w-[50vw] -scale-x-100">
         <Image
-          src="/infinity_dark.png"
+          src="/heart_dark.png"
           alt=""
           width={800}
           height={800}
