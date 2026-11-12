@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const NAV = [
   { label: "Главная", href: "/" },
+  { label: "Направления", href: "/programs" },
   { label: "О фонде", href: "/about" },
-  { label: "Программы", href: "/programs" },
   { label: "Как помочь", href: "/donate" },
   { label: "Отчётность", href: "/reports" },
   { label: "Мне нужна помощь", href: "/help-request" },
@@ -18,7 +18,6 @@ const NAV = [
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  // P2.7: Закрытие мобильного меню по Escape
   useEffect(() => {
     if (!open) return;
     const handleKey = (e: KeyboardEvent) => {

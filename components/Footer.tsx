@@ -9,8 +9,8 @@ const CONTACTS = {
 
 const NAV = [
   { label: "Главная", href: "/" },
+  { label: "Направления", href: "/programs" },
   { label: "О фонде", href: "/about" },
-  { label: "Программы", href: "/programs" },
   { label: "Как помочь", href: "/donate" },
   { label: "Отчётность", href: "/reports" },
   { label: "Мне нужна помощь", href: "/help-request" },

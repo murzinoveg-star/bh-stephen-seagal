@@ -5,10 +5,43 @@ import Image from "next/image";
 
 const AMOUNTS = [300, 500, 1000, 3000];
 
-export default function HelpBlockSection() {
+interface SuccessContent {
+  title: string;
+  description: string;
+}
+
+interface HelpBlockSectionProps {
+  /** Заменяет первый абзац под заголовком «Как помочь?». */
+  introText?: string;
+  /** Список направлений для выбора в форме. Если не передан — селектора нет. */
+  programs?: Array<{ id: string; label: string }>;
+  /** ID направления по умолчанию. Должен присутствовать в programs. */
+  defaultProgramId?: string;
+  /** Уникальные сообщения об успехе для конкретных направлений (по id). */
+  successByProgramId?: Record<string, SuccessContent>;
+  /** Фолбэк, если для выбранного направления нет уникального сообщения. */
+  defaultSuccess?: SuccessContent;
+}
+
+const DEFAULT_SUCCESS: SuccessContent = {
+  title: "Спасибо за поддержку!",
+  description:
+    "Ваше пожертвование помогает нам продолжать работу и оказывать помощь тем, кто в ней нуждается.",
+};
+
+export default function HelpBlockSection({
+  introText,
+  programs,
+  defaultProgramId,
+  successByProgramId,
+  defaultSuccess,
+}: HelpBlockSectionProps = {}) {
   const [isMonthly, setIsMonthly] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(300);
   const [customAmount, setCustomAmount] = useState("");
+  const [programId, setProgramId] = useState<string>(
+    defaultProgramId ?? programs?.[0]?.id ?? "",
+  );
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,6 +70,12 @@ export default function HelpBlockSection() {
     }
     return selectedAmount;
   })();
+
+  // Уникальное сообщение об успехе для выбранного направления (или фолбэк).
+  const successContent =
+    (programs?.length && successByProgramId?.[programId]) ||
+    defaultSuccess ||
+    DEFAULT_SUCCESS;
 
   function validate(): Record<string, string> {
     const e: Record<string, string> = {};
@@ -103,6 +142,7 @@ export default function HelpBlockSection() {
     console.log("[donate/stub]", {
       isMonthly,
       amount: currentAmount,
+      programId: programs?.length ? programId : undefined,
       name,
       email,
       phone,
@@ -130,6 +170,7 @@ export default function HelpBlockSection() {
     setErrors({});
     setSelectedAmount(300);
     setCustomAmount("");
+    setProgramId(defaultProgramId ?? programs?.[0]?.id ?? "");
   }
 
   const inputBase =
@@ -146,6 +187,8 @@ export default function HelpBlockSection() {
   const chipIdle =
     "border-white/20 bg-white/5 text-white/70 hover:border-white/40 hover:text-white";
   const chipActive = "border-white bg-white text-brand-blue";
+
+  const showProgramSelect = !!programs && programs.length > 0;
 
   return (
     <section className="relative bg-neutral-50 px-2 py-16 sm:px-4 sm:py-16 lg:px-6 lg:py-16">
@@ -175,8 +218,8 @@ export default function HelpBlockSection() {
                 Как помочь?
               </h2>
               <p className="mt-5 text-base leading-relaxed text-white/70 sm:mt-7 sm:text-lg lg:text-xl">
-                Отправить пожертвование можно на любую удобную сумму по QR-коду
-                или банковской картой.
+                {introText ??
+                  "Отправить пожертвование можно на любую удобную сумму по QR-коду или банковской картой."}
               </p>
               <p className="mt-4 text-base leading-relaxed text-white/60 sm:text-lg">
                 Выберите разовый перевод или ежемесячное пожертвование.
@@ -211,11 +254,10 @@ export default function HelpBlockSection() {
                     </svg>
                   </div>
                   <h3 className="mt-6 text-2xl font-medium text-white sm:mt-8 sm:text-3xl">
-                    Спасибо за поддержку!
+                    {successContent.title}
                   </h3>
                   <p className="mt-3 max-w-md text-base leading-relaxed text-white/70 sm:mt-4 sm:text-lg">
-                    Ваше пожертвование помогает нам продолжать работу и
-                    оказывать помощь тем, кто в ней нуждается.
+                    {successContent.description}
                   </p>
                   <button
                     type="button"
@@ -269,6 +311,53 @@ export default function HelpBlockSection() {
                       </span>
                     </button>
                   </div>
+
+                  {/* Выбор направления — только если передан programs */}
+                  {showProgramSelect && (
+                    <div>
+                      <label
+                        htmlFor="donate-program"
+                        className="mb-1 block text-sm font-medium text-white/90"
+                      >
+                        Направление
+                      </label>
+                      <div className="relative">
+                        <select
+                          id="donate-program"
+                          value={programId}
+                          onChange={(e) => setProgramId(e.target.value)}
+                          disabled={submitting}
+                          className={`${inputBase} ${fieldClass("programId")} appearance-none cursor-pointer pr-8`}
+                        >
+                          {programs!.map((p) => (
+                            <option
+                              key={p.id}
+                              value={p.id}
+                              className="bg-brand-black text-white"
+                            >
+                              {p.label}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center">
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-white/50"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Сетка сумм */}
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">

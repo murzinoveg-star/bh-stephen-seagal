@@ -346,17 +346,26 @@ function ProgramCard({ program }: { program: Program }) {
   return <VisualCard program={program} />;
 }
 
-export default function ProgramsCardsSection() {
+interface ProgramsCardsSectionProps {
+  /** Показывать ли H2 «Направления фонда» (на главной — да, на отдельной странице — нет). */
+  showHeading?: boolean;
+}
+
+export default function ProgramsCardsSection({
+  showHeading = true,
+}: ProgramsCardsSectionProps) {
   return (
     <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-16 lg:py-16">
       <div className="grid-blue pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_80%)]" />
 
       <div className="relative mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
-        <div className="mb-8 sm:mb-14">
-          <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
-            Направления фонда
-          </h2>
-        </div>
+        {showHeading && (
+          <div className="mb-8 sm:mb-14">
+            <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
+              Направления фонда
+            </h2>
+          </div>
+        )}
 
         <div className="flex flex-col gap-4 sm:gap-6">
           {PROGRAMS.map((program) => (
