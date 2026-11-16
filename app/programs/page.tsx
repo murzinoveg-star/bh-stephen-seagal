@@ -24,7 +24,7 @@ export default function ProgramsPage() {
         {/* Hero секции страницы */}
         <section className="relative overflow-hidden bg-neutral-50 py-16">
           {/* Декоративная картинка — только на десктопе */}
-          <div className="pointer-events-none absolute right-0 top-1/2 hidden w-[450px] -translate-y-1/2 lg:block">
+          <div className="pointer-events-none absolute right-0 top-0 hidden w-[450px] translate-y-[40%] -translate-x-[25%] lg:block">
             <Image
               src="/infinity.png"
               alt=""

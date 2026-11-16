@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NAV = [
   { label: "Главная", href: "/" },
@@ -11,13 +12,14 @@ const NAV = [
   { label: "Как помочь", href: "/donate" },
   { label: "Отчётность", href: "/reports" },
   { label: "Мне нужна помощь", href: "/help-request" },
-  { label: "FAQ", href: "/faq" },
   { label: "Контакты", href: "/contacts" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
+  // P2.7: закрытие мобильного меню по Escape
   useEffect(() => {
     if (!open) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -27,12 +29,17 @@ export default function Header() {
     return () => document.removeEventListener("keydown", handleKey);
   }, [open]);
 
+  // Активный пункт: точное совпадение или вложенная страница
+  // ("/programs/svo-participants" подсвечивает "/programs", но не "/").
+  const isActive = (href: string) =>
+    pathname === href || (href !== "/" && pathname?.startsWith(href + "/"));
+
   return (
     <header className="relative z-50 bg-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-2 py-4 sm:px-6 sm:py-6 lg:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-2 py-4 sm:px-6 sm:py-6 lg:gap-6 lg:px-10">
         <Link
           href="/"
-          className="flex items-center"
+          className="flex shrink-0 items-center"
           aria-label="БФ Стивена Сигала"
         >
           <Image
@@ -45,27 +52,39 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
-          {NAV.slice(0, 6).map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-brand-black/70 transition-colors hover:text-brand-blue"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
+          {NAV.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`whitespace-nowrap text-sm font-medium transition-colors ${
+                  active
+                    ? "text-brand-blue"
+                    : "text-brand-black/70 hover:text-brand-blue"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-4 lg:gap-0">
           <div className="flex items-center text-xs font-semibold">
-            <button className="text-brand-black" aria-label="Русский">
+            <span className="text-brand-black" aria-label="Русский">
               RU
-            </button>
-            <span className="mx-1.5 text-brand-black/30">/</span>
+            </span>
+            <span className="mx-1.5 text-brand-black/30" aria-hidden="true">
+              /
+            </span>
             <button
-              className="text-brand-black/50 transition-colors hover:text-brand-black"
-              aria-label="English"
+              type="button"
+              disabled
+              className="cursor-not-allowed text-brand-black/50"
+              aria-label="Английская версия появится после утверждения"
             >
               EN
             </button>
@@ -106,16 +125,24 @@ export default function Header() {
           aria-hidden={!open}
           className="absolute left-0 right-0 top-full flex flex-col gap-1 border-b border-gray-100 bg-white px-4 pb-6 pt-2 shadow-xl sm:px-6 lg:hidden"
         >
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="py-2 text-sm font-medium text-brand-black/70 hover:text-brand-blue"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                aria-current={active ? "page" : undefined}
+                className={`py-2 text-sm font-medium transition-colors ${
+                  active
+                    ? "text-brand-blue"
+                    : "text-brand-black/70 hover:text-brand-blue"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
       )}
     </header>

@@ -35,16 +35,6 @@ export default function SvoParticipantsPage() {
       <main>
         {/* Hero + описание */}
         <section className="relative overflow-hidden bg-neutral-50 py-16">
-          {/* Декор — только на десктопе, чтобы не наезжать на текст */}
-          <div className="pointer-events-none absolute right-0 top-1/2 hidden w-[450px] -translate-y-1/2 lg:block">
-            <Image
-              src="/infinity.png"
-              alt=""
-              width={900}
-              height={900}
-              className="h-auto w-full object-contain"
-            />
-          </div>
 
           <div className="relative mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
             <nav

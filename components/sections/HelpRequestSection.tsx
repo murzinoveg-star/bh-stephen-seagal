@@ -13,7 +13,6 @@ const CATEGORIES = [
 const MAX_FILES = 5;
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 
-// Иконка Info
 function IconInfo({
   className = "",
   size = 24,
@@ -41,7 +40,6 @@ function IconInfo({
   );
 }
 
-// Иконка файла для списка вложений
 function IconFile({
   className = "",
   size = 16,
@@ -68,7 +66,6 @@ function IconFile({
   );
 }
 
-// Иконка удаления файла
 function IconX({
   className = "",
   size = 16,
@@ -94,7 +91,31 @@ function IconX({
   );
 }
 
-export default function HelpRequestSection() {
+interface HelpRequestSectionProps {
+  /**
+   * Показывать ли шапку секции (H2 «Нужна помощь?» + вводный абзац).
+   * На главной и /programs — да, на отдельной странице /help-request — нет.
+   */
+  showHeading?: boolean;
+  /**
+   * Показывать ли декоративное фоновое изображение (heart_black.png).
+   * На тёмной секции — да, на светлой версии — нет.
+   */
+  showDecor?: boolean;
+  /**
+   * Тема секции. "dark" — тёмный градиент (главная, /programs),
+   * "light" — bg-neutral-50 (страница /help-request).
+   */
+  theme?: "dark" | "light";
+}
+
+export default function HelpRequestSection({
+  showHeading = true,
+  showDecor = true,
+  theme = "dark",
+}: HelpRequestSectionProps = {}) {
+  const isLight = theme === "light";
+
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -204,53 +225,147 @@ export default function HelpRequestSection() {
     }, 800);
   }
 
-  const inputBase =
-    "w-full border-b bg-transparent px-0 py-3 text-base text-white placeholder:text-white/50 outline-none transition-colors disabled:opacity-50";
+  // ─── Стили, зависящие от темы ──────────────────────────────────────────
+
+  const sectionBg = isLight
+    ? "bg-neutral-50"
+    : "bg-gradient-to-l from-[#121C26] to-[#1a2a3c]";
+
+  const headingText = isLight ? "text-brand-black" : "text-white";
+  const headingDesc = isLight ? "text-neutral-600" : "text-white/70";
+  const headingBorder = isLight ? "border-neutral-200" : "border-white/10";
+  const bodyText = isLight ? "text-neutral-600" : "text-white/70";
+  const bodyTextSecondary = isLight ? "text-neutral-500" : "text-white/60";
+  const bodyTextTertiary = isLight ? "text-neutral-400" : "text-white/50";
+  const labelText = isLight ? "text-brand-black" : "text-white/90";
+  const errorText = isLight ? "text-red-600" : "text-red-400";
+
+  const inputBase = isLight
+    ? "w-full border-b bg-transparent px-0 py-3 text-base text-brand-black placeholder:text-neutral-400 outline-none transition-colors disabled:opacity-50"
+    : "w-full border-b bg-transparent px-0 py-3 text-base text-white placeholder:text-white/50 outline-none transition-colors disabled:opacity-50";
 
   function fieldClass(field: string, extra = "") {
     const border = errors[field]
-      ? "border-red-400/70 focus:border-red-400"
-      : "border-white/30 focus:border-white";
+      ? isLight
+        ? "border-red-500 focus:border-red-500"
+        : "border-red-400/70 focus:border-red-400"
+      : isLight
+        ? "border-neutral-300 focus:border-brand-blue"
+        : "border-white/30 focus:border-white";
     return `${inputBase} ${border} ${extra}`;
   }
 
+  const fileButtonStyles = isLight
+    ? "border-neutral-300 bg-neutral-100 text-brand-black hover:border-brand-blue hover:bg-neutral-200"
+    : "border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10";
+
+  const fileListItemStyles = isLight
+    ? "border-neutral-200 bg-neutral-100"
+    : "border-white/10 bg-white/5";
+
+  const fileRemoveStyles = isLight
+    ? "text-neutral-500 hover:bg-neutral-200 hover:text-brand-black"
+    : "text-white/50 hover:bg-white/10 hover:text-white";
+
+  const videoBoxStyles = isLight
+    ? "border-neutral-200 bg-neutral-100"
+    : "border-white/10 bg-white/5";
+
+  const videoPlayStyles = isLight
+    ? "bg-white text-brand-blue shadow-md group-hover:bg-brand-teal group-hover:text-white"
+    : "glass text-white group-hover:bg-brand-teal group-hover:text-brand-black";
+
+  const videoCaptionStyles = isLight ? "text-neutral-500" : "text-white/60";
+
+  const infoBadgeStyles = isLight
+    ? "bg-neutral-100 text-brand-teal"
+    : "bg-white/10 text-brand-teal";
+
+  const submitStyles = isLight
+    ? "bg-brand-blue text-white hover:bg-brand-teal"
+    : "bg-white text-brand-black hover:bg-[#00d0ff]";
+
+  const selectOptionStyles = isLight
+    ? "bg-white text-brand-black"
+    : "bg-brand-black text-white";
+
+  const selectPlaceholderOptionStyles = isLight
+    ? "bg-white text-neutral-400"
+    : "bg-brand-black text-white/50";
+
+  const successCircleBorder = isLight
+    ? "border-neutral-300"
+    : "border-white/30";
+  const successCircleIcon = isLight ? "text-green-600" : "text-white";
+  const successTitle = isLight ? "text-brand-black" : "text-white";
+  const successDesc = isLight ? "text-neutral-600" : "text-white/70";
+
+  const checkboxStyles = isLight
+    ? "border-neutral-300 checked:border-brand-blue checked:bg-brand-blue"
+    : "border-white/40 checked:border-white checked:bg-white";
+
+  const checkboxErrorBorder = isLight
+    ? "border-red-500"
+    : "border-red-400/70";
+
+  const checkboxIconStyles = isLight ? "text-white" : "text-brand-blue";
+
+  const consentTextStyles = isLight ? "text-neutral-600" : "text-white/70";
+  const consentLinkStyles = isLight
+    ? "text-brand-blue hover:text-brand-teal"
+    : "text-white hover:text-white/80";
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-l from-[#121C26] to-[#1a2a3c] py-16 sm:py-16 lg:py-16">
-      {/* Фоновое изображение: крупный объект в левом нижнем углу */}
-      <div className="pointer-events-none absolute hidden lg:block bottom-0 left-0 z-0 -translate-x-[10%] translate-y-[85%] w-[60vw]">
-        <Image
-          src="/heart_black.png"
-          alt=""
-          width={1200}
-          height={1200}
-          className="h-auto w-full object-contain"
-        />
-      </div>
+    <section
+      className={`relative overflow-hidden ${sectionBg} py-16 sm:py-16 lg:py-16`}
+    >
+      {/* Фоновое изображение — только если showDecor */}
+      {showDecor && (
+        <div className="pointer-events-none absolute bottom-0 left-0 z-0 hidden w-[60vw] -translate-x-[10%] translate-y-[85%] lg:block">
+          <Image
+            src="/heart_black.png"
+            alt=""
+            width={1200}
+            height={1200}
+            className="h-auto w-full object-contain"
+          />
+        </div>
+      )}
 
       {/* Контент */}
       <div className="relative z-10 mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
-        {/* Шапка секции с разделителем */}
-        <div className="mb-12 border-b border-white/10 pb-10 lg:mb-16 lg:pb-14">
-          <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-24">
-            <div className="lg:col-span-6">
-              <h2 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] text-white">
-                Нужна помощь?
-              </h2>
-            </div>
-            <div className="lg:col-span-6 lg:pb-2">
-              <p className="text-base leading-relaxed text-white/70 sm:text-lg">
-                Заполните анкету и подробно расскажите о вашей ситуации. Так
-                сотрудники фонда поймут, какая помощь необходима.
-              </p>
+        {/* Шапка секции — только если showHeading */}
+        {showHeading && (
+          <div
+            className={`mb-12 border-b ${headingBorder} pb-10 lg:mb-16 lg:pb-14`}
+          >
+            <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-24">
+              <div className="lg:col-span-6">
+                <h2
+                  className={`text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.02em] ${headingText}`}
+                >
+                  Нужна помощь?
+                </h2>
+              </div>
+              <div className="lg:col-span-6 lg:pb-2">
+                <p
+                  className={`text-base leading-relaxed ${headingDesc} sm:text-lg`}
+                >
+                  Заполните анкету и подробно расскажите о вашей ситуации. Так
+                  сотрудники фонда поймут, какая помощь необходима.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Основной контент */}
         <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-24">
           {/* Левая колонка: Этапы, видео и пояснения */}
           <div className="lg:col-span-6">
-            <div className="space-y-6 text-base leading-relaxed text-white/70 sm:text-lg">
+            <div
+              className={`space-y-6 text-base leading-relaxed ${bodyText} sm:text-lg`}
+            >
               <p>
                 После получения заявки специалисты изучат информацию и свяжутся
                 с вами, если потребуется уточнить детали или запросить
@@ -263,9 +378,13 @@ export default function HelpRequestSection() {
             </div>
 
             {/* Заглушка под видео Стивена */}
-            <div className="mt-10 group relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+            <div
+              className={`group relative mt-10 aspect-video overflow-hidden rounded-3xl border ${videoBoxStyles}`}
+            >
               <button className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
-                <span className="glass flex h-14 w-14 items-center justify-center rounded-full text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-brand-teal group-hover:text-brand-black">
+                <span
+                  className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-105 ${videoPlayStyles}`}
+                >
                   <svg
                     width="20"
                     height="20"
@@ -277,25 +396,31 @@ export default function HelpRequestSection() {
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </span>
-                <span className="text-sm font-medium text-white/60">
+                <span
+                  className={`text-sm font-medium ${videoCaptionStyles}`}
+                >
                   Видео Стивена
                 </span>
               </button>
             </div>
 
-            {/* Пояснение по документам с иконкой (без подложки) */}
+            {/* Пояснение по документам */}
             <div className="mt-10">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-brand-teal">
+              <div
+                className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl ${infoBadgeStyles}`}
+              >
                 <IconInfo size={24} />
               </div>
-              <p className="text-sm leading-relaxed text-white/60">
+              <p
+                className={`text-sm leading-relaxed ${bodyTextSecondary}`}
+              >
                 Документы нужны, чтобы подтвердить информацию в заявке, понять,
                 какая помощь необходима, и принять решение по обращению. Фонду
                 важно документально подтверждать основания для оказания помощи и
                 использования благотворительных средств — это часть
                 обязательного учёта.
               </p>
-              <p className="mt-3 text-xs leading-relaxed text-white/50">
+              <p className={`mt-3 text-xs leading-relaxed ${bodyTextTertiary}`}>
                 Все документы и персональные данные используются только для
                 рассмотрения заявки и организации помощи. Доступ к ним есть
                 только у сотрудников фонда, которые работают с обращениями.
@@ -312,7 +437,9 @@ export default function HelpRequestSection() {
                 role="status"
                 className="flex flex-col items-start py-4 focus:outline-none"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 text-white sm:h-16 sm:w-16">
+                <div
+                  className={`flex h-14 w-14 items-center justify-center rounded-full border ${successCircleBorder} ${successCircleIcon} sm:h-16 sm:w-16`}
+                >
                   <svg
                     width="28"
                     height="28"
@@ -328,10 +455,14 @@ export default function HelpRequestSection() {
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                 </div>
-                <h3 className="mt-6 text-2xl font-medium text-white sm:mt-8 sm:text-3xl">
+                <h3
+                  className={`mt-6 text-2xl font-medium ${successTitle} sm:mt-8 sm:text-3xl`}
+                >
                   Заявка отправлена
                 </h3>
-                <p className="mt-3 max-w-md text-base leading-relaxed text-white/70 sm:mt-4 sm:text-lg">
+                <p
+                  className={`mt-3 max-w-md text-base leading-relaxed ${successDesc} sm:mt-4 sm:text-lg`}
+                >
                   Спасибо! Мы свяжемся с вами в течение 1–2 рабочих дней,
                   чтобы уточнить детали и подсказать дальнейшие шаги.
                 </p>
@@ -347,9 +478,9 @@ export default function HelpRequestSection() {
                   <div className="sm:col-span-2">
                     <label
                       htmlFor="fullName"
-                      className="mb-1 block text-sm font-medium text-white/90"
+                      className={`mb-1 block text-sm font-medium ${labelText}`}
                     >
-                      ФИО <span className="text-white">*</span>
+                      ФИО <span className={labelText}>*</span>
                     </label>
                     <input
                       id="fullName"
@@ -372,7 +503,7 @@ export default function HelpRequestSection() {
                     {errors.fullName && (
                       <p
                         id="fullName-error"
-                        className="mt-1.5 text-xs text-red-400"
+                        className={`mt-1.5 text-xs ${errorText}`}
                       >
                         {errors.fullName}
                       </p>
@@ -382,9 +513,9 @@ export default function HelpRequestSection() {
                   <div>
                     <label
                       htmlFor="phone"
-                      className="mb-1 block text-sm font-medium text-white/90"
+                      className={`mb-1 block text-sm font-medium ${labelText}`}
                     >
-                      Номер телефона <span className="text-white">*</span>
+                      Номер телефона <span className={labelText}>*</span>
                     </label>
                     <input
                       id="phone"
@@ -407,7 +538,7 @@ export default function HelpRequestSection() {
                     {errors.phone && (
                       <p
                         id="phone-error"
-                        className="mt-1.5 text-xs text-red-400"
+                        className={`mt-1.5 text-xs ${errorText}`}
                       >
                         {errors.phone}
                       </p>
@@ -417,9 +548,9 @@ export default function HelpRequestSection() {
                   <div>
                     <label
                       htmlFor="email"
-                      className="mb-1 block text-sm font-medium text-white/90"
+                      className={`mb-1 block text-sm font-medium ${labelText}`}
                     >
-                      Электронная почта <span className="text-white">*</span>
+                      Электронная почта <span className={labelText}>*</span>
                     </label>
                     <input
                       id="email"
@@ -442,7 +573,7 @@ export default function HelpRequestSection() {
                     {errors.email && (
                       <p
                         id="email-error"
-                        className="mt-1.5 text-xs text-red-400"
+                        className={`mt-1.5 text-xs ${errorText}`}
                       >
                         {errors.email}
                       </p>
@@ -452,9 +583,9 @@ export default function HelpRequestSection() {
                   <div>
                     <label
                       htmlFor="city"
-                      className="mb-1 block text-sm font-medium text-white/90"
+                      className={`mb-1 block text-sm font-medium ${labelText}`}
                     >
-                      Город <span className="text-white">*</span>
+                      Город <span className={labelText}>*</span>
                     </label>
                     <input
                       id="city"
@@ -477,7 +608,7 @@ export default function HelpRequestSection() {
                     {errors.city && (
                       <p
                         id="city-error"
-                        className="mt-1.5 text-xs text-red-400"
+                        className={`mt-1.5 text-xs ${errorText}`}
                       >
                         {errors.city}
                       </p>
@@ -487,9 +618,9 @@ export default function HelpRequestSection() {
                   <div>
                     <label
                       htmlFor="category"
-                      className="mb-1 block text-sm font-medium text-white/90"
+                      className={`mb-1 block text-sm font-medium ${labelText}`}
                     >
-                      Категория <span className="text-white">*</span>
+                      Категория <span className={labelText}>*</span>
                     </label>
                     <div className="relative">
                       <select
@@ -504,12 +635,20 @@ export default function HelpRequestSection() {
                         aria-describedby={
                           errors.category ? "category-error" : undefined
                         }
-                        className={`${fieldClass("category")} appearance-none cursor-pointer ${formData.category === "" ? "text-white/50" : "text-white"}`}
+                        className={`${fieldClass("category")} appearance-none cursor-pointer ${
+                          formData.category === ""
+                            ? isLight
+                              ? "text-neutral-400"
+                              : "text-white/50"
+                            : isLight
+                              ? "text-brand-black"
+                              : "text-white"
+                        }`}
                       >
                         <option
                           value=""
                           disabled
-                          className="bg-brand-black text-white/50"
+                          className={selectPlaceholderOptionStyles}
                         >
                           Выберите категорию
                         </option>
@@ -517,7 +656,7 @@ export default function HelpRequestSection() {
                           <option
                             key={c.id}
                             value={c.id}
-                            className="bg-brand-black text-white"
+                            className={selectOptionStyles}
                           >
                             {c.label}
                           </option>
@@ -533,7 +672,9 @@ export default function HelpRequestSection() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="text-white/50"
+                          className={
+                            isLight ? "text-neutral-400" : "text-white/50"
+                          }
                         >
                           <path d="M6 9l6 6 6-6" />
                         </svg>
@@ -542,7 +683,7 @@ export default function HelpRequestSection() {
                     {errors.category && (
                       <p
                         id="category-error"
-                        className="mt-1.5 text-xs text-red-400"
+                        className={`mt-1.5 text-xs ${errorText}`}
                       >
                         {errors.category}
                       </p>
@@ -555,12 +696,14 @@ export default function HelpRequestSection() {
                   <div className="mb-1 flex items-baseline justify-between gap-3">
                     <label
                       htmlFor="message"
-                      className="text-sm font-medium text-white/90"
+                      className={`text-sm font-medium ${labelText}`}
                     >
                       Расскажите о вашей ситуации{" "}
-                      <span className="text-white">*</span>
+                      <span className={labelText}>*</span>
                     </label>
-                    <span className="text-xs tabular-nums text-white/50">
+                    <span
+                      className={`text-xs tabular-nums ${bodyTextTertiary}`}
+                    >
                       {formData.message.length} / 2000
                     </span>
                   </div>
@@ -584,14 +727,14 @@ export default function HelpRequestSection() {
                   {errors.message && (
                     <p
                       id="message-error"
-                      className="mt-1.5 text-xs text-red-400"
+                      className={`mt-1.5 text-xs ${errorText}`}
                     >
                       {errors.message}
                     </p>
                   )}
                 </div>
 
-                {/* P2.2: Скрытый input + кнопка прикрепления документов */}
+                {/* Скрытый input + кнопка прикрепления документов */}
                 <div>
                   <input
                     ref={fileInputRef}
@@ -607,7 +750,7 @@ export default function HelpRequestSection() {
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={submitting || files.length >= MAX_FILES}
-                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+                    className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${fileButtonStyles}`}
                   >
                     <svg
                       width="18"
@@ -627,21 +770,28 @@ export default function HelpRequestSection() {
                       : "Добавить ещё файл"}
                   </button>
 
-                  {/* Список прикреплённых файлов */}
                   {files.length > 0 && (
                     <ul className="mt-3 space-y-2">
                       {files.map((file, index) => (
                         <li
                           key={`${file.name}-${index}`}
-                          className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-3 py-2"
+                          className={`flex items-center gap-3 rounded-lg border px-3 py-2 ${fileListItemStyles}`}
                         >
                           <span className="shrink-0 text-brand-teal">
                             <IconFile size={16} />
                           </span>
-                          <span className="min-w-0 flex-1 truncate text-sm text-white/90">
+                          <span
+                            className={`min-w-0 flex-1 truncate text-sm ${
+                              isLight
+                                ? "text-brand-black"
+                                : "text-white/90"
+                            }`}
+                          >
                             {file.name}
                           </span>
-                          <span className="shrink-0 text-xs tabular-nums text-white/50">
+                          <span
+                            className={`shrink-0 text-xs tabular-nums ${bodyTextTertiary}`}
+                          >
                             {formatSize(file.size)}
                           </span>
                           <button
@@ -649,7 +799,7 @@ export default function HelpRequestSection() {
                             onClick={() => removeFile(index)}
                             disabled={submitting}
                             aria-label={`Удалить файл ${file.name}`}
-                            className="shrink-0 rounded-md p-1 text-white/50 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-50"
+                            className={`shrink-0 rounded-md p-1 transition-colors disabled:opacity-50 ${fileRemoveStyles}`}
                           >
                             <IconX size={14} />
                           </button>
@@ -659,19 +809,23 @@ export default function HelpRequestSection() {
                   )}
 
                   {fileError && (
-                    <p className="mt-2 text-xs text-red-400">{fileError}</p>
+                    <p className={`mt-2 text-xs ${errorText}`}>
+                      {fileError}
+                    </p>
                   )}
-                  <p className="mt-2 text-xs text-white/50">
+                  <p className={`mt-2 text-xs ${bodyTextTertiary}`}>
                     До {MAX_FILES} файлов, до 10 МБ каждый. PDF, JPG, PNG.
                   </p>
                 </div>
 
-                {/* Блок с документами (без подложки) */}
+                {/* Блок с документами */}
                 <div>
-                  <h4 className="text-sm font-semibold text-white/90">
+                  <h4 className={`text-sm font-semibold ${labelText}`}>
                     Документы, необходимые для рассмотрения:
                   </h4>
-                  <ul className="mt-3 space-y-2 text-sm text-white/60">
+                  <ul
+                    className={`mt-3 space-y-2 text-sm ${bodyTextSecondary}`}
+                  >
                     <li className="flex gap-2">
                       <span className="text-brand-teal">•</span> Паспорт или
                       свидетельство о рождении.
@@ -716,14 +870,18 @@ export default function HelpRequestSection() {
                           aria-describedby={
                             errors.consent ? "consent-error" : undefined
                           }
-                          className={`peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 bg-transparent transition-colors checked:border-white checked:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
+                          className={`peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 bg-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 ${
+                            isLight
+                              ? "focus-visible:ring-brand-blue/40"
+                              : "focus-visible:ring-white/40"
+                          } ${
                             errors.consent
-                              ? "border-red-400/70"
-                              : "border-white/40"
+                              ? checkboxErrorBorder
+                              : checkboxStyles
                           }`}
                         />
                         <svg
-                          className="pointer-events-none absolute h-3 w-3 text-brand-blue opacity-0 peer-checked:opacity-100"
+                          className={`pointer-events-none absolute h-3 w-3 ${checkboxIconStyles} opacity-0 peer-checked:opacity-100`}
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -735,12 +893,14 @@ export default function HelpRequestSection() {
                           <path d="M5 12l5 5L20 7" />
                         </svg>
                       </span>
-                      <span className="text-xs leading-relaxed text-white/70">
+                      <span
+                        className={`text-xs leading-relaxed ${consentTextStyles}`}
+                      >
                         Я согласен(-на) на обработку персональных данных в
                         соответствии с{" "}
                         <a
                           href="#"
-                          className="text-white underline underline-offset-2 hover:text-white/80"
+                          className={`underline underline-offset-2 ${consentLinkStyles}`}
                         >
                           политикой конфиденциальности
                         </a>
@@ -750,7 +910,7 @@ export default function HelpRequestSection() {
                     {errors.consent && (
                       <p
                         id="consent-error"
-                        className="mt-2 text-xs text-red-400"
+                        className={`mt-2 text-xs ${errorText}`}
                       >
                         {errors.consent}
                       </p>
@@ -760,7 +920,7 @@ export default function HelpRequestSection() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-white px-8 py-4 text-sm font-semibold tracking-wide text-brand-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00d0ff] disabled:cursor-not-allowed disabled:opacity-60"
+                    className={`inline-flex w-full items-center justify-center gap-2 rounded-lg px-8 py-4 text-sm font-semibold tracking-wide transition-all duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto ${submitStyles}`}
                   >
                     {submitting ? (
                       <>

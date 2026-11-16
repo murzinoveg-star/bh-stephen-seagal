@@ -3,7 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const FAQ_ITEMS = [
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+// Дефолтные «донатные» вопросы — для главной страницы.
+// На других страницах передаются свои через проп items.
+const DEFAULT_FAQ_ITEMS: FaqItem[] = [
   {
     question: "Как я узнаю, на что пошло моё пожертвование?",
     answer:
@@ -42,21 +49,42 @@ const FAQ_ITEMS = [
   },
 ];
 
-export default function FaqSection() {
+interface FaqSectionProps {
+  /**
+   * Список вопросов-ответов.
+   * Если не передан — используется набор «донатных» вопросов для главной.
+   */
+  items?: FaqItem[];
+  /**
+   * Показывать ли фоновое изображение (heart_dark.png).
+   * На главной — да. На /help-request — нет, чтобы не конкурировать
+   * с декором hero и блока с формой.
+   */
+  showDecor?: boolean;
+}
+
+export default function FaqSection({
+  items,
+  showDecor = true,
+}: FaqSectionProps = {}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const faqItems = items ?? DEFAULT_FAQ_ITEMS;
 
   return (
     <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-16 lg:py-16">
-      {/* Фоновое изображение: крупный объект в левом нижнем углу */}
-            <div className="pointer-events-none absolute bottom-0 right-0 z-0 translate-x-[70%] md:translate-x-[30%] translate-y-[35%] -scale-y-100 w-[800px] md:w-[60vw]">
-              <Image
-                src="/heart_dark.png"
-                alt=""
-                width={1200}
-                height={1200}
-                className="h-auto w-full object-contain"
-              />
-            </div>
+      {/* Фоновое изображение: крупный объект в правом нижнем углу */}
+      {showDecor && (
+        <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[800px] translate-x-[70%] translate-y-[35%] -scale-y-100 md:w-[60vw] md:translate-x-[30%]">
+          <Image
+            src="/heart_dark.png"
+            alt=""
+            width={1200}
+            height={1200}
+            className="h-auto w-full object-contain"
+          />
+        </div>
+      )}
+
       <div className="relative mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
         {/* Заголовок */}
         <div className="mb-10 sm:mb-12 lg:mb-16">
@@ -67,7 +95,7 @@ export default function FaqSection() {
 
         {/* Аккордеон на всю ширину */}
         <div className="rounded-3xl border border-neutral-200 bg-white px-6 sm:px-8">
-          {FAQ_ITEMS.map((item, index) => {
+          {faqItems.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <div
