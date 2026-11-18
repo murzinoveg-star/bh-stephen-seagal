@@ -2,9 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 const CONTACTS = {
-  phone: "[телефон]",
-  email: "[email]",
-  address: "[адрес]",
+  email: "info@seagalfund.ru",
+  address: "г. Москва, 1-й Колобовский переулок, д. 11",
 };
 
 const NAV = [
@@ -66,17 +65,6 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <h3 className="text-sm font-medium text-brand-teal">Контакты</h3>
             <dl className="mt-4 space-y-3 text-sm sm:mt-5">
-              <div>
-                <dt className="text-white/50">Телефон</dt>
-                <dd className="mt-1 break-all">
-                  <a
-                    href={`tel:${CONTACTS.phone}`}
-                    className="text-white/80 transition-colors hover:text-brand-teal"
-                  >
-                    {CONTACTS.phone}
-                  </a>
-                </dd>
-              </div>
               <div>
                 <dt className="text-white/50">Email</dt>
                 <dd className="mt-1 break-all">
@@ -144,7 +132,10 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 pt-6 text-xs text-white/50 sm:gap-4 sm:pt-8 lg:flex-row lg:items-center lg:justify-between">
-          <p>БЛАГОТВОРИТЕЛЬНЫЙ ФОНД СТИВЕНА СИГАЛА · ИНН/ОГРН — уточнить</p>
+          <p>
+            БЛАГОТВОРИТЕЛЬНЫЙ ФОНД СТИВЕНА СИГАЛА · ИНН 9707059661 / ОГРН
+            1267700232161
+          </p>
           <p>
             © {new Date().getFullYear()} БФ Стивена Сигала. Все права защищены.
           </p>

@@ -377,9 +377,9 @@ export default function HelpRequestSection({
               </p>
             </div>
 
-            {/* Заглушка под видео Стивена */}
+            {/* Заглушка под видео Стивена — скрыта (добавлен класс hidden) */}
             <div
-              className={`group relative mt-10 aspect-video overflow-hidden rounded-3xl border ${videoBoxStyles}`}
+              className={`hidden group relative mt-10 aspect-video overflow-hidden rounded-3xl border ${videoBoxStyles}`}
             >
               <button className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
                 <span

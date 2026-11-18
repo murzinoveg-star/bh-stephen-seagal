@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Button from "../ui/Button";
 
-// Иконка для надзаголовка
 function IconIntersect({
   className = "",
   size = 18,
@@ -31,34 +30,34 @@ function IconIntersect({
 export default function HeroSection() {
   return (
     <section className="relative bg-white px-2 sm:px-4 lg:px-6">
-      <div className="relative mx-auto flex w-full max-w-[1920px] items-center overflow-hidden rounded-3xl bg-brand-blue lg:rounded-[48px]">
-        {/* Фоновое изображение (скрыто на мобильных) */}
-        <div className="absolute inset-0 z-0 hidden sm:block">
-          <Image
-            src="/hero_bg.jpg"
-            alt="Благотворительный фонд Стивена Сигала"
-            fill
-            priority
-            className="object-cover object-top"
-          />
-        </div>
+      <div
+        className="relative mx-auto flex w-full max-w-[1920px] items-center overflow-hidden rounded-3xl lg:rounded-[48px]"
+        style={{
+          backgroundImage:
+            "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)",
+        }}
+      >
 
-        {/* Мобильный градиент (вместо фото) */}
-        <div className="absolute inset-0 z-0 block bg-gradient-to-br from-brand-blue to-[#1a4fc4] sm:hidden" />
+       {/* Фоновое изображение: правый нижний угол, крупно, за контентом */}
+             <div className="pointer-events-none absolute bottom-0 right-0 z-0 h-[95%]">
+               <Image
+                 src="/sigal_hero.png"
+                 alt=""
+                 width={600}
+                 height={600}
+                 className="h-full w-auto object-contain"
+               />
+             </div>
 
-        {/* Затемняющие градиенты для десктопа */}
-        <div className="absolute inset-0 z-0 hidden sm:block bg-gradient-to-r from-brand-blue/95 via-brand-blue/60 to-transparent" />
-        <div className="absolute inset-0 z-0 hidden sm:block bg-gradient-to-t from-brand-black/80 via-transparent to-transparent" />
-
-        {/* Основной контент */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl pb-5 pt-10 px-5 md:py-20 md:px-10">
+        {/* Основной контент (z-30) */}
+        <div className="relative z-30 mx-auto w-full max-w-7xl px-5 pb-5 pt-10 md:px-10 md:py-20">
           <div className="grid items-end gap-10 lg:grid-cols-12">
             <div className="animate-fade-up lg:col-span-8">
               <h1 className="break-words text-[clamp(1.5rem,6.5vw,5.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-white sm:leading-[0.95]">
                 Благотворительный фонд Стивена Сигала
               </h1>
 
-              {/* Блок с миссией в новом стиле */}
+              {/* Блок с миссией */}
               <div className="mt-6 max-w-3xl sm:mt-8">
                 <div className="mb-4 flex items-center gap-2">
                   <span className="flex items-center justify-center text-brand-teal">
