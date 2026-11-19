@@ -7,7 +7,7 @@ const CATEGORIES = [
   { id: "svo", label: "Помощь участникам СВО" },
   { id: "children", label: "Помощь детям" },
   { id: "animals", label: "Помощь животным" },
-  { id: "elderly", label: "Помощь старшим" },
+  { id: "elderly", label: "Помощь пожилым людям" },
 ];
 
 const MAX_FILES = 5;

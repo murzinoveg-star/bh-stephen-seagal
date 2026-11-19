@@ -46,12 +46,22 @@ export default function DonatePage() {
                 <h1 className="break-words text-[clamp(1.75rem,4.5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-brand-black">
                   Поддержите программы фонда
                 </h1>
-                <p className="mt-5 text-base leading-relaxed text-neutral-800 sm:mt-6 sm:text-lg lg:text-xl">
-                  Ваша поддержка помогает фонду продолжать работу: оплачивать
-                  лечение и реабилитацию, закупать лекарства и продукты,
-                  помогать приютам и участникам СВО. Любая сумма важна — вы
-                  можете сделать разовое пожертвование или оформить регулярное.
-                </p>
+
+                {/* Перенесенный блок про регулярные пожертвования */}
+                <div className="mt-8 space-y-4 sm:mt-10">
+                  <h2 className="text-xl font-semibold leading-snug text-brand-black sm:text-2xl">
+                    Почему важны регулярные пожертвования?
+                  </h2>
+                  <p className="text-base leading-relaxed text-neutral-600 sm:text-lg">
+                    Ежемесячные пожертвования позволяют фонду заранее планировать
+                    расходы на лечение, консультации специалистов, закупку
+                    лекарств, продуктов, кормов и содержание приютов.
+                  </p>
+                  <p className="text-base leading-relaxed text-neutral-600 sm:text-lg">
+                    Вы самостоятельно выбираете сумму платежа и можете отменить
+                    подписку в любой момент.
+                  </p>
+                </div>
               </div>
 
               {/* Правая колонка: форма в тёмной карточке */}
@@ -65,31 +75,6 @@ export default function DonatePage() {
                 >
                   <DonationForm />
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Почему важны регулярные пожертвования? */}
-        <section className="relative bg-neutral-50 py-16 sm:py-20 lg:py-24">
-          <div className="relative mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
-            <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-16">
-              <div className="lg:col-span-6">
-                <h2 className="text-[clamp(2rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
-                  Почему важны регулярные пожертвования?
-                </h2>
-              </div>
-
-              <div className="space-y-4 lg:col-span-6">
-                <p className="text-base leading-relaxed text-neutral-600 sm:text-lg">
-                  Ежемесячные пожертвования позволяют фонду заранее планировать
-                  расходы на лечение, консультации специалистов, закупку
-                  лекарств, продуктов, кормов и содержание приютов.
-                </p>
-                <p className="text-base leading-relaxed text-neutral-600 sm:text-lg">
-                  Вы самостоятельно выбираете сумму платежа и можете отменить
-                  подписку в любой момент.
-                </p>
               </div>
             </div>
           </div>

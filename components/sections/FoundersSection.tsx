@@ -104,20 +104,19 @@ export default function FoundersSection() {
 
         {/* Основной контент */}
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-          
           {/* Фоновое изображение */}
-      <div className="pointer-events-none absolute hidden lg:block bottom-0 left-0 z-0 w-[900px] translate-x-[110%] translate-y-[40%]">
-        <Image
-          src="/heart_black.png"
-          alt=""
-          width={1200}
-          height={1200}
-          className="h-auto w-full object-contain"
-        />
-      </div>
+          <div className="pointer-events-none absolute hidden lg:block bottom-0 left-0 z-0 w-[900px] translate-x-[110%] translate-y-[40%]">
+            <Image
+              src="/heart_black.png"
+              alt=""
+              width={1200}
+              height={1200}
+              className="h-auto w-full object-contain"
+            />
+          </div>
 
-          {/* Левая часть: Текст и Табы (всегда 7 колонок) */}
-          <div className="lg:col-span-7 flex flex-col justify-center h-full lg:order-first">
+          {/* Левая часть: Текст и Табы (всегда 7 колонок, на мобилке вторая) */}
+          <div className="lg:col-span-7 flex flex-col justify-center h-full order-last lg:order-first">
             {/* Увеличили min-h для стабильности высоты при длинных цитатах */}
             <div className="min-h-[400px] transition-all duration-300 max-w-4xl">
               <h3 className="text-3xl font-medium leading-[1.1] tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl break-words">
@@ -188,8 +187,8 @@ export default function FoundersSection() {
             </div>
           </div>
 
-          {/* Правая часть: Фото (всегда 5 колонок, но может быть прозрачным) */}
-          <div className="lg:col-span-5 flex justify-start lg:justify-end lg:order-last">
+          {/* Правая часть: Фото (на мобилке первая, на десктопе последняя) */}
+          <div className="lg:col-span-5 flex justify-start lg:justify-end order-first lg:order-last">
             <div
               className={`relative aspect-square w-40 sm:w-64 md:w-80 lg:w-full max-w-[400px] overflow-hidden rounded-3xl transition-all duration-500 ${
                 hasImage

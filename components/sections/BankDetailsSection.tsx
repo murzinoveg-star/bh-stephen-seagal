@@ -203,21 +203,6 @@ export default function BankDetailsSection() {
             Для перечисления пожертвования банковским переводом воспользуйтесь
             реквизитами фонда.
           </p>
-
-          {/* Акцентная плашка с назначением платежа */}
-          <div className="mt-6 flex items-start gap-4 rounded-2xl border border-brand-blue/15 bg-brand-blue/[0.04] p-4 sm:mt-7 sm:p-5">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-blue text-white">
-              <IconInfo size={18} />
-            </span>
-            <p className="text-sm leading-relaxed text-brand-black sm:text-base">
-              В назначении платежа укажите:{" "}
-              <strong className="font-semibold">
-                «Пожертвование на уставную деятельность»
-              </strong>
-              . Если вы поддерживаете конкретное направление — добавьте его
-              название.
-            </p>
-          </div>
         </div>
 
         {/* Карточка с реквизитами */}
