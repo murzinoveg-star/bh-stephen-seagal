@@ -319,9 +319,13 @@ export default function HelpRequestSection({
     <section
       className={`relative overflow-hidden ${sectionBg} py-16 sm:py-16 lg:py-16`}
     >
-      {/* Фоновое изображение — только если showDecor */}
+
+      {/* Контент */}
+      <div className="relative z-10 mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
+
+{/* Фоновое изображение — только если showDecor */}
       {showDecor && (
-        <div className="pointer-events-none absolute bottom-0 left-0 z-0 hidden w-[60vw] -translate-x-[10%] translate-y-[85%] lg:block">
+        <div className="pointer-events-none absolute bottom-0 left-0 z-0 hidden -translate-x-[25%] translate-y-[55%] lg:block -scale-y-[100%]">
           <Image
             src="/heart_black.png"
             alt=""
@@ -332,8 +336,6 @@ export default function HelpRequestSection({
         </div>
       )}
 
-      {/* Контент */}
-      <div className="relative z-10 mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
         {/* Шапка секции — только если showHeading */}
         {showHeading && (
           <div

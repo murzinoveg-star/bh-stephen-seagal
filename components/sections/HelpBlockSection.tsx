@@ -34,8 +34,11 @@ export default function HelpBlockSection({
           backgroundImage: "linear-gradient(135deg, #08338f 30%, #00b8e0 100%)",
         }}
       >
-        {/* Картинка сердца в левом нижнем углу */}
-        <div className="pointer-events-none absolute bottom-0 left-0 z-0 hidden w-[70vw] -translate-x-[50%] translate-y-[60%] lg:block">
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-8 pb-4 sm:px-6 sm:py-16 lg:px-10 lg:py-16">
+
+          {/* Картинка сердца в левом нижнем углу */}
+        <div className="pointer-events-none absolute bottom-0 right-0 z-0 hidden -translate-x-[120%] translate-y-[40%] lg:block">
           <Image
             src="/heart_dark.png"
             alt=""
@@ -45,7 +48,6 @@ export default function HelpBlockSection({
           />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-8 pb-4 sm:px-6 sm:py-16 lg:px-10 lg:py-16">
           {/* Сетка 6/6 */}
           <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-10">
             {/* Левая колонка: Текст */}

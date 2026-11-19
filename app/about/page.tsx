@@ -208,7 +208,7 @@ export default function AboutPage() {
                 }}
               >
                 {/* Фоновое изображение: правый нижний угол, крупно, за контентом */}
-                      <div className="pointer-events-none absolute hidden lg:block bottom-0 right-0 z-0 translate-x-[30%] translate-y-[60%] w-[50vw] -scale-y-100">
+                      <div className="pointer-events-none absolute hidden lg:block bottom-0 right-0 z-0 translate-x-[30%] translate-y-[50%] -scale-y-100">
                         <Image
                           src="/heart_dark.png"
                           alt=""

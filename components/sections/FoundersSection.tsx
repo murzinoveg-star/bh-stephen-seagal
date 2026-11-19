@@ -82,17 +82,6 @@ export default function FoundersSection() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-r from-[#121C26] to-[#1a2a3c] py-16 sm:py-16 lg:py-16">
-      {/* Фоновое изображение */}
-      <div className="pointer-events-none absolute hidden lg:block bottom-0 right-0 z-0 w-[1100px] translate-x-[60%] translate-y-[40%]">
-        <Image
-          src="/heart_black.png"
-          alt=""
-          width={1200}
-          height={1200}
-          className="h-auto w-full object-contain"
-        />
-      </div>
-
       <div className="relative z-10 mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
         {/* Шапка секции */}
         <div className="mb-12 border-b border-white/10 pb-10 lg:mb-16 lg:pb-14">
@@ -115,6 +104,18 @@ export default function FoundersSection() {
 
         {/* Основной контент */}
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+          
+          {/* Фоновое изображение */}
+      <div className="pointer-events-none absolute hidden lg:block bottom-0 left-0 z-0 w-[900px] translate-x-[110%] translate-y-[40%]">
+        <Image
+          src="/heart_black.png"
+          alt=""
+          width={1200}
+          height={1200}
+          className="h-auto w-full object-contain"
+        />
+      </div>
+
           {/* Левая часть: Текст и Табы (всегда 7 колонок) */}
           <div className="lg:col-span-7 flex flex-col justify-center h-full lg:order-first">
             {/* Увеличили min-h для стабильности высоты при длинных цитатах */}

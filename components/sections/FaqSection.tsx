@@ -72,20 +72,20 @@ export default function FaqSection({
 
   return (
     <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-16 lg:py-16">
-      {/* Фоновое изображение: крупный объект в правом нижнем углу */}
-      {showDecor && (
-        <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[800px] translate-x-[70%] translate-y-[35%] -scale-y-100 md:w-[60vw] md:translate-x-[30%]">
-          <Image
-            src="/heart_dark.png"
-            alt=""
-            width={1200}
-            height={1200}
-            className="h-auto w-full object-contain"
-          />
-        </div>
-      )}
-
       <div className="relative mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
+        {/* Фоновое изображение: крупный объект в правом нижнем углу */}
+        {showDecor && (
+          <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[800px] translate-x-[70%] translate-y-[45%] -scale-y-100 md:translate-x-[30%]">
+            <Image
+              src="/heart_dark.png"
+              alt=""
+              width={1200}
+              height={1200}
+              className="h-auto w-full object-contain"
+            />
+          </div>
+        )}
+
         {/* Заголовок */}
         <div className="mb-10 sm:mb-12 lg:mb-16">
           <h2 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.05] tracking-[-0.02em] text-brand-black">
@@ -93,8 +93,10 @@ export default function FaqSection({
           </h2>
         </div>
 
-        {/* Аккордеон на всю ширину */}
-        <div className="rounded-3xl border border-neutral-200 bg-white px-6 sm:px-8">
+        {/* Аккордеон на всю ширину.
+            relative + z-10 — чтобы белая карточка перекрыла heart_dark.png (z-0),
+            и изображение ушло «за аккордеон». */}
+        <div className="relative z-10 rounded-3xl border border-neutral-200 bg-white px-6 sm:px-8">
           {faqItems.map((item, index) => {
             const isOpen = openIndex === index;
             return (
