@@ -304,9 +304,7 @@ export default function HelpRequestSection({
     ? "border-neutral-300 checked:border-brand-blue checked:bg-brand-blue"
     : "border-white/40 checked:border-white checked:bg-white";
 
-  const checkboxErrorBorder = isLight
-    ? "border-red-500"
-    : "border-red-400/70";
+  const checkboxErrorBorder = isLight ? "border-red-500" : "border-red-400/70";
 
   const checkboxIconStyles = isLight ? "text-white" : "text-brand-blue";
 
@@ -319,22 +317,20 @@ export default function HelpRequestSection({
     <section
       className={`relative overflow-hidden ${sectionBg} py-16 sm:py-16 lg:py-16`}
     >
-
       {/* Контент */}
       <div className="relative z-10 mx-auto max-w-7xl px-2 sm:px-6 lg:px-10">
-
-{/* Фоновое изображение — только если showDecor */}
-      {showDecor && (
-        <div className="pointer-events-none absolute bottom-0 left-0 z-0 hidden -translate-x-[25%] translate-y-[55%] lg:block -scale-y-[100%]">
-          <Image
-            src="/heart_black.png"
-            alt=""
-            width={1200}
-            height={1200}
-            className="h-auto w-full object-contain"
-          />
-        </div>
-      )}
+        {/* Фоновое изображение — только если showDecor */}
+        {showDecor && (
+          <div className="pointer-events-none absolute bottom-0 left-0 z-0 hidden w-[800px] -translate-x-[25%] translate-y-[55%] lg:block -scale-y-[100%]">
+            <Image
+              src="/heart_black.png"
+              alt=""
+              width={800}
+              height={800}
+              className="h-auto w-full object-contain"
+            />
+          </div>
+        )}
 
         {/* Шапка секции — только если showHeading */}
         {showHeading && (
@@ -398,9 +394,7 @@ export default function HelpRequestSection({
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </span>
-                <span
-                  className={`text-sm font-medium ${videoCaptionStyles}`}
-                >
+                <span className={`text-sm font-medium ${videoCaptionStyles}`}>
                   Видео Стивена
                 </span>
               </button>
@@ -413,9 +407,7 @@ export default function HelpRequestSection({
               >
                 <IconInfo size={24} />
               </div>
-              <p
-                className={`text-sm leading-relaxed ${bodyTextSecondary}`}
-              >
+              <p className={`text-sm leading-relaxed ${bodyTextSecondary}`}>
                 Документы нужны, чтобы подтвердить информацию в заявке, понять,
                 какая помощь необходима, и принять решение по обращению. Фонду
                 важно документально подтверждать основания для оказания помощи и
@@ -465,8 +457,8 @@ export default function HelpRequestSection({
                 <p
                   className={`mt-3 max-w-md text-base leading-relaxed ${successDesc} sm:mt-4 sm:text-lg`}
                 >
-                  Спасибо! Мы свяжемся с вами в течение 1–2 рабочих дней,
-                  чтобы уточнить детали и подсказать дальнейшие шаги.
+                  Спасибо! Мы свяжемся с вами в течение 1–2 рабочих дней, чтобы
+                  уточнить детали и подсказать дальнейшие шаги.
                 </p>
               </div>
             ) : (
@@ -602,9 +594,7 @@ export default function HelpRequestSection({
                       }
                       disabled={submitting}
                       aria-invalid={!!errors.city}
-                      aria-describedby={
-                        errors.city ? "city-error" : undefined
-                      }
+                      aria-describedby={errors.city ? "city-error" : undefined}
                       className={fieldClass("city")}
                     />
                     {errors.city && (
@@ -784,9 +774,7 @@ export default function HelpRequestSection({
                           </span>
                           <span
                             className={`min-w-0 flex-1 truncate text-sm ${
-                              isLight
-                                ? "text-brand-black"
-                                : "text-white/90"
+                              isLight ? "text-brand-black" : "text-white/90"
                             }`}
                           >
                             {file.name}
@@ -811,9 +799,7 @@ export default function HelpRequestSection({
                   )}
 
                   {fileError && (
-                    <p className={`mt-2 text-xs ${errorText}`}>
-                      {fileError}
-                    </p>
+                    <p className={`mt-2 text-xs ${errorText}`}>{fileError}</p>
                   )}
                   <p className={`mt-2 text-xs ${bodyTextTertiary}`}>
                     До {MAX_FILES} файлов, до 10 МБ каждый. PDF, JPG, PNG.
@@ -825,9 +811,7 @@ export default function HelpRequestSection({
                   <h4 className={`text-sm font-semibold ${labelText}`}>
                     Документы, необходимые для рассмотрения:
                   </h4>
-                  <ul
-                    className={`mt-3 space-y-2 text-sm ${bodyTextSecondary}`}
-                  >
+                  <ul className={`mt-3 space-y-2 text-sm ${bodyTextSecondary}`}>
                     <li className="flex gap-2">
                       <span className="text-brand-teal">•</span> Паспорт или
                       свидетельство о рождении.
@@ -842,8 +826,8 @@ export default function HelpRequestSection({
                       на лечение, счёт клиники, рецептурные бланки.
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-brand-teal">•</span> Если
-                      обращение касается животного: фотографии и, при наличии,
+                      <span className="text-brand-teal">•</span> Если обращение
+                      касается животного: фотографии и, при наличии,
                       ветеринарные заключения или счета.
                     </li>
                   </ul>

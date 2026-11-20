@@ -13,7 +13,6 @@ const NAV = [
   { label: "Как помочь", href: "/donate" },
   { label: "Отчётность", href: "/reports" },
   { label: "Мне нужна помощь", href: "/help-request" },
-  { label: "FAQ", href: "/faq" },
   { label: "Контакты", href: "/contacts" },
 ];
 

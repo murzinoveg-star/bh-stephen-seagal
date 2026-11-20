@@ -103,7 +103,7 @@ export default function FoundersSection() {
         </div>
 
         {/* Основной контент */}
-        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
           {/* Фоновое изображение */}
           <div className="pointer-events-none absolute hidden lg:block bottom-0 left-0 z-0 w-[900px] translate-x-[110%] translate-y-[40%]">
             <Image
@@ -190,7 +190,7 @@ export default function FoundersSection() {
           {/* Правая часть: Фото (на мобилке первая, на десктопе последняя) */}
           <div className="lg:col-span-5 flex justify-start lg:justify-end order-first lg:order-last">
             <div
-              className={`relative aspect-square w-40 sm:w-64 md:w-80 lg:w-full max-w-[400px] overflow-hidden rounded-3xl transition-all duration-500 ${
+              className={`relative aspect-square w-full max-w-[400px] overflow-hidden rounded-3xl transition-all duration-500 ${
                 hasImage
                   ? "bg-white/5 opacity-100"
                   : "bg-transparent opacity-0 pointer-events-none"
